@@ -39,59 +39,135 @@
 
         <div class="panel-stage" aria-live="polite">
           <section class="section panel active" id="panel-home" data-panel="home" aria-labelledby="home-panel-title">
-            <h2 id="home-panel-title">home</h2>
+            <article class="discord-card" data-discord-card>
+              <div class="discord-banner" data-discord-banner aria-hidden="true"></div>
+              <div class="discord-body">
+                <div class="discord-avatar-wrap">
+                  <img
+                    class="discord-avatar"
+                    data-discord-avatar
+                    alt=""
+                    width="56"
+                    height="56"
+                    hidden
+                  />
+                  <span class="discord-avatar-fallback" data-discord-fallback>r_</span>
+                  <span class="discord-status" data-discord-status-dot aria-hidden="true"></span>
+                </div>
+                <div class="discord-info">
+                  <div class="discord-topline">
+                    <span data-discord-status>checking...</span>
+                  </div>
+                  <div class="discord-identity">
+                    <strong class="discord-name" data-discord-name>loading discord</strong>
+                    <span class="discord-handle" data-discord-handle>@retriai</span>
+                  </div>
+                  <p data-discord-activity>pulling profile from lanyard.</p>
+                </div>
+              </div>
+            </article>
+            <h2 id="home-panel-title">socials</h2>
             <div class="home-panel">
-              <p>currently rebuilding this site into a quieter place for work, notes, and experiments.</p>
-              <a class="text-link" href="mailto:hello@retrial.dev">send a message -></a>
+              <div class="social-list">
+                <a class="social-github" href="https://github.com/xtpm" target="_blank" rel="noreferrer">
+                  <span>
+                    <img src="https://cdn.simpleicons.org/github/181717" alt="" />
+                    github
+                  </span>
+                  <b aria-hidden="true">-></b>
+                </a>
+                <a class="social-twitter" href="https://x.com/retrialed" target="_blank" rel="noreferrer">
+                  <span>
+                    <img src="https://cdn.simpleicons.org/x/181717" alt="" />
+                    twitter
+                  </span>
+                  <b aria-hidden="true">-></b>
+                </a>
+                <a class="social-instagram" href="https://instagram.com/0mkx" target="_blank" rel="noreferrer">
+                  <span>
+                    <img src="https://cdn.simpleicons.org/instagram/181717" alt="" />
+                    instagram
+                  </span>
+                  <b aria-hidden="true">-></b>
+                </a>
+                <a class="social-tiktok" href="https://tiktok.com/@zuxm" target="_blank" rel="noreferrer">
+                  <span>
+                    <img src="https://cdn.simpleicons.org/tiktok/181717" alt="" />
+                    tiktok
+                  </span>
+                  <b aria-hidden="true">-></b>
+                </a>
+                <a class="social-telegram" href="https://t.me/retria1" target="_blank" rel="noreferrer">
+                  <span>
+                    <img src="https://cdn.simpleicons.org/telegram/181717" alt="" />
+                    telegram
+                  </span>
+                  <b aria-hidden="true">-></b>
+                </a>
+              </div>
             </div>
           </section>
 
           <section class="section panel" id="panel-info" data-panel="info" aria-labelledby="info-title" hidden>
             <h2 id="info-title">info</h2>
-            <ul class="philosophy-list">
-              <li>ship small, with intention</li>
-              <li>interfaces should feel inevitable</li>
-              <li>tools should disappear</li>
-            </ul>
+            <p class="info-copy">
+              i'm 19 and from PA. i graduated high school in 2024 and used to work part-time as a mechanic. right now i'm studying cybersecurity and business administration. when i was 14-16, i was around the Counter Blox / CS:GO cheating community, which is what first got me interested in tech, security, and how stuff works behind the scenes.
+            </p>
+            <div class="video-list" aria-label="Featured videos">
+              <iframe
+                src="https://www.youtube.com/embed/S7nGirUFxVI"
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+              <iframe
+                src="https://www.youtube.com/embed/JZDWQ2SpM90"
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+              <iframe
+                src="https://www.youtube.com/embed/TQRbqzHHzkg"
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
           </section>
 
           <section class="section panel" id="panel-projects" data-panel="projects" aria-labelledby="projects-title" hidden>
             <h2 id="projects-title">projects</h2>
             <div class="project-list">
-              <a class="project" href="#" aria-label="View diffuse project">
+              <a class="project" href="https://kuudere.cc" target="_blank" rel="noreferrer" aria-label="Open kuudere.cc project">
                 <span>
-                  <strong>diffuse</strong>
-                  <em>private, local-first note system. markdown, backlinks, zero sync.</em>
+                  <strong>kuudere.cc <small>2026</small></strong>
+                  <em>my digital paradise. a passion project for me and my friends, built as a home beyond bio links.</em>
                 </span>
-                <time datetime="2026">2026</time>
                 <b aria-hidden="true">-></b>
               </a>
-              <a class="project" href="#" aria-label="View linewrap project">
+              <a class="project" href="#" aria-label="View kobeni.net project">
                 <span>
-                  <strong>linewrap</strong>
-                  <em>minimalist formatter for humans and robots.</em>
+                  <strong>kobeni.net <small>2025</small></strong>
+                  <em>exclusive invite-only bio link service founded by retrial, mke, arturiafm, and lennie.</em>
                 </span>
-                <time datetime="2025">2025</time>
                 <b aria-hidden="true">-></b>
               </a>
-              <a class="project" href="#" aria-label="View glyph project">
+              <a class="project" href="#" aria-label="View yotsuba.cc project">
                 <span>
-                  <strong>glyph</strong>
-                  <em>generative icon sets for interface experiments.</em>
+                  <strong>yotsuba.cc <small>2024</small></strong>
+                  <em>older version of this site, built around a minimal dark layout and personal web aesthetic.</em>
                 </span>
-                <time datetime="2025">2025</time>
                 <b aria-hidden="true">-></b>
               </a>
-              <a class="project" href="#" aria-label="View voidcards project">
+              <a class="project" href="#" aria-label="View Luck Software project">
                 <span>
-                  <strong>voidcards</strong>
-                  <em>tiny site for thinking in public, built in a weekend.</em>
+                  <strong>Luck Software <small>2022</small></strong>
+                  <em>old cheat company i founded. i handled sales, marketing, invoices, and most of the client side.</em>
                 </span>
-                <time datetime="2024">2024</time>
                 <b aria-hidden="true">-></b>
               </a>
             </div>
-            <a class="text-link" href="mailto:hello@retrial.dev">ask about projects -></a>
+            <a class="text-link" href="https://kuudere.cc" target="_blank" rel="noreferrer">view kuudere.cc -></a>
           </section>
 
           <section class="section panel" id="panel-stack" data-panel="stack" aria-labelledby="stack-title" hidden>
