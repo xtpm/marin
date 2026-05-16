@@ -65,6 +65,114 @@ function getActivityText(activities = []) {
   return richActivity.name;
 }
 
+function getRichActivity(activities = []) {
+  return activities.find((activity) => activity.name && activity.type !== 4 && activity.name !== "Spotify");
+}
+
+function getActivityAssetUrl(activity) {
+  const image = activity?.assets?.large_image || activity?.assets?.small_image;
+  if (!image) {
+    return "";
+  }
+
+  if (image.startsWith("mp:")) {
+    return `https://media.discordapp.net/${image.slice(3)}`;
+  }
+
+  if (image.startsWith("spotify:")) {
+    return `https://i.scdn.co/image/${image.slice(8)}`;
+  }
+
+  if (image.startsWith("http")) {
+    return image;
+  }
+
+  if (activity.application_id) {
+    return `https://cdn.discordapp.com/app-assets/${activity.application_id}/${image}.png`;
+  }
+
+  return "";
+}
+
+function updateNowPlaying(data) {
+  const image = document.querySelector("[data-now-playing-image]");
+  const title = document.querySelector("[data-now-playing-title]");
+  const detail = document.querySelector("[data-now-playing-detail]");
+  if (!image || !title || !detail) {
+    return;
+  }
+
+  const activity = getRichActivity(data.activities);
+  const customStatus = data.activities?.find((item) => item.type === 4 && item.state);
+
+  if (activity) {
+    const imageUrl = getActivityAssetUrl(activity);
+    title.textContent = activity.name;
+    detail.textContent = activity.details || activity.state || "active on discord.";
+    if (imageUrl) {
+      image.src = imageUrl;
+      image.alt = activity.assets?.large_text || `${activity.name} activity image`;
+      image.hidden = false;
+    } else {
+      image.hidden = true;
+      image.removeAttribute("src");
+    }
+    return;
+  }
+
+  image.hidden = true;
+  image.removeAttribute("src");
+
+  if (customStatus) {
+    title.textContent = "custom status";
+    detail.textContent = customStatus.state;
+    return;
+  }
+
+  title.textContent = "nothing active";
+  detail.textContent = "no public activity right now.";
+}
+
+function updateSpotify(data) {
+  const card = document.querySelector("[data-spotify-card]");
+  const cover = document.querySelector("[data-spotify-cover]");
+  const title = document.querySelector("[data-spotify-title]");
+  const artist = document.querySelector("[data-spotify-artist]");
+  const progress = document.querySelector("[data-spotify-progress]");
+  if (!card || !cover || !title || !artist || !progress) {
+    return;
+  }
+
+  const spotify = data.spotify;
+  if (!data.listening_to_spotify || !spotify) {
+    card.dataset.listening = "false";
+    cover.hidden = true;
+    cover.removeAttribute("src");
+    title.textContent = "not listening";
+    artist.textContent = "spotify is quiet right now.";
+    progress.style.width = "0%";
+    return;
+  }
+
+  const started = spotify.timestamps?.start || 0;
+  const ended = spotify.timestamps?.end || 0;
+  const percent = started && ended ? Math.min(100, Math.max(0, ((Date.now() - started) / (ended - started)) * 100)) : 0;
+
+  card.dataset.listening = "true";
+  title.textContent = spotify.song || "unknown song";
+  artist.textContent = spotify.artist || "unknown artist";
+  progress.style.width = `${percent}%`;
+
+  if (spotify.album_art_url) {
+    cover.src = spotify.album_art_url;
+    cover.alt = `${spotify.album || spotify.song} cover`;
+    cover.hidden = false;
+  } else {
+    cover.hidden = true;
+    cover.removeAttribute("src");
+  }
+}
+
 async function loadDiscordProfile() {
   const card = document.querySelector("[data-discord-card]");
   if (!card) {
@@ -95,6 +203,8 @@ async function loadDiscordProfile() {
     status.textContent = discordStatus;
     handle.textContent = `@${user.username}`;
     activity.textContent = getActivityText(data.activities);
+    updateNowPlaying(data);
+    updateSpotify(data);
 
     if (avatarUrl) {
       avatar.src = avatarUrl;
@@ -108,7 +218,10 @@ async function loadDiscordProfile() {
     status.textContent = "offline";
     handle.textContent = "@retriai";
     activity.textContent = "lanyard did not respond.";
+    updateNowPlaying({ activities: [] });
+    updateSpotify({ listening_to_spotify: false });
   }
 }
 
 loadDiscordProfile();
+setInterval(loadDiscordProfile, 30000);

@@ -452,6 +452,104 @@ button:focus-visible {
   margin-top: 8px;
 }
 
+.presence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.presence-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.presence-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.presence-card strong {
+  display: block;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.presence-card p {
+  overflow: hidden;
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.presence-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.presence-row img {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+
+.presence-row img[hidden] {
+  display: none;
+}
+
+.presence-row:has(img[hidden]) {
+  grid-template-columns: 1fr;
+}
+
+.spotify-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.spotify-row img {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+
+.spotify-row img[hidden] {
+  display: none;
+}
+
+.spotify-row:has(img[hidden]) {
+  grid-template-columns: 1fr;
+}
+
+.spotify-progress {
+  height: 3px;
+  margin-top: 12px;
+  overflow: hidden;
+  background: rgba(111, 111, 111, 0.18);
+}
+
+.spotify-progress span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: #1db954;
+  transition: width 260ms ease;
+}
+
 .project-list {
   border-bottom: 1px solid var(--line);
 }
@@ -560,7 +658,7 @@ button:focus-visible {
 
 .stack-list {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   margin: 20px 0 0;
 }
 
@@ -568,18 +666,76 @@ button:focus-visible {
   display: none;
 }
 
-.stack-list div {
+.stack-item {
   display: grid;
-  grid-template-columns: 118px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 82px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.22);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
 }
 
-.stack-list dt {
-  color: var(--muted);
+.stack-item:hover {
+  border-color: var(--link);
+  background: var(--link-soft);
+  transform: translateY(-1px);
 }
 
-.stack-list dd {
+.stack-item img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.stack-duo {
+  display: grid;
+  gap: 4px;
+}
+
+.stack-duo img {
+  width: 22px;
+  height: 22px;
+}
+
+.stack-logo-fallback {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 12px;
+}
+
+.adobe-pr,
+.adobe-ae {
+  border-color: #9999ff;
+  background: #00005b;
+  color: #cfcfff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+.stack-item strong {
+  display: block;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stack-item p {
   margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .message p {
@@ -667,6 +823,10 @@ button:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .presence-grid {
+    grid-template-columns: 1fr;
+  }
+
   .footer {
     display: grid;
     gap: 9px;
@@ -731,11 +891,6 @@ button:focus-visible {
   }
 
   .writing-list a {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .stack-list div {
     grid-template-columns: 1fr;
     gap: 0;
   }

@@ -66,6 +66,31 @@
                 </div>
               </div>
             </article>
+            <div class="presence-grid" aria-label="Live presence">
+              <article class="presence-card" data-now-playing-card>
+                <span class="presence-label">now playing</span>
+                <div class="presence-row">
+                  <img data-now-playing-image alt="" hidden />
+                  <div>
+                    <strong data-now-playing-title>checking...</strong>
+                    <p data-now-playing-detail>pulling activity from lanyard.</p>
+                  </div>
+                </div>
+              </article>
+              <article class="presence-card spotify-card" data-spotify-card>
+                <span class="presence-label">spotify</span>
+                <div class="spotify-row">
+                  <img data-spotify-cover alt="" hidden />
+                  <div>
+                    <strong data-spotify-title>not listening</strong>
+                    <p data-spotify-artist>spotify is quiet right now.</p>
+                  </div>
+                </div>
+                <div class="spotify-progress" aria-hidden="true">
+                  <span data-spotify-progress></span>
+                </div>
+              </article>
+            </div>
             <h2 id="home-panel-title">socials</h2>
             <div class="home-panel">
               <div class="social-list">
@@ -173,45 +198,142 @@
           <section class="section panel" id="panel-stack" data-panel="stack" aria-labelledby="stack-title" hidden>
             <h2 id="stack-title">my stack</h2>
             <div class="stack-switch" aria-label="Stack category">
-              <button class="active" type="button" data-stack-button="langs">langs</button>
+              <button class="active" type="button" data-stack-button="langs">langs / tech</button>
               <button type="button" data-stack-button="programs">programs</button>
             </div>
-            <dl class="stack-list active" data-stack-list="langs">
-              <div>
-                <dt>daily</dt>
-                <dd>typescript, javascript</dd>
-              </div>
-              <div>
-                <dt>systems</dt>
-                <dd>rust, go</dd>
-              </div>
-              <div>
-                <dt>data</dt>
-                <dd>sql, postgres</dd>
-              </div>
-              <div>
-                <dt>markup</dt>
-                <dd>html, css</dd>
-              </div>
-            </dl>
-            <dl class="stack-list" data-stack-list="programs" hidden>
-              <div>
-                <dt>editor</dt>
-                <dd>neovim, vscode</dd>
-              </div>
-              <div>
-                <dt>design</dt>
-                <dd>figma, framer</dd>
-              </div>
-              <div>
-                <dt>runtime</dt>
-                <dd>node.js, deno, docker</dd>
-              </div>
-              <div>
-                <dt>deploy</dt>
-                <dd>vercel, github</dd>
-              </div>
-            </dl>
+            <div class="stack-list active" data-stack-list="langs">
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/astro/BC52EE" alt="" />
+                <div>
+                  <strong>astro</strong>
+                  <p>content-first framework for fast static sites.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="" />
+                <div>
+                  <strong>typescript</strong>
+                  <p>javascript with types for cleaner larger projects.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/react/61DAFB" alt="" />
+                <div>
+                  <strong>react</strong>
+                  <p>component-driven interfaces and app views.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/html5/E34F26" alt="" />
+                <div>
+                  <strong>html</strong>
+                  <p>structure, documents, and the base of the web.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/npm/CB3837" alt="" />
+                <div>
+                  <strong>npm</strong>
+                  <p>packages, scripts, and project tooling.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <span class="stack-duo">
+                  <img src="https://cdn.simpleicons.org/css/663399" alt="" />
+                  <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="" />
+                </span>
+                <div>
+                  <strong>css / tailwindcss</strong>
+                  <p>styling systems, layout, and utility-first polish.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/vite/646CFF" alt="" />
+                <div>
+                  <strong>vite</strong>
+                  <p>fast dev server and modern frontend builds.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" />
+                <div>
+                  <strong>javascript</strong>
+                  <p>the language i keep coming back to.</p>
+                </div>
+              </article>
+            </div>
+            <div class="stack-list" data-stack-list="programs" hidden>
+              <article class="stack-item">
+                <img src="./assets/stack/visual-studio-code.png" alt="" />
+                <div>
+                  <strong>visual studio code</strong>
+                  <p>code editor for writing, debugging, extensions, and daily project work.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="./assets/stack/premiere-pro.png" alt="" />
+                <div>
+                  <strong>premiere pro</strong>
+                  <p>professional video editor for timeline cuts, audio, color, and export.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="./assets/stack/after-effects.png" alt="" />
+                <div>
+                  <strong>after effects</strong>
+                  <p>motion graphics and compositing tool for effects, animation, and visuals.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="" />
+                <div>
+                  <strong>cloudflare</strong>
+                  <p>web infrastructure for DNS, domains, caching, security, and edge services.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/bun/000000" alt="" />
+                <div>
+                  <strong>bun</strong>
+                  <p>fast JavaScript runtime, bundler, test runner, and package manager.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/yarn/2C8EBB" alt="" />
+                <div>
+                  <strong>yarn</strong>
+                  <p>dependency manager for installing, locking, and running project packages.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <span class="stack-logo-fallback">c_</span>
+                <div>
+                  <strong>codex</strong>
+                  <p>AI coding agent for editing, testing, and iterating on local projects.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/figma/F24E1E" alt="" />
+                <div>
+                  <strong>figma</strong>
+                  <p>collaborative design tool for interface layouts, prototypes, and systems.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/github/181717" alt="" />
+                <div>
+                  <strong>github</strong>
+                  <p>Git hosting platform for repositories, issues, pull requests, and releases.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/vercel/000000" alt="" />
+                <div>
+                  <strong>vercel</strong>
+                  <p>frontend cloud platform for deploying sites, apps, previews, and functions.</p>
+                </div>
+              </article>
+            </div>
           </section>
         </div>
       </main>
