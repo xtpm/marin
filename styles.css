@@ -34,13 +34,17 @@ body {
 
 body.dark {
   color-scheme: dark;
-  --bg: #101010;
-  --text: #f2eee6;
-  --muted: #aaa39a;
-  --line: #393733;
-  --link: #7aa6ff;
-  --link-soft: #192238;
+  --bg: #030712;
+  --text: #e9edf7;
+  --muted: #8f9aad;
+  --line: #1b2740;
+  --link: #7fb4ff;
+  --link-soft: #0b1b35;
   --status: #9ed34f;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(127, 180, 255, 0.075), transparent 24rem),
+    radial-gradient(circle at 60% 70%, rgba(77, 104, 180, 0.08), transparent 28rem),
+    var(--bg);
 }
 
 a {
@@ -62,23 +66,9 @@ button:focus-visible {
   padding: 40px 0 48px;
 }
 
-.site-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  min-height: 34px;
-}
-
-.brand {
-  display: inline-block;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: 0;
-}
-
 .content {
   width: min(100%, 570px);
-  padding-top: 16px;
+  padding-top: 10px;
 }
 
 .hero {
@@ -107,7 +97,7 @@ button:focus-visible {
 
 .button-links {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 14px;
   margin-top: 40px;
 }
@@ -118,7 +108,7 @@ button:focus-visible {
 
 .button-links button {
   display: inline-flex;
-  min-width: 104px;
+  min-width: 112px;
   min-height: 38px;
   align-items: center;
   justify-content: center;
@@ -129,6 +119,7 @@ button:focus-visible {
   font: inherit;
   font-size: 15px;
   line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     border-color 160ms ease,
@@ -155,6 +146,10 @@ button:focus-visible {
 
 .button-links button:hover {
   transform: translateY(-1px);
+}
+
+.guestbook-nav .nav-particles {
+  display: none;
 }
 
 .panel-stage {
@@ -322,12 +317,21 @@ button:focus-visible {
   overflow: hidden;
 }
 
+body.dark .discord-card {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.92);
+}
+
 .discord-banner {
   height: 104px;
   border-bottom: 1px solid var(--line);
   background-image: url("./assets/discord-banner.png");
   background-position: 55% 31%;
   background-size: cover;
+}
+
+body.dark .discord-banner {
+  border-bottom-color: #24314f;
 }
 
 .discord-body {
@@ -351,6 +355,12 @@ button:focus-visible {
   height: 64px;
   border: 1px solid var(--line);
   background: var(--bg);
+}
+
+body.dark .discord-avatar,
+body.dark .discord-avatar-fallback {
+  border-color: #24314f;
+  background: #07101f;
 }
 
 .discord-avatar[hidden] {
@@ -382,6 +392,10 @@ button:focus-visible {
   border: 2px solid var(--bg);
   border-radius: 999px;
   background: var(--muted);
+}
+
+body.dark .discord-status {
+  border-color: #07101f;
 }
 
 .discord-card[data-status="online"] .discord-status {
@@ -466,6 +480,11 @@ button:focus-visible {
   background: rgba(255, 255, 255, 0.22);
 }
 
+body.dark .presence-card {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.82);
+}
+
 .presence-label {
   display: block;
   margin-bottom: 8px;
@@ -505,6 +524,11 @@ button:focus-visible {
   object-fit: cover;
 }
 
+body.dark .presence-row img,
+body.dark .spotify-row img {
+  border-color: #24314f;
+}
+
 .presence-row img[hidden] {
   display: none;
 }
@@ -540,6 +564,10 @@ button:focus-visible {
   margin-top: 12px;
   overflow: hidden;
   background: rgba(111, 111, 111, 0.18);
+}
+
+body.dark .spotify-progress {
+  background: rgba(143, 154, 173, 0.18);
 }
 
 .spotify-progress span {
@@ -580,6 +608,36 @@ button:focus-visible {
   color: var(--muted);
   font-size: 12px;
   font-weight: 400;
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.project-status::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+}
+
+.active-status {
+  color: #5d9f20;
+}
+
+.hold-status {
+  color: #b7791f;
+}
+
+.inactive-status {
+  color: var(--muted);
+}
+
+.other-status {
+  color: #075fe7;
 }
 
 .project em {
@@ -631,6 +689,7 @@ button:focus-visible {
 }
 
 .stack-switch {
+  position: relative;
   display: inline-flex;
   gap: 8px;
   margin-top: 18px;
@@ -638,8 +697,30 @@ button:focus-visible {
   border: 1px solid var(--line);
 }
 
+body.dark .stack-switch {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.5);
+}
+
+.stack-switch-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 16px) / 2);
+  background: var(--link-soft);
+  transform: translateX(var(--stack-switch-x, 0));
+  transition: transform 190ms ease;
+}
+
+.stack-switch[data-active="programs"] {
+  --stack-switch-x: calc(100% + 8px);
+}
+
 .stack-switch button {
-  min-width: 96px;
+  position: relative;
+  z-index: 1;
+  min-width: 124px;
   min-height: 32px;
   padding: 6px 14px;
   border: 0;
@@ -652,7 +733,6 @@ button:focus-visible {
 
 .stack-switch button:hover,
 .stack-switch button.active {
-  background: var(--link-soft);
   color: var(--link);
 }
 
@@ -660,10 +740,23 @@ button:focus-visible {
   display: grid;
   gap: 10px;
   margin: 20px 0 0;
+  animation: stack-list-in 180ms ease both;
 }
 
 .stack-list[hidden] {
   display: none;
+}
+
+@keyframes stack-list-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .stack-item {
@@ -679,6 +772,11 @@ button:focus-visible {
     border-color 160ms ease,
     background-color 160ms ease,
     transform 160ms ease;
+}
+
+body.dark .stack-item {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.82);
 }
 
 .stack-item:hover {
@@ -738,6 +836,166 @@ button:focus-visible {
   line-height: 1.35;
 }
 
+.guestbook-intro {
+  margin: 18px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.guestbook-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+body.dark .guestbook-form {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.82);
+}
+
+.guestbook-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.guestbook-form input,
+.guestbook-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+body.dark .guestbook-form input,
+body.dark .guestbook-form textarea {
+  border-color: #24314f;
+  background: rgba(3, 7, 18, 0.62);
+}
+
+.guestbook-form input {
+  height: 38px;
+  padding: 0 11px;
+}
+
+.guestbook-form textarea {
+  min-height: 94px;
+  resize: vertical;
+  padding: 10px 11px;
+}
+
+.guestbook-form input::placeholder,
+.guestbook-form textarea::placeholder {
+  color: var(--muted);
+}
+
+.guestbook-mode {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+}
+
+body.dark .guestbook-mode {
+  border-color: #24314f;
+  background: rgba(3, 7, 18, 0.42);
+}
+
+.guestbook-mode-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 14px) / 2);
+  background: var(--link-soft);
+  transform: translateX(var(--guestbook-mode-x, 0));
+  transition: transform 190ms ease;
+}
+
+.guestbook-mode[data-active="private"] {
+  --guestbook-mode-x: calc(100% + 6px);
+}
+
+.guestbook-mode button,
+.guestbook-submit {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.guestbook-mode button {
+  position: relative;
+  z-index: 1;
+  min-width: 86px;
+  min-height: 30px;
+}
+
+.guestbook-mode button:hover,
+.guestbook-mode button.active {
+  color: var(--link);
+}
+
+.guestbook-submit {
+  width: fit-content;
+  padding: 0;
+  color: var(--link);
+}
+
+.guestbook-submit:hover {
+  background: var(--link-soft);
+}
+
+.guestbook-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.guestbook-entry {
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+body.dark .guestbook-entry {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.82);
+}
+
+.guestbook-entry div {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.guestbook-entry strong {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.guestbook-entry time {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.guestbook-entry p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
 .message p {
   margin: 18px 0 0;
   color: var(--text);
@@ -775,16 +1033,49 @@ button:focus-visible {
   background: var(--status);
 }
 
+.theme-toggle {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 20;
+  min-width: 72px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+body.dark .social-list a {
+  border-color: #24314f;
+  background: rgba(7, 14, 31, 0.82);
+}
+
+.theme-toggle:hover {
+  border-color: var(--link);
+  color: var(--link);
+  transform: translateY(-1px);
+}
+
+body.dark .theme-toggle {
+  background: rgba(3, 7, 18, 0.82);
+}
+
 @media (max-width: 820px) {
   .page-shell {
     width: calc(100% - 40px);
     max-width: 570px;
     margin: 0 auto;
     padding-top: 28px;
-  }
-
-  .site-header {
-    min-height: auto;
   }
 
   .content {
@@ -902,5 +1193,13 @@ button:focus-visible {
   .stack-switch button {
     flex: 1;
     min-width: 0;
+  }
+
+  .guestbook-mode {
+    width: 100%;
+  }
+
+  .guestbook-mode button {
+    flex: 1;
   }
 }

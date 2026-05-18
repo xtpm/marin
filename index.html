@@ -18,10 +18,6 @@
   </head>
   <body>
     <div class="page-shell">
-      <header class="site-header">
-        <a class="brand" href="#home" aria-label="retrial home">r_</a>
-      </header>
-
       <main id="home" class="content">
         <section class="hero" aria-labelledby="hero-title">
           <h1 id="hero-title">retrial</h1>
@@ -34,6 +30,15 @@
             <button type="button" data-panel-button="info">info</button>
             <button type="button" data-panel-button="projects">projects</button>
             <button type="button" data-panel-button="stack">my stack</button>
+            <button class="guestbook-nav" type="button" data-panel-button="guestbook">
+              <span class="nav-particles" aria-hidden="true">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </span>
+              guestbook
+            </button>
           </div>
         </section>
 
@@ -165,29 +170,36 @@
             <div class="project-list">
               <a class="project" href="https://kuudere.cc" target="_blank" rel="noreferrer" aria-label="Open kuudere.cc project">
                 <span>
-                  <strong>kuudere.cc <small>2026</small></strong>
+                  <strong>kuudere.cc <small>2026</small> <small class="project-status active-status">active</small></strong>
                   <em>my digital paradise. a passion project for me and my friends, built as a home beyond bio links.</em>
                 </span>
                 <b aria-hidden="true">-></b>
               </a>
               <a class="project" href="#" aria-label="View kobeni.net project">
                 <span>
-                  <strong>kobeni.net <small>2025</small></strong>
+                  <strong>kobeni.net <small>2025</small> <small class="project-status hold-status">on hold</small></strong>
                   <em>exclusive invite-only bio link service founded by retrial, mke, arturiafm, and lennie.</em>
                 </span>
                 <b aria-hidden="true">-></b>
               </a>
               <a class="project" href="#" aria-label="View yotsuba.cc project">
                 <span>
-                  <strong>yotsuba.cc <small>2024</small></strong>
-                  <em>older version of this site, built around a minimal dark layout and personal web aesthetic.</em>
+                  <strong>yotsuba.cc <small>2024</small> <small class="project-status inactive-status">inactive</small></strong>
+                  <em>first version of kuudere.cc, built around a minimal dark layout and personal web aesthetic.</em>
                 </span>
                 <b aria-hidden="true">-></b>
               </a>
               <a class="project" href="#" aria-label="View Luck Software project">
                 <span>
-                  <strong>Luck Software <small>2022</small></strong>
+                  <strong>Luck Software <small>2022</small> <small class="project-status inactive-status">inactive</small></strong>
                   <em>old cheat company i founded. i handled sales, marketing, invoices, and most of the client side.</em>
+                </span>
+                <b aria-hidden="true">-></b>
+              </a>
+              <a class="project" href="#" aria-label="View retrial.cc project">
+                <span>
+                  <strong>retrial.cc <small>2026</small> <small class="project-status other-status">other</small></strong>
+                  <em>personal alias site and current home for my work.</em>
                 </span>
                 <b aria-hidden="true">-></b>
               </a>
@@ -198,6 +210,7 @@
           <section class="section panel" id="panel-stack" data-panel="stack" aria-labelledby="stack-title" hidden>
             <h2 id="stack-title">my stack</h2>
             <div class="stack-switch" aria-label="Stack category">
+              <span class="stack-switch-indicator" aria-hidden="true"></span>
               <button class="active" type="button" data-stack-button="langs">langs / tech</button>
               <button type="button" data-stack-button="programs">programs</button>
             </div>
@@ -261,6 +274,27 @@
                   <p>the language i keep coming back to.</p>
                 </div>
               </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/bun/000000" alt="" />
+                <div>
+                  <strong>bun</strong>
+                  <p>fast JavaScript runtime, bundler, test runner, and package manager.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/yarn/2C8EBB" alt="" />
+                <div>
+                  <strong>yarn</strong>
+                  <p>dependency manager for installing, locking, and running project packages.</p>
+                </div>
+              </article>
+              <article class="stack-item">
+                <img src="https://cdn.simpleicons.org/vercel/000000" alt="" />
+                <div>
+                  <strong>vercel</strong>
+                  <p>frontend cloud platform for deploying sites, apps, previews, and functions.</p>
+                </div>
+              </article>
             </div>
             <div class="stack-list" data-stack-list="programs" hidden>
               <article class="stack-item">
@@ -292,20 +326,6 @@
                 </div>
               </article>
               <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/bun/000000" alt="" />
-                <div>
-                  <strong>bun</strong>
-                  <p>fast JavaScript runtime, bundler, test runner, and package manager.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/yarn/2C8EBB" alt="" />
-                <div>
-                  <strong>yarn</strong>
-                  <p>dependency manager for installing, locking, and running project packages.</p>
-                </div>
-              </article>
-              <article class="stack-item">
                 <span class="stack-logo-fallback">c_</span>
                 <div>
                   <strong>codex</strong>
@@ -326,12 +346,48 @@
                   <p>Git hosting platform for repositories, issues, pull requests, and releases.</p>
                 </div>
               </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/vercel/000000" alt="" />
+            </div>
+          </section>
+
+          <section class="section panel" id="panel-guestbook" data-panel="guestbook" aria-labelledby="guestbook-title" hidden>
+            <h2 id="guestbook-title">guestbook</h2>
+            <p class="guestbook-intro">
+              leave something public for the wall, or send a private note only i can see.
+            </p>
+            <form class="guestbook-form">
+              <label>
+                name
+                <input type="text" name="name" placeholder="anonymous" maxlength="32" />
+              </label>
+              <label>
+                discord username
+                <input type="text" name="discord" placeholder="@retriai" maxlength="32" />
+              </label>
+              <label>
+                message
+                <textarea name="message" placeholder="write something cool..." maxlength="240"></textarea>
+              </label>
+              <div class="guestbook-mode" aria-label="Message visibility">
+                <span class="guestbook-mode-indicator" aria-hidden="true"></span>
+                <button class="active" type="button">public</button>
+                <button type="button">private</button>
+              </div>
+              <button class="guestbook-submit" type="button">send message -></button>
+            </form>
+            <div class="guestbook-list" aria-label="Public guestbook messages">
+              <article class="guestbook-entry">
                 <div>
-                  <strong>vercel</strong>
-                  <p>frontend cloud platform for deploying sites, apps, previews, and functions.</p>
+                  <strong>mke</strong>
+                  <time datetime="2026-05-17">may 17, 2026</time>
                 </div>
+                <p>site feels clean. retrial era looking real.</p>
+              </article>
+              <article class="guestbook-entry">
+                <div>
+                  <strong>anonymous</strong>
+                  <time datetime="2026-05-17">may 17, 2026</time>
+                </div>
+                <p>leaving this here before the wall fills up.</p>
               </article>
             </div>
           </section>
@@ -345,6 +401,10 @@
         <span class="status"><i aria-hidden="true"></i> on // focused</span>
       </footer>
     </div>
+
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>
+      <span data-theme-icon>dark</span>
+    </button>
 
     <script src="./script.js"></script>
   </body>

@@ -2,7 +2,21 @@ const buttons = [...document.querySelectorAll("[data-panel-button]")];
 const panels = [...document.querySelectorAll("[data-panel]")];
 const stackButtons = [...document.querySelectorAll("[data-stack-button]")];
 const stackLists = [...document.querySelectorAll("[data-stack-list]")];
+const guestbookModeButtons = [...document.querySelectorAll(".guestbook-mode button")];
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeIcon = document.querySelector("[data-theme-icon]");
 const discordId = "262467539685212160";
+
+function setTheme(theme) {
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark", isDark);
+  if (themeIcon) {
+    themeIcon.textContent = isDark ? "light" : "dark";
+  }
+  localStorage.setItem("theme", theme);
+}
+
+setTheme(localStorage.getItem("theme") || "light");
 
 function showPanel(panelName) {
   buttons.forEach((button) => {
@@ -25,6 +39,7 @@ buttons.forEach((button) => {
 stackButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const stackName = button.dataset.stackButton;
+    button.closest(".stack-switch")?.setAttribute("data-active", stackName);
 
     stackButtons.forEach((item) => {
       item.classList.toggle("active", item.dataset.stackButton === stackName);
@@ -36,6 +51,17 @@ stackButtons.forEach((button) => {
       list.classList.toggle("active", active);
     });
   });
+});
+
+guestbookModeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    button.closest(".guestbook-mode")?.setAttribute("data-active", button.textContent.trim());
+    guestbookModeButtons.forEach((item) => item.classList.toggle("active", item === button));
+  });
+});
+
+themeToggle?.addEventListener("click", () => {
+  setTheme(document.body.classList.contains("dark") ? "light" : "dark");
 });
 
 function getAvatarUrl(user) {
