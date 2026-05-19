@@ -91,7 +91,7 @@ async function sendDiscord(entry) {
   const webhook = process.env.DISCORD_WEBHOOK_URL;
 
   if (!webhook) {
-    return;
+    return false;
   }
 
   const visibility = entry.visibility === "private" ? "private note" : "public guestbook";
@@ -117,6 +117,8 @@ async function sendDiscord(entry) {
       ],
     }),
   });
+
+  return true;
 }
 
 async function readBody(req) {
@@ -161,9 +163,14 @@ module.exports = async function handler(req, res) {
       createdAt: new Date().toISOString(),
     };
 
-    await sendDiscord(entry);
+    const discordSent = await sendDiscord(entry);
 
     if (visibility === "private") {
+      if (!discordSent) {
+        sendJson(res, 503, { error: "private notes are not configured yet" });
+        return;
+      }
+
       sendJson(res, 200, { ok: true, private: true });
       return;
     }
