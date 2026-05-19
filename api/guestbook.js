@@ -36,6 +36,32 @@ function cleanText(value, fallback, maxLength) {
   return text || fallback;
 }
 
+function getSiteUrl() {
+  const url = process.env.SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+
+  if (!url) {
+    return "";
+  }
+
+  return url.startsWith("http") ? url.replace(/\/$/, "") : `https://${url.replace(/\/$/, "")}`;
+}
+
+function getLoveUrl(entry) {
+  const token = process.env.GUESTBOOK_LOVE_TOKEN;
+  const siteUrl = getSiteUrl();
+
+  if (!token || !siteUrl || entry.visibility !== "public") {
+    return "";
+  }
+
+  const params = new URLSearchParams({
+    id: entry.id,
+    token,
+  });
+
+  return `${siteUrl}/api/love?${params.toString()}`;
+}
+
 function getRedisConfig() {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
@@ -95,6 +121,7 @@ async function sendDiscord(entry) {
   }
 
   const visibility = entry.visibility === "private" ? "private note" : "public guestbook";
+  const loveUrl = getLoveUrl(entry);
   const fields = [
     { name: "name", value: entry.name, inline: true },
     { name: "discord", value: entry.discord || "not provided", inline: true },
@@ -102,21 +129,43 @@ async function sendDiscord(entry) {
     { name: "message", value: entry.message },
   ];
 
-  await fetch(webhook, {
+  const payload = {
+    username: "retrial guestbook",
+    embeds: [
+      {
+        title: visibility,
+        color: entry.visibility === "private" ? 0x7fb4ff : 0x3ba55d,
+        fields,
+        timestamp: entry.createdAt,
+      },
+    ],
+  };
+
+  if (loveUrl) {
+    payload.components = [
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            style: 5,
+            label: "love this",
+            url: loveUrl,
+          },
+        ],
+      },
+    ];
+  }
+
+  const response = await fetch(webhook, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: "retrial guestbook",
-      embeds: [
-        {
-          title: visibility,
-          color: entry.visibility === "private" ? 0x7fb4ff : 0x3ba55d,
-          fields,
-          timestamp: entry.createdAt,
-        },
-      ],
-    }),
+    body: JSON.stringify(payload),
   });
+
+  if (!response.ok) {
+    throw new Error(`Discord webhook failed: ${response.status}`);
+  }
 
   return true;
 }
@@ -160,12 +209,13 @@ module.exports = async function handler(req, res) {
       discord: cleanText(body.discord, "", 32),
       message,
       visibility,
+      loved: false,
       createdAt: new Date().toISOString(),
     };
 
-    const discordSent = await sendDiscord(entry);
-
     if (visibility === "private") {
+      const discordSent = await sendDiscord(entry);
+
       if (!discordSent) {
         sendJson(res, 503, { error: "private notes are not configured yet" });
         return;
@@ -182,6 +232,12 @@ module.exports = async function handler(req, res) {
 
     if (getRedisConfig()) {
       await savePublicEntries(entries);
+    }
+
+    try {
+      await sendDiscord(entry);
+    } catch {
+      // Public guestbook messages should still save even if Discord delivery is unavailable.
     }
 
     sendJson(res, 200, { ok: true, entry, entries });

@@ -110,6 +110,13 @@ function renderGuestbook(entries = []) {
     name.textContent = entry.name || "anonymous";
     identity.append(name);
 
+    if (entry.loved) {
+      const loved = document.createElement("b");
+      loved.className = "guestbook-loved";
+      loved.textContent = "loved by retrial";
+      identity.append(loved);
+    }
+
     if (entry.discord) {
       const discord = document.createElement("small");
       discord.textContent = entry.discord.startsWith("@") ? entry.discord : `@${entry.discord}`;
