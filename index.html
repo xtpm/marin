@@ -354,7 +354,7 @@
             <p class="guestbook-intro">
               leave something public for the wall, or send a private note only i can see.
             </p>
-            <form class="guestbook-form">
+            <form class="guestbook-form" data-guestbook-form>
               <label>
                 name
                 <input type="text" name="name" placeholder="anonymous" maxlength="32" />
@@ -369,12 +369,13 @@
               </label>
               <div class="guestbook-mode" aria-label="Message visibility">
                 <span class="guestbook-mode-indicator" aria-hidden="true"></span>
-                <button class="active" type="button">public</button>
-                <button type="button">private</button>
+                <button class="active" type="button" data-guestbook-visibility="public">public</button>
+                <button type="button" data-guestbook-visibility="private">private</button>
               </div>
-              <button class="guestbook-submit" type="button">send message -></button>
+              <button class="guestbook-submit" type="submit" data-guestbook-submit>send message -></button>
+              <p class="guestbook-feedback" data-guestbook-feedback aria-live="polite"></p>
             </form>
-            <div class="guestbook-list" aria-label="Public guestbook messages">
+            <div class="guestbook-list" aria-label="Public guestbook messages" data-guestbook-list>
               <article class="guestbook-entry">
                 <div>
                   <strong>mke</strong>

@@ -3,6 +3,10 @@ const panels = [...document.querySelectorAll("[data-panel]")];
 const stackButtons = [...document.querySelectorAll("[data-stack-button]")];
 const stackLists = [...document.querySelectorAll("[data-stack-list]")];
 const guestbookModeButtons = [...document.querySelectorAll(".guestbook-mode button")];
+const guestbookForm = document.querySelector("[data-guestbook-form]");
+const guestbookList = document.querySelector("[data-guestbook-list]");
+const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
+const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
 const themeToggle = document.querySelector("[data-theme-toggle]");
 const themeIcon = document.querySelector("[data-theme-icon]");
 const discordId = "262467539685212160";
@@ -55,13 +59,144 @@ stackButtons.forEach((button) => {
 
 guestbookModeButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    button.closest(".guestbook-mode")?.setAttribute("data-active", button.textContent.trim());
+    button.closest(".guestbook-mode")?.setAttribute("data-active", button.dataset.guestbookVisibility);
     guestbookModeButtons.forEach((item) => item.classList.toggle("active", item === button));
   });
 });
 
 themeToggle?.addEventListener("click", () => {
   setTheme(document.body.classList.contains("dark") ? "light" : "dark");
+});
+
+function formatGuestbookDate(value) {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).toLowerCase();
+}
+
+function renderGuestbook(entries = []) {
+  if (!guestbookList) {
+    return;
+  }
+
+  guestbookList.innerHTML = "";
+
+  if (!entries.length) {
+    const empty = document.createElement("p");
+    empty.className = "guestbook-empty";
+    empty.textContent = "nothing on the wall yet.";
+    guestbookList.append(empty);
+    return;
+  }
+
+  entries.forEach((entry) => {
+    const article = document.createElement("article");
+    article.className = "guestbook-entry";
+
+    const header = document.createElement("div");
+    const identity = document.createElement("span");
+    const name = document.createElement("strong");
+    const time = document.createElement("time");
+    const message = document.createElement("p");
+
+    name.textContent = entry.name || "anonymous";
+    identity.append(name);
+
+    if (entry.discord) {
+      const discord = document.createElement("small");
+      discord.textContent = entry.discord.startsWith("@") ? entry.discord : `@${entry.discord}`;
+      identity.append(discord);
+    }
+
+    time.dateTime = entry.createdAt || "";
+    time.textContent = formatGuestbookDate(entry.createdAt);
+    message.textContent = entry.message || "";
+
+    header.append(identity, time);
+    article.append(header, message);
+    guestbookList.append(article);
+  });
+}
+
+async function loadGuestbook() {
+  if (!guestbookList) {
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/guestbook");
+    if (!response.ok) {
+      throw new Error("guestbook request failed");
+    }
+
+    const data = await response.json();
+    renderGuestbook(data.entries);
+  } catch {
+    if (guestbookFeedback) {
+      guestbookFeedback.textContent = "guestbook is quiet right now.";
+    }
+  }
+}
+
+guestbookForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(guestbookForm);
+  const visibility = guestbookModeButtons.find((button) => button.classList.contains("active"))?.dataset
+    .guestbookVisibility || "public";
+
+  if (guestbookFeedback) {
+    guestbookFeedback.textContent = "sending...";
+  }
+
+  if (guestbookSubmit) {
+    guestbookSubmit.disabled = true;
+  }
+
+  try {
+    const response = await fetch("/api/guestbook", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: formData.get("name"),
+        discord: formData.get("discord"),
+        message: formData.get("message"),
+        visibility,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "message failed");
+    }
+
+    if (guestbookFeedback) {
+      guestbookFeedback.textContent = visibility === "private" ? "private note sent." : "added to the wall.";
+    }
+
+    guestbookForm.reset();
+
+    if (visibility === "public") {
+      renderGuestbook(data.entries);
+    }
+  } catch (error) {
+    if (guestbookFeedback) {
+      guestbookFeedback.textContent = error.message || "message failed.";
+    }
+  } finally {
+    if (guestbookSubmit) {
+      guestbookSubmit.disabled = false;
+    }
+  }
 });
 
 function getAvatarUrl(user) {
@@ -251,3 +386,4 @@ async function loadDiscordProfile() {
 
 loadDiscordProfile();
 setInterval(loadDiscordProfile, 30000);
+loadGuestbook();

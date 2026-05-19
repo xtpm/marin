@@ -18,6 +18,12 @@ const types = {
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url || "/", `http://${req.headers.host}`);
+
+  if (url.pathname === "/api/guestbook") {
+    require("./api/guestbook")(req, res);
+    return;
+  }
+
   const requested = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
   const filePath = path.resolve(root, `.${requested}`);
 
