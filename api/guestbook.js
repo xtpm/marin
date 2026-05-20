@@ -157,7 +157,10 @@ async function sendDiscord(entry) {
     ];
   }
 
-  const response = await fetch(webhook, {
+  const webhookUrl = new URL(webhook);
+  webhookUrl.searchParams.set("with_components", "true");
+
+  const response = await fetch(webhookUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
