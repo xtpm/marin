@@ -62,6 +62,22 @@ function getLoveUrl(entry) {
   return `${siteUrl}/api/love?${params.toString()}`;
 }
 
+function getDeleteUrl(entry) {
+  const token = process.env.GUESTBOOK_DELETE_TOKEN || process.env.GUESTBOOK_LOVE_TOKEN;
+  const siteUrl = getSiteUrl();
+
+  if (!token || !siteUrl || entry.visibility !== "public") {
+    return "";
+  }
+
+  const params = new URLSearchParams({
+    id: entry.id,
+    token,
+  });
+
+  return `${siteUrl}/api/delete?${params.toString()}`;
+}
+
 function getRedisConfig() {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
@@ -122,6 +138,7 @@ async function sendDiscord(entry) {
 
   const visibility = entry.visibility === "private" ? "private note" : "public guestbook";
   const loveUrl = getLoveUrl(entry);
+  const deleteUrl = getDeleteUrl(entry);
   const fields = [
     { name: "name", value: entry.name, inline: true },
     { name: "discord", value: entry.discord || "not provided", inline: true },
@@ -141,18 +158,31 @@ async function sendDiscord(entry) {
     ],
   };
 
-  if (loveUrl) {
+  if (loveUrl || deleteUrl) {
+    const components = [];
+
+    if (loveUrl) {
+      components.push({
+        type: 2,
+        style: 5,
+        label: "love this",
+        url: loveUrl,
+      });
+    }
+
+    if (deleteUrl) {
+      components.push({
+        type: 2,
+        style: 5,
+        label: "delete",
+        url: deleteUrl,
+      });
+    }
+
     payload.components = [
       {
         type: 1,
-        components: [
-          {
-            type: 2,
-            style: 5,
-            label: "love this",
-            url: loveUrl,
-          },
-        ],
+        components,
       },
     ];
   }
