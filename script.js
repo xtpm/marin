@@ -7,20 +7,7 @@ const guestbookForm = document.querySelector("[data-guestbook-form]");
 const guestbookList = document.querySelector("[data-guestbook-list]");
 const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
-const themeToggle = document.querySelector("[data-theme-toggle]");
-const themeIcon = document.querySelector("[data-theme-icon]");
 const discordId = "262467539685212160";
-
-function setTheme(theme) {
-  const isDark = theme === "dark";
-  document.body.classList.toggle("dark", isDark);
-  if (themeIcon) {
-    themeIcon.textContent = isDark ? "light" : "dark";
-  }
-  localStorage.setItem("theme", theme);
-}
-
-setTheme(localStorage.getItem("theme") || "light");
 
 function showPanel(panelName) {
   buttons.forEach((button) => {
@@ -62,10 +49,6 @@ guestbookModeButtons.forEach((button) => {
     button.closest(".guestbook-mode")?.setAttribute("data-active", button.dataset.guestbookVisibility);
     guestbookModeButtons.forEach((item) => item.classList.toggle("active", item === button));
   });
-});
-
-themeToggle?.addEventListener("click", () => {
-  setTheme(document.body.classList.contains("dark") ? "light" : "dark");
 });
 
 function formatGuestbookDate(value) {
