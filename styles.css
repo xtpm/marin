@@ -1147,25 +1147,11 @@ body.dark .guestbook-entry {
   font-size: 14px;
 }
 
-.footer .status {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  margin-left: auto;
-}
-
 .footer .dot {
   width: 4px;
   height: 4px;
   border-radius: 999px;
   background: currentColor;
-}
-
-.footer i {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: var(--status);
 }
 
 body.dark .social-list a {
@@ -1226,9 +1212,6 @@ body.dark .social-list a {
     gap: 9px;
   }
 
-  .footer .status {
-    margin-left: 0;
-  }
 }
 
 @media (max-width: 520px) {
