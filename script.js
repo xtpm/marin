@@ -7,6 +7,7 @@ const guestbookForm = document.querySelector("[data-guestbook-form]");
 const guestbookList = document.querySelector("[data-guestbook-list]");
 const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
+const currentTime = document.querySelector("[data-current-time]");
 const discordId = "262467539685212160";
 
 function showPanel(panelName) {
@@ -64,6 +65,31 @@ function formatGuestbookDate(value) {
     year: "numeric",
   }).toLowerCase();
 }
+
+function updateCurrentTime() {
+  if (!currentTime) {
+    return;
+  }
+
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  }).formatToParts(now);
+
+  const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  currentTime.dateTime = now.toISOString();
+  currentTime.textContent = `${value.month.toLowerCase()} ${value.day}, ${value.year}  ${value.hour}:${value.minute}:${value.second} ${value.dayPeriod.toLowerCase()} (${value.timeZoneName})`;
+}
+
+updateCurrentTime();
+setInterval(updateCurrentTime, 1000);
 
 function renderGuestbook(entries = []) {
   if (!guestbookList) {
