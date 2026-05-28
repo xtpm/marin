@@ -61,7 +61,7 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    const requestUrl = new URL(req.url || "/", `https://${req.headers.host || "r.kuudere.cc"}`);
+    const requestUrl = new URL(req.url || "/", `https://${req.headers.host || "retrial.cc"}`);
     const id = requestUrl.searchParams.get("id");
     const token = requestUrl.searchParams.get("token");
     const expectedToken = process.env.GUESTBOOK_DELETE_TOKEN || process.env.GUESTBOOK_LOVE_TOKEN;
