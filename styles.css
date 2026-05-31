@@ -7,7 +7,7 @@
   --link: #075fe7;
   --link-soft: #e4ecff;
   --status: #6baa1f;
-  --font: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font: "Space Grotesk", Inter, "Segoe UI", Arial, sans-serif;
 }
 
 * {
@@ -664,29 +664,57 @@ body.dark .spotify-progress {
 }
 
 .project-list {
-  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  animation: stack-list-in 180ms ease both;
+}
+
+.project-list[hidden] {
+  display: none;
 }
 
 .project {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 24px;
-  gap: 18px;
-  align-items: center;
-  min-height: 86px;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto 1fr;
+  gap: 14px 18px;
+  align-items: start;
+  min-height: 124px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(127, 180, 255, 0.06), transparent 44%),
+    rgba(7, 14, 31, 0.78);
+  box-shadow: inset 0 1px 0 rgba(233, 237, 247, 0.025);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
 }
 
-.project:last-child {
-  border-bottom: 0;
+.project:hover {
+  border-color: var(--link);
+  background:
+    linear-gradient(135deg, rgba(127, 180, 255, 0.12), transparent 46%),
+    rgba(11, 27, 53, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(233, 237, 247, 0.04),
+    0 12px 36px rgba(0, 0, 0, 0.16);
+  transform: translateY(-2px);
 }
 
 .project strong {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 9px;
   align-items: baseline;
-  margin-bottom: 1px;
-  font-size: 20px;
-  font-weight: 400;
+  margin-bottom: 0;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .project small {
@@ -699,6 +727,11 @@ body.dark .spotify-progress {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  padding: 3px 7px;
+  border: 1px solid rgba(143, 154, 173, 0.2);
+  background: rgba(3, 7, 18, 0.36);
+  font-size: 11px;
+  line-height: 1;
 }
 
 .project-status::before {
@@ -709,38 +742,52 @@ body.dark .spotify-progress {
   content: "";
 }
 
-.active-status {
-  color: #5d9f20;
+.project-status.active-status {
+  color: #7bd65a;
 }
 
-.hold-status {
-  color: #b7791f;
+.project-status.hold-status {
+  color: #e9b44c;
 }
 
-.inactive-status {
-  color: var(--muted);
+.project-status.inactive-status {
+  color: #7d8798;
 }
 
-.other-status {
-  color: #075fe7;
+.project-status.other-status {
+  color: #7fb4ff;
 }
 
 .project em {
   display: block;
-  max-width: 360px;
+  grid-column: 1 / -1;
+  max-width: 100%;
+  margin-top: 4px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   font-style: normal;
-  line-height: 1.28;
+  line-height: 1.45;
 }
 
 .project b {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(127, 180, 255, 0.28);
+  background: rgba(7, 14, 31, 0.58);
   color: var(--link);
   font-weight: 400;
-  transition: transform 160ms ease;
+  line-height: 1;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
 }
 
 .project:hover b {
+  border-color: var(--link);
+  background: var(--link-soft);
   transform: translateX(4px);
 }
 
@@ -773,7 +820,7 @@ body.dark .spotify-progress {
   font-size: 14px;
 }
 
-.stack-switch {
+.tab-switch {
   position: relative;
   display: inline-flex;
   gap: 8px;
@@ -782,12 +829,12 @@ body.dark .spotify-progress {
   border: 1px solid var(--line);
 }
 
-body.dark .stack-switch {
+body.dark .tab-switch {
   border-color: #24314f;
   background: rgba(7, 14, 31, 0.5);
 }
 
-.stack-switch-indicator {
+.tab-switch-indicator {
   position: absolute;
   top: 4px;
   bottom: 4px;
@@ -798,11 +845,12 @@ body.dark .stack-switch {
   transition: transform 190ms ease;
 }
 
-.stack-switch[data-active="programs"] {
+.tab-switch[data-active="programs"],
+.tab-switch[data-active="archive"] {
   --stack-switch-x: calc(100% + 8px);
 }
 
-.stack-switch button {
+.tab-switch button {
   position: relative;
   z-index: 1;
   min-width: 124px;
@@ -816,8 +864,8 @@ body.dark .stack-switch {
   cursor: pointer;
 }
 
-.stack-switch button:hover,
-.stack-switch button.active {
+.tab-switch button:hover,
+.tab-switch button.active {
   color: var(--link);
 }
 
@@ -1272,11 +1320,11 @@ body.dark .social-list a {
     gap: 0;
   }
 
-  .stack-switch {
+  .tab-switch {
     width: 100%;
   }
 
-  .stack-switch button {
+  .tab-switch button {
     flex: 1;
     min-width: 0;
   }

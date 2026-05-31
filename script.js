@@ -1,5 +1,7 @@
 const buttons = [...document.querySelectorAll("[data-panel-button]")];
 const panels = [...document.querySelectorAll("[data-panel]")];
+const projectButtons = [...document.querySelectorAll("[data-project-button]")];
+const projectLists = [...document.querySelectorAll("[data-project-list]")];
 const stackButtons = [...document.querySelectorAll("[data-stack-button]")];
 const stackLists = [...document.querySelectorAll("[data-stack-list]")];
 const guestbookModeButtons = [...document.querySelectorAll(".guestbook-mode button")];
@@ -28,10 +30,27 @@ buttons.forEach((button) => {
   });
 });
 
+projectButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const projectName = button.dataset.projectButton;
+    button.closest(".tab-switch")?.setAttribute("data-active", projectName);
+
+    projectButtons.forEach((item) => {
+      item.classList.toggle("active", item.dataset.projectButton === projectName);
+    });
+
+    projectLists.forEach((list) => {
+      const active = list.dataset.projectList === projectName;
+      list.hidden = !active;
+      list.classList.toggle("active", active);
+    });
+  });
+});
+
 stackButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const stackName = button.dataset.stackButton;
-    button.closest(".stack-switch")?.setAttribute("data-active", stackName);
+    button.closest(".tab-switch")?.setAttribute("data-active", stackName);
 
     stackButtons.forEach((item) => {
       item.classList.toggle("active", item.dataset.stackButton === stackName);
