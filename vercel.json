@@ -1,14 +1,15 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/:path((?!assets/|data/|api/|styles.css|script.js|cd.js|cd.html|favicon.ico).*)",
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "cd.retrial.cc"
         }
       ],
-      "destination": "/cd.html"
+      "destination": "/cd.html",
+      "permanent": false
     }
   ]
 }
