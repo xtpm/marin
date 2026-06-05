@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "cd.retrial.cc"
+        }
+      ],
+      "destination": "/cd.html"
+    }
+  ]
+}
