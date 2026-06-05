@@ -32,7 +32,7 @@ function sendLiveReload() {
 }
 
 function watchForChanges() {
-  const watched = ["index.html", "styles.css", "script.js", "api"];
+  const watched = ["index.html", "cd.html", "styles.css", "script.js", "cd.js", "data", "api"];
   let timer;
 
   watched.forEach((item) => {

@@ -1,0 +1,71 @@
+[
+  {
+    "title": "At Komorebi St.",
+    "alternateTitle": "木洩陽通りにて",
+    "artist": "Lamp",
+    "year": "2005",
+    "format": "CD",
+    "genre": "shibuya-kei",
+    "price": "$$$",
+    "cover": "./assets/cds/at-komorebi-st.jpg",
+    "condition": "",
+    "rating": 5,
+    "love": "one of my favorites from Lamp; soft, warm, and really easy to keep coming back to.",
+    "notes": "Lamp's third album, released in 2005. Its title refers to komorebi: sunlight filtering through trees."
+  },
+  {
+    "title": "Lamp Phantasma",
+    "alternateTitle": "ランプ幻想",
+    "artist": "Lamp",
+    "year": "2008",
+    "format": "CD",
+    "genre": "shibuya-kei",
+    "price": "$$$",
+    "cover": "./assets/cds/lamp-phantasma.jpg",
+    "condition": "",
+    "rating": 5,
+    "love": "one of the best Lamp albums i have ever heard. this was the album that made me fall in love with Lamp. been a fan ever since.",
+    "notes": "Lamp's fourth full-length album, released in 2008. The title plays on illusion, fantasy, dreams, and ghosts."
+  },
+  {
+    "title": "Afterglow",
+    "alternateTitle": "残光",
+    "artist": "Lamp",
+    "year": "2007",
+    "format": "CD",
+    "genre": "shibuya-kei",
+    "price": "$$$",
+    "cover": "./assets/cds/afterglow.jpg",
+    "condition": "",
+    "rating": 4,
+    "love": "shorter and quieter. this EP was sooooooo good!",
+    "notes": "A 2007 compilation EP with six tracks, including 4 AM from Lamp's early demo recordings."
+  },
+  {
+    "title": "Soyokaze Apartment Room 201",
+    "alternateTitle": "そよ風アパートメント201",
+    "artist": "Lamp",
+    "year": "2003",
+    "format": "CD",
+    "genre": "shibuya-kei",
+    "price": "$$$",
+    "cover": "./assets/cds/soyokaze-apartment-room-201.jpg",
+    "condition": "",
+    "rating": 4,
+    "love": "super different than the other albums i have heard from them. in my top 5 albums from the band!",
+    "notes": "Lamp's first album, released in 2003. Soyokaze means breeze, chosen to match the easy-going mood."
+  },
+  {
+    "title": "YOTSUBA&♪",
+    "artist": "Kuricorder Pops Orchestra",
+    "year": "2005",
+    "format": "CD",
+    "genre": "soundtrack",
+    "price": "$$",
+    "cover": "./assets/cds/yotsuba.jpg",
+    "condition": "",
+    "rating": 4,
+    "love": "super charming and cozy, the kind of CD that feels nice to own physically. i love Yotsuba!",
+    "notes": "Image album for Kiyohiko Azuma's Yotsuba&!, released April 2, 2005 by Geneon and Rondo Robe."
+  }
+]

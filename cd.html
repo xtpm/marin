@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="retrial's physical CD collection, cataloged as a personal shelf."
+    />
+    <title>cds / retrial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="dark cd-page">
+    <div class="page-shell cd-shell">
+      <main class="content cd-content">
+        <nav class="cd-topnav" aria-label="CD collection navigation">
+          <a href="./index.html">retrial</a>
+          <span class="dot" aria-hidden="true"></span>
+          <a aria-current="page" href="./cd.html">cds</a>
+        </nav>
+
+        <section class="cd-hero" aria-labelledby="cd-title">
+          <div class="cd-hero-copy">
+            <h1 id="cd-title">cds</h1>
+            <p>
+              a small catalog for the physical compact discs i own. sorted like a shelf,
+              kept like a memory.
+            </p>
+          </div>
+          <div class="cd-hero-art" aria-hidden="true">
+            <span class="jewel-case case-one"></span>
+            <span class="jewel-case case-two"></span>
+            <span class="compact-disc"></span>
+          </div>
+        </section>
+
+        <section class="cd-controls" aria-label="Collection controls">
+          <label class="cd-search">
+            search
+            <input type="search" data-cd-search placeholder="artist, album, genre..." />
+          </label>
+        </section>
+
+        <section class="cd-summary" aria-label="Collection summary">
+          <article>
+            <strong data-cd-count>0</strong>
+            <span>cataloged</span>
+          </article>
+          <article>
+            <strong data-cd-format-count>0</strong>
+            <span>formats</span>
+          </article>
+          <article>
+            <strong data-cd-genre-count>0</strong>
+            <span>genres</span>
+          </article>
+        </section>
+
+        <section class="section cd-section" aria-labelledby="collection-title">
+          <h2 id="collection-title">collection</h2>
+          <div class="cd-list" data-cd-list></div>
+          <p class="guestbook-empty" data-cd-empty hidden>nothing matches that search.</p>
+        </section>
+
+        <section class="section cd-section wishlist-section" aria-labelledby="wishlist-title">
+          <div class="cd-section-heading">
+            <h2 id="wishlist-title">wishlist</h2>
+            <span data-wishlist-count>0 wanted</span>
+          </div>
+          <div class="cd-list wishlist-list" data-wishlist-list></div>
+          <p class="guestbook-empty" data-wishlist-empty>wishlist is empty right now.</p>
+        </section>
+
+        <div class="cd-popout" data-cd-popout hidden>
+          <button class="cd-popout-backdrop" type="button" data-cd-popout-close aria-label="Close CD details"></button>
+          <article class="cd-popout-card" role="dialog" aria-modal="true" aria-labelledby="cd-popout-title">
+            <button class="cd-popout-close" type="button" data-cd-popout-close aria-label="Close CD details">close</button>
+            <div class="cd-popout-cover" data-cd-popout-cover></div>
+            <div class="cd-popout-details">
+              <h2 id="cd-popout-title" data-cd-popout-title></h2>
+              <p data-cd-popout-artist></p>
+              <div class="cd-popout-stars" data-cd-popout-stars aria-label=""></div>
+              <p class="cd-popout-love" data-cd-popout-love></p>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <span>cd.retrial.cc</span>
+        <span class="dot" aria-hidden="true"></span>
+        <a href="./index.html">back home</a>
+      </footer>
+    </div>
+
+    <script src="./cd.js"></script>
+  </body>
+</html>
