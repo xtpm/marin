@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/",
+      "source": "/:path((?!assets/|data/|api/|styles.css|script.js|cd.js|cd.html|favicon.ico).*)",
       "has": [
         {
           "type": "host",
