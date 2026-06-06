@@ -1,5 +1,116 @@
 [
   {
+    "title": "One-Room Survival",
+    "alternateTitle": "ワンルームサバイバル",
+    "artist": "Serani Poji",
+    "year": "2002",
+    "genre": "picopop",
+    "price": "$$$",
+    "cover": "./assets/cds/wishlist/serani-poji-one-room-survival.jpg",
+    "source": "https://www.discogs.com/master/3414805-Serani-Poji-One-Room-Survival",
+    "nextUp": true,
+    "notes": "Serani Poji's second album, a cute and colorful mix of lounge, house, bossa, techno, and J-pop."
+  },
+  {
+    "title": "Fantasma",
+    "artist": "Cornelius",
+    "year": "1997",
+    "genre": "shibuya-kei",
+    "price": "$$$",
+    "cover": "./assets/cds/wishlist/cornelius-fantasma.jpg",
+    "source": "https://www.discogs.com/release/6429669-Cornelius-Fantasma",
+    "nextUp": true,
+    "notes": "Cornelius's 1997 shibuya-kei classic, packed with collage-pop, bright samples, and playful experimental production."
+  },
+  {
+    "title": "L.D.K. Lounge Designers Killer",
+    "artist": "Capsule",
+    "year": "2005",
+    "genre": "neo-shibuya-kei",
+    "price": "$$$",
+    "cover": "./assets/cds/wishlist/capsule-ldk-lounge-designers-killer.jpg",
+    "source": "https://www.discogs.com/release/1584033-Capsule-LDK-Lounge-Designers-Killer",
+    "nextUp": true,
+    "notes": "Capsule's glossy 2005 lounge-pop/electropop album, right in that bright Yasutaka Nakata era."
+  },
+  {
+    "title": "Lucky Star Original Soundtrack",
+    "artist": "Satoru Kosaki",
+    "year": "2024",
+    "genre": "anime soundtrack",
+    "price": "$$",
+    "cover": "./assets/cds/wishlist/lucky-star-original-soundtrack.jpg",
+    "source": "https://www.discogs.com/master/3517849-%E7%A5%9E%E5%89%8D%E6%9A%81-TV%E3%82%A2%E3%83%8B%E3%83%A1%E3%82%89%E3%81%8D%E3%81%99%E3%81%9F%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%8A%E3%83%AB%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF",
+    "nextUp": true,
+    "notes": "The long-awaited two-disc soundtrack release for Lucky Star, packed with Satoru Kosaki BGM from the anime."
+  },
+  {
+    "title": "Lucky Star Character Song Vol.011: Kanata Izumi & Soujirou Izumi",
+    "artist": "Sumi Shimamoto & Hirokazu Hiramatsu",
+    "year": "2007",
+    "genre": "anime character song",
+    "price": "$$",
+    "cover": "./assets/cds/wishlist/lucky-star-character-song-vol-011.jpg",
+    "source": "https://www.discogs.com/release/6999817-%E6%B3%89%E3%81%8B%E3%81%AA%E3%81%9F%E5%B3%B6%E6%9C%AC%E9%A0%88%E7%BE%8E-%E6%B3%89%E3%81%9D%E3%81%86%E3%81%98%E3%82%8D%E3%81%86%E5%B9%B3%E6%9D%BE%E5%BA%83%E5%92%8C-TV%E3%82%A2%E3%83%8B%E3%83%A1%E3%82%89%E3%81%8D%E3%81%99%E3%81%9F%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%82%BD",
+    "nextUp": true,
+    "notes": "The eleventh Lucky Star character song single, focused on Kanata and Soujirou Izumi with three vocal tracks."
+  },
+  {
+    "title": "Drama CD Lucky Star",
+    "artist": "Various Artists",
+    "year": "2005",
+    "genre": "anime drama CD",
+    "price": "$$",
+    "cover": "./assets/cds/wishlist/drama-cd-lucky-star.jpg",
+    "source": "https://www.discogs.com/release/7045839-Various-%E3%83%89%E3%83%A9%E3%83%9ECD-%E3%82%89%E3%81%8D%E3%81%99%E3%81%9F",
+    "nextUp": true,
+    "notes": "A Lucky Star manga-era drama CD with original cast audio scenes, released before the TV anime version."
+  },
+  {
+    "title": "Lucky Star Ending Theme Collection: Aru Hi no Karaoke Box",
+    "artist": "Aya Hirano, Emiri Kato, Kaori Fukuhara & Aya Endo",
+    "year": "2007",
+    "genre": "anime soundtrack",
+    "price": "$$",
+    "cover": "./assets/cds/wishlist/lucky-star-ending-theme-collection.jpg",
+    "source": "https://www.discogs.com/release/10759701-%E5%B9%B3%E9%87%8E-%E7%B6%BE-%E5%8A%A0%E8%97%A4-%E8%8B%B1%E7%BE%8E%E9%87%8C-%E7%A6%8F%E5%8E%9F-%E9%A6%99%E7%B9%94-%E9%81%A0%E8%97%A4-%E7%B6%BE-%E3%82%89%E3%81%8D%E3%81%99%E3%81%9F%E3%82%A8%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%86%E3%83%BC%E3%83%9E%E9%9B%86%E3%81%82",
+    "nextUp": true,
+    "notes": "The Lucky Star ending theme collection, framed like a karaoke-box session with the main cast."
+  },
+  {
+    "title": "Lucky Star Re-Mix002: Lucky Star no Kiwami, Ahh Shiteyan yo",
+    "artist": "Aya Hirano, Emiri Kato, Kaori Fukuhara & Aya Endo",
+    "year": "2007",
+    "genre": "anime remix",
+    "price": "$$",
+    "cover": "./assets/cds/wishlist/lucky-star-re-mix002.jpg",
+    "source": "https://www.discogs.com/release/3428988-%E5%B9%B3%E9%87%8E%E7%B6%BE-%E5%8A%A0%E8%97%A4%E8%8B%B1%E7%BE%8E%E9%87%8C-%E7%A6%8F%E5%8E%9F%E9%A6%99%E7%B9%94-%E9%81%A0%E8%97%A4%E7%B6%BE-%E3%82%89%E3%81%8D%E3%81%99%E3%81%9FRe-Mix002%E3%83%A9%E3%82%AD%E3%82%B9%E3%82%BF%E3%83%8E%E3%82%AD%E3%83%AF%E3%83%9F%E3%82%A2%E3%83%83",
+    "nextUp": true,
+    "notes": "A Lucky Star remix CD that turns the anime songs into a brighter, clubby character-song detour."
+  },
+  {
+    "title": "Chobits Original Soundtrack 001",
+    "artist": "K-taro Takanami",
+    "year": "2002",
+    "genre": "anime soundtrack",
+    "price": "$$",
+    "cover": "./assets/cds/wishlist/chobits-original-soundtrack-001.jpg",
+    "source": "https://www.discogs.com/release/1961685-K-Taro-Takanami-Chobits-Original-Soundtrack-001",
+    "nextUp": true,
+    "notes": "The first Chobits soundtrack, mixing soft BGM with Round Table featuring Nino and that early-2000s anime-CD feeling."
+  },
+  {
+    "title": "Serial Experiments Lain Sound Track",
+    "artist": "Nakaido \"Chabo\" Reichi",
+    "year": "1998",
+    "genre": "anime soundtrack",
+    "price": "$$$",
+    "cover": "./assets/cds/wishlist/serial-experiments-lain-sound-track.jpg",
+    "source": "https://www.discogs.com/master/176279-NakaidoChaboReichi-%E4%BB%B2%E4%BA%95%E6%88%B8Chabo%E9%BA%97%E5%B8%82-Serial-Experiments-Lain-Sound-Track",
+    "nextUp": true,
+    "notes": "The moody Serial Experiments Lain soundtrack, all hazy guitar, late-night atmosphere, and wired-in unease."
+  },
+  {
     "title": "Re-Wired",
     "artist": "Kuru",
     "year": "2025",

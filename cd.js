@@ -4,6 +4,9 @@ const cdEmpty = document.querySelector("[data-cd-empty]");
 const wishlistList = document.querySelector("[data-wishlist-list]");
 const wishlistEmpty = document.querySelector("[data-wishlist-empty]");
 const wishlistCountTarget = document.querySelector("[data-wishlist-count]");
+const nextUp = document.querySelector("[data-next-up]");
+const nextUpList = document.querySelector("[data-next-up-list]");
+const nextUpCountTarget = document.querySelector("[data-next-up-count]");
 const countTarget = document.querySelector("[data-cd-count]");
 const formatCountTarget = document.querySelector("[data-cd-format-count]");
 const genreCountTarget = document.querySelector("[data-cd-genre-count]");
@@ -78,9 +81,46 @@ function renderWishlist() {
   }
 
   wishlistList.innerHTML = "";
+  renderNextUp();
 
-  wishlist.forEach((cd, index) => {
-    wishlistList.append(createCdCard(cd, index, "wishlist"));
+  const groups = wishlist.reduce((result, cd, index) => {
+    const genre = cd.genre || "other";
+    const group = result.find((item) => item.genre === genre);
+    const entry = { cd, index };
+
+    if (group) {
+      group.items.push(entry);
+    } else {
+      result.push({ genre, items: [entry] });
+    }
+
+    return result;
+  }, []);
+
+  groups.forEach((group) => {
+    const section = document.createElement("section");
+    section.className = "wishlist-genre";
+    section.setAttribute("aria-label", `${group.genre} wishlist`);
+
+    const heading = document.createElement("div");
+    heading.className = "wishlist-genre-heading";
+
+    const title = document.createElement("h3");
+    title.textContent = group.genre;
+
+    const count = document.createElement("span");
+    count.textContent = `${group.items.length} wanted`;
+
+    const grid = document.createElement("div");
+    grid.className = "cd-list";
+
+    group.items.forEach(({ cd, index }) => {
+      grid.append(createCdCard(cd, index, "wishlist"));
+    });
+
+    heading.append(title, count);
+    section.append(heading, grid);
+    wishlistList.append(section);
   });
 
   if (wishlistEmpty) {
@@ -89,6 +129,28 @@ function renderWishlist() {
 
   if (wishlistCountTarget) {
     wishlistCountTarget.textContent = `${wishlist.length} wanted`;
+  }
+}
+
+function renderNextUp() {
+  if (!nextUp || !nextUpList) {
+    return;
+  }
+
+  const queued = wishlist
+    .map((cd, index) => ({ cd, index }))
+    .filter(({ cd }) => cd.nextUp);
+
+  nextUpList.innerHTML = "";
+
+  queued.forEach(({ cd, index }) => {
+    nextUpList.append(createCdCard(cd, index, "wishlist"));
+  });
+
+  nextUp.hidden = queued.length === 0;
+
+  if (nextUpCountTarget) {
+    nextUpCountTarget.textContent = `${queued.length} queued`;
   }
 }
 
