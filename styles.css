@@ -192,6 +192,7 @@ button:focus-visible {
 
 .button-links button,
 .button-links .nav-link {
+  position: relative;
   display: inline-flex;
   min-width: 112px;
   min-height: 38px;
@@ -205,6 +206,7 @@ button:focus-visible {
   font-size: 15px;
   line-height: 1;
   white-space: nowrap;
+  overflow: hidden;
   cursor: pointer;
   transition:
     border-color 160ms ease,
@@ -238,6 +240,74 @@ button:focus-visible {
 
 .guestbook-nav .nav-particles {
   display: none;
+}
+
+.cd-nav-link::before {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(90deg, transparent, rgba(127, 180, 255, 0.35), transparent) border-box;
+  opacity: 0;
+  transform: translateX(-100%);
+  content: "";
+  pointer-events: none;
+}
+
+.cd-nav-link::after {
+  position: absolute;
+  right: 12px;
+  bottom: 6px;
+  left: 12px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  content: "";
+  pointer-events: none;
+}
+
+.cd-nav-link:hover::after,
+.cd-nav-link.is-loading::after {
+  opacity: 0.62;
+  transform: scaleX(1);
+}
+
+.cd-nav-link.is-loading {
+  border-color: var(--link);
+  background: var(--link-soft);
+  color: var(--link);
+  animation: cd-nav-press 360ms ease both;
+}
+
+.cd-nav-link.is-loading::before {
+  opacity: 1;
+  animation: cd-nav-sweep 420ms ease both;
+}
+
+@keyframes cd-nav-press {
+  0% {
+    transform: translateY(-1px) scale(1);
+  }
+
+  45% {
+    transform: translateY(1px) scale(0.97);
+  }
+
+  100% {
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+
+@keyframes cd-nav-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .panel-stage {
@@ -1306,16 +1376,18 @@ body.dark .guestbook-entry {
 }
 
 .case-one {
+  --case-rotate: -7deg;
   top: 28px;
-  transform: rotate(-7deg);
+  transform: rotate(var(--case-rotate));
 }
 
 .case-two {
+  --case-rotate: 6deg;
   top: 78px;
   left: 17%;
   z-index: -1;
   border-color: rgba(157, 131, 255, 0.32);
-  transform: rotate(6deg);
+  transform: rotate(var(--case-rotate));
 }
 
 .compact-disc {
@@ -1587,6 +1659,113 @@ body.dark .guestbook-entry {
 
 .cd-page .footer {
   justify-content: center;
+}
+
+.cd-page .cd-topnav,
+.cd-page .cd-hero-copy,
+.cd-page .cd-hero-art,
+.cd-page .cd-controls,
+.cd-page .cd-summary,
+.cd-page .cd-section,
+.cd-page .footer {
+  animation: cd-page-rise 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.cd-page .cd-topnav {
+  animation-delay: 30ms;
+}
+
+.cd-page .cd-hero-copy {
+  animation-delay: 90ms;
+}
+
+.cd-page .cd-hero-art {
+  animation-delay: 170ms;
+}
+
+.cd-page .cd-controls {
+  animation-delay: 250ms;
+}
+
+.cd-page .cd-summary {
+  animation-delay: 310ms;
+}
+
+.cd-page .cd-section {
+  animation-delay: 380ms;
+}
+
+.cd-page .wishlist-section {
+  animation-delay: 460ms;
+}
+
+.cd-page .footer {
+  animation-delay: 520ms;
+}
+
+.cd-page .jewel-case {
+  animation: jewel-case-load 780ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.cd-page .case-two {
+  animation-delay: 90ms;
+}
+
+.cd-page .compact-disc {
+  animation: compact-disc-load 860ms 140ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.cd-page .cd-card {
+  animation: cd-card-load 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--cd-card-delay, 0ms);
+}
+
+@keyframes cd-page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes jewel-case-load {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(calc(var(--case-rotate) - 7deg)) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--case-rotate)) scale(1);
+  }
+}
+
+@keyframes compact-disc-load {
+  from {
+    opacity: 0;
+    transform: translate(28px, 12px) rotate(-38deg) scale(0.84);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0) scale(1);
+  }
+}
+
+@keyframes cd-card-load {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .cd-card {
@@ -2109,5 +2288,23 @@ body.dark .social-list a {
   .cd-popout-details h2 {
     padding-right: 68px;
     font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cd-nav-link,
+  .cd-nav-link.is-loading,
+  .cd-nav-link.is-loading::before,
+  .cd-page .cd-topnav,
+  .cd-page .cd-hero-copy,
+  .cd-page .cd-hero-art,
+  .cd-page .cd-controls,
+  .cd-page .cd-summary,
+  .cd-page .cd-section,
+  .cd-page .footer,
+  .cd-page .jewel-case,
+  .cd-page .compact-disc,
+  .cd-page .cd-card {
+    animation: none;
   }
 }

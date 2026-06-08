@@ -10,6 +10,7 @@ const guestbookList = document.querySelector("[data-guestbook-list]");
 const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
 const currentTime = document.querySelector("[data-current-time]");
+const cdLink = document.querySelector("[data-cd-link]");
 const discordId = "262467539685212160";
 
 function showPanel(panelName) {
@@ -28,6 +29,20 @@ buttons.forEach((button) => {
   button.addEventListener("click", () => {
     showPanel(button.dataset.panelButton);
   });
+});
+
+cdLink?.addEventListener("click", (event) => {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || cdLink.target) {
+    return;
+  }
+
+  event.preventDefault();
+  cdLink.classList.add("is-loading");
+  cdLink.setAttribute("aria-busy", "true");
+
+  window.setTimeout(() => {
+    window.location.href = cdLink.href;
+  }, 340);
 });
 
 projectButtons.forEach((button) => {

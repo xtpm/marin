@@ -163,6 +163,7 @@ function createCdCard(cd, index, shelf) {
   article.dataset.cdShelf = shelf;
   article.setAttribute("aria-label", `Open details for ${cd.title}`);
   article.style.setProperty("--cd-index", index);
+  article.style.setProperty("--cd-card-delay", `${Math.min(index, 10) * 34}ms`);
 
   const art = document.createElement("div");
   art.className = "cd-cover";
