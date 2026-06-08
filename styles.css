@@ -377,6 +377,11 @@ button:focus-visible {
   --social-bg: rgba(24, 23, 23, 0.06);
 }
 
+.social-discogs {
+  --social-color: #333333;
+  --social-bg: rgba(51, 51, 51, 0.07);
+}
+
 .social-twitter {
   --social-color: #000000;
   --social-bg: rgba(0, 0, 0, 0.055);
@@ -411,18 +416,6 @@ body.dark .discord-card {
   background: rgba(7, 14, 31, 0.92);
 }
 
-.discord-banner {
-  height: 104px;
-  border-bottom: 1px solid var(--line);
-  background-image: url("./assets/discord-banner.png");
-  background-position: 55% 31%;
-  background-size: cover;
-}
-
-body.dark .discord-banner {
-  border-bottom-color: #24314f;
-}
-
 .discord-body {
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr);
@@ -435,7 +428,6 @@ body.dark .discord-banner {
   position: relative;
   width: 64px;
   height: 64px;
-  margin-top: -42px;
 }
 
 .discord-avatar,
@@ -2008,10 +2000,6 @@ body.dark .social-list a {
     padding: 0;
   }
 
-  .discord-banner {
-    height: 86px;
-  }
-
   .discord-body {
     grid-template-columns: 52px minmax(0, 1fr);
     padding: 14px;
@@ -2022,10 +2010,6 @@ body.dark .social-list a {
   .discord-avatar-fallback {
     width: 52px;
     height: 52px;
-  }
-
-  .discord-avatar-wrap {
-    margin-top: -32px;
   }
 
   .discord-status {
