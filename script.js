@@ -11,6 +11,9 @@ const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
 const currentTime = document.querySelector("[data-current-time]");
 const cdLink = document.querySelector("[data-cd-link]");
+const birthdayCountdown = document.querySelector("[data-birthday-countdown]");
+const birthdayDate = document.querySelector("[data-birthday-date]");
+const birthdayProgress = document.querySelector("[data-birthday-progress]");
 const discordId = "262467539685212160";
 
 function showPanel(panelName) {
@@ -124,6 +127,81 @@ function updateCurrentTime() {
 
 updateCurrentTime();
 setInterval(updateCurrentTime, 1000);
+
+function getBirthdayWindow(now) {
+  const year = now.getFullYear();
+  const birthdayStart = new Date(year, 5, 12);
+  const birthdayEnd = new Date(year, 5, 13);
+
+  if (now >= birthdayStart && now < birthdayEnd) {
+    return {
+      isToday: true,
+      previous: new Date(year - 1, 5, 12),
+      next: birthdayStart,
+      upcoming: birthdayStart,
+    };
+  }
+
+  if (now < birthdayStart) {
+    return {
+      isToday: false,
+      previous: new Date(year - 1, 5, 12),
+      next: birthdayStart,
+      upcoming: birthdayStart,
+    };
+  }
+
+  return {
+    isToday: false,
+    previous: birthdayStart,
+    next: new Date(year + 1, 5, 12),
+    upcoming: new Date(year + 1, 5, 12),
+  };
+}
+
+function formatCountdown(ms) {
+  const safeMs = Math.max(0, ms);
+  const totalSeconds = Math.floor(safeMs / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  if (days > 0) {
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  return `${hours}h ${minutes}m ${seconds}s`;
+}
+
+function updateBirthdayCountdown() {
+  if (!birthdayCountdown || !birthdayProgress) {
+    return;
+  }
+
+  const now = new Date();
+  const birthday = getBirthdayWindow(now);
+
+  if (birthday.isToday) {
+    birthdayCountdown.textContent = "it's my birthday";
+    birthdayProgress.style.width = "100%";
+  } else {
+    birthdayCountdown.textContent = `${formatCountdown(birthday.next.getTime() - now.getTime())} until june 12`;
+
+    const elapsed = now.getTime() - birthday.previous.getTime();
+    const span = birthday.next.getTime() - birthday.previous.getTime();
+    const percent = span > 0 ? Math.min(100, Math.max(0, (elapsed / span) * 100)) : 0;
+    birthdayProgress.style.width = `${percent}%`;
+  }
+
+  if (birthdayDate) {
+    birthdayDate.dateTime = birthday.upcoming.toISOString();
+    birthdayDate.textContent = birthday.isToday ? "june 12 is today" : "june 12";
+  }
+}
+
+updateBirthdayCountdown();
+setInterval(updateBirthdayCountdown, 1000);
 
 function renderGuestbook(entries = []) {
   if (!guestbookList) {

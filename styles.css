@@ -624,6 +624,66 @@ body.dark .discord-status {
   margin-bottom: 28px;
 }
 
+.birthday-card {
+  min-width: 0;
+  margin-bottom: 28px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(127, 180, 255, 0.08), transparent 56%),
+    rgba(255, 255, 255, 0.22);
+}
+
+body.dark .birthday-card {
+  border-color: #24314f;
+  background:
+    linear-gradient(135deg, rgba(127, 180, 255, 0.08), transparent 56%),
+    rgba(7, 14, 31, 0.82);
+}
+
+.birthday-row {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.birthday-row strong {
+  display: block;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.birthday-row span {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.birthday-progress {
+  height: 3px;
+  margin-top: 12px;
+  overflow: hidden;
+  background: rgba(111, 111, 111, 0.18);
+}
+
+body.dark .birthday-progress {
+  background: rgba(143, 154, 173, 0.18);
+}
+
+.birthday-progress span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: var(--link);
+  transition: width 260ms ease;
+}
+
 .presence-card {
   min-width: 0;
   padding: 14px;
