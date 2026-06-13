@@ -56,7 +56,7 @@ const musicTracks = [
   },
 ];
 
-let activeMusicTrack = 0;
+let activeMusicTrack = Math.floor(Math.random() * musicTracks.length);
 
 function showPanel(panelName) {
   buttons.forEach((button) => {
