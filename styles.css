@@ -1384,9 +1384,9 @@ body.dark .music-player {
 
 .music-visualizer {
   display: flex;
-  height: 34px;
+  height: 46px;
   align-items: end;
-  gap: 4px;
+  gap: 3px;
   margin-top: 12px;
   padding: 8px 10px;
   border: 1px solid color-mix(in srgb, var(--link) 38%, transparent);
@@ -1397,37 +1397,11 @@ body.dark .music-player {
 .music-visualizer span {
   flex: 1;
   min-width: 0;
-  height: 18%;
+  height: 10%;
   background: linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--link) 72%, #ffffff) 45%, var(--link) 100%);
   opacity: 0.46;
   transform-origin: center bottom;
-}
-
-.music-player.is-playing .music-visualizer span {
-  animation: music-bars 760ms ease-in-out infinite alternate;
-  opacity: 0.95;
-}
-
-.music-player.is-playing .music-visualizer span:nth-child(2n) {
-  animation-duration: 940ms;
-}
-
-.music-player.is-playing .music-visualizer span:nth-child(3n) {
-  animation-duration: 620ms;
-}
-
-.music-player.is-playing .music-visualizer span:nth-child(4n) {
-  animation-duration: 1120ms;
-}
-
-@keyframes music-bars {
-  from {
-    height: 18%;
-  }
-
-  to {
-    height: 100%;
-  }
+  transition: height 42ms linear, opacity 42ms linear;
 }
 
 .music-progress {

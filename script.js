@@ -27,6 +27,7 @@ const musicTitle = document.querySelector("[data-music-title]");
 const musicArtist = document.querySelector("[data-music-artist]");
 const musicPrev = document.querySelector("[data-music-prev]");
 const musicNext = document.querySelector("[data-music-next]");
+const musicBars = [...document.querySelectorAll("[data-music-visualizer] span")];
 const discordId = "262467539685212160";
 
 const musicTracks = [
@@ -189,10 +190,97 @@ if (
   musicTitle &&
   musicArtist &&
   musicPrev &&
-  musicNext
+  musicNext &&
+  musicBars.length
 ) {
   backgroundMusic.volume = 0.18;
   let userPausedMusic = false;
+  let audioContext;
+  let analyser;
+  let frequencyData;
+  let visualizerFrame;
+
+  const resetVisualizerBars = () => {
+    musicBars.forEach((bar) => {
+      bar.style.height = "10%";
+      bar.style.opacity = "0.38";
+    });
+  };
+
+  const initializeMusicVisualizer = () => {
+    if (analyser) {
+      return;
+    }
+
+    const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextConstructor) {
+      return;
+    }
+
+    audioContext = new AudioContextConstructor();
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 512;
+    analyser.minDecibels = -82;
+    analyser.maxDecibels = -18;
+    analyser.smoothingTimeConstant = 0.38;
+
+    const source = audioContext.createMediaElementSource(backgroundMusic);
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
+    frequencyData = new Uint8Array(analyser.frequencyBinCount);
+  };
+
+  const renderVisualizerFrame = () => {
+    if (!analyser || !frequencyData || backgroundMusic.paused) {
+      resetVisualizerBars();
+      visualizerFrame = null;
+      return;
+    }
+
+    analyser.getByteFrequencyData(frequencyData);
+
+    musicBars.forEach((bar, index) => {
+      const low = index / musicBars.length;
+      const high = (index + 1) / musicBars.length;
+      const start = Math.floor((low * low) * frequencyData.length);
+      const end = Math.max(start + 1, Math.floor((high * high) * frequencyData.length));
+      let total = 0;
+      let peak = 0;
+
+      for (let i = start; i < end; i += 1) {
+        const value = frequencyData[i];
+        total += value;
+        peak = Math.max(peak, value);
+      }
+
+      const average = end > start ? total / (end - start) : 0;
+      const mixed = average * 0.46 + peak * 0.54;
+      const normalized = Math.min(1, Math.pow(mixed / 255, 0.64) * 1.28);
+      const height = Math.max(10, Math.round(normalized * 100));
+
+      bar.style.height = `${height}%`;
+      bar.style.opacity = `${Math.max(0.38, Math.min(1, normalized + 0.12))}`;
+    });
+
+    visualizerFrame = window.requestAnimationFrame(renderVisualizerFrame);
+  };
+
+  const startVisualizer = () => {
+    if (visualizerFrame) {
+      return;
+    }
+
+    visualizerFrame = window.requestAnimationFrame(renderVisualizerFrame);
+  };
+
+  const stopVisualizer = () => {
+    if (visualizerFrame) {
+      window.cancelAnimationFrame(visualizerFrame);
+      visualizerFrame = null;
+    }
+
+    resetVisualizerBars();
+  };
 
   const updateMusicProgress = () => {
     const duration = backgroundMusic.duration || 0;
@@ -229,6 +317,12 @@ if (
   });
 
   const playActiveTrack = () => {
+    initializeMusicVisualizer();
+
+    if (audioContext?.state === "suspended") {
+      audioContext.resume().catch(() => undefined);
+    }
+
     backgroundMusic.play().catch(() => {
       musicToggle.setAttribute("aria-pressed", "false");
       musicStatus.textContent = "blocked";
@@ -257,8 +351,14 @@ if (
 
   backgroundMusic.addEventListener("loadedmetadata", updateMusicProgress);
   backgroundMusic.addEventListener("timeupdate", updateMusicProgress);
-  backgroundMusic.addEventListener("play", updateMusicState);
-  backgroundMusic.addEventListener("pause", updateMusicState);
+  backgroundMusic.addEventListener("play", () => {
+    updateMusicState();
+    startVisualizer();
+  });
+  backgroundMusic.addEventListener("pause", () => {
+    updateMusicState();
+    stopVisualizer();
+  });
   backgroundMusic.addEventListener("ended", () => changeMusicTrack(1));
 
   musicPrev.addEventListener("click", () => changeMusicTrack(-1));
@@ -281,6 +381,7 @@ if (
   renderMusicTrack();
   updateMusicProgress();
   updateMusicState();
+  resetVisualizerBars();
 }
 
 function getBirthdayWindow(now) {
