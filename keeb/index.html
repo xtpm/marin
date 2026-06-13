@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>retrial g84</title>
+    <meta name="theme-color" content="#050505">
+    <meta name="description" content="retrial g84 lighting controller">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">retrial</p>
+          <h1>g84 lights</h1>
+          <p class="subhead">a small controller for sharp keyboard colors.</p>
+        </div>
+        <div class="connection">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">Disconnected</span>
+          <button id="connectButton" class="primary">Connect</button>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <section class="keyboard-stage">
+          <div class="stage-header">
+            <div>
+              <h2>keyboard</h2>
+              <p>live preview / wired via qmk</p>
+            </div>
+            <div id="profileSummary" class="summary"></div>
+          </div>
+          <div class="keyboard-frame">
+            <div id="keyboard" class="keyboard"></div>
+          </div>
+        </section>
+
+        <section class="command-deck">
+          <div class="panel controls">
+            <div class="tabs" role="tablist" aria-label="Lighting zones">
+              <button class="tab active" data-channel="backlight">Backlight</button>
+            <button class="tab" data-channel="logo">Logo</button>
+              <button class="tab" data-channel="side">Side</button>
+            </div>
+
+            <div class="control-grid">
+              <label>
+                Effect
+                <select id="effectSelect" class="native-select" aria-hidden="true" tabindex="-1"></select>
+                <div id="effectDropdown" class="custom-select">
+                  <button id="effectDropdownButton" class="custom-select-button" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span id="effectDropdownValue">solid color</span>
+                    <span class="custom-select-chevron">⌄</span>
+                  </button>
+                  <div id="effectDropdownMenu" class="custom-select-menu" role="listbox"></div>
+                </div>
+              </label>
+
+              <label>
+                Color
+                <input id="colorInput" type="color">
+              </label>
+
+              <label>
+                Brightness
+                <input id="brightnessInput" type="range">
+              </label>
+
+              <label>
+                Speed
+                <input id="speedInput" type="range">
+              </label>
+            </div>
+
+            <div class="actions">
+              <button id="applyButton" class="primary">Apply</button>
+              <button id="readButton">Read Keyboard</button>
+              <button id="offButton">All Off</button>
+              <button id="saveProfileButton">Save</button>
+              <button id="exportProfileButton">Export</button>
+              <label class="import-button">
+                Import
+                <input id="importProfileInput" type="file" accept="application/json">
+              </label>
+            </div>
+          </div>
+
+          <aside class="panel inspector">
+            <h2>command log</h2>
+            <div id="log" class="log"></div>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
