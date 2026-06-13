@@ -14,7 +14,49 @@ const cdLink = document.querySelector("[data-cd-link]");
 const birthdayCountdown = document.querySelector("[data-birthday-countdown]");
 const birthdayDate = document.querySelector("[data-birthday-date]");
 const birthdayProgress = document.querySelector("[data-birthday-progress]");
+const backgroundMusic = document.querySelector("[data-background-music]");
+const musicToggle = document.querySelector("[data-music-toggle]");
+const musicStatus = document.querySelector("[data-music-status]");
+const musicProgress = document.querySelector("[data-music-progress]");
+const musicCurrent = document.querySelector("[data-music-current]");
+const musicDuration = document.querySelector("[data-music-duration]");
+const musicVolume = document.querySelector("[data-music-volume]");
+const musicPlayer = document.querySelector("[data-music-player]");
+const musicCover = document.querySelector("[data-music-cover]");
+const musicTitle = document.querySelector("[data-music-title]");
+const musicArtist = document.querySelector("[data-music-artist]");
+const musicPrev = document.querySelector("[data-music-prev]");
+const musicNext = document.querySelector("[data-music-next]");
 const discordId = "262467539685212160";
+
+const musicTracks = [
+  {
+    title: "Last Train At 25 O'clock",
+    artist: "Lamp",
+    src: "./assets/music/last-train-at-25-oclock-lamp.mp3",
+    cover: "./assets/music/last-train-at-25-oclock-lamp.jpg",
+  },
+  {
+    title: "Spin The Words",
+    artist: "susquatch",
+    src: "./assets/music/spin-the-words-susquatch.mp3",
+    cover: "./assets/music/spin-the-words-susquatch.jpg",
+  },
+  {
+    title: "My Destiny (2026 Edit)",
+    artist: "Delinquent, KCAT, Mike Delinquent Project",
+    src: "./assets/music/my-destiny-2026-edit-delinquent.mp3",
+    cover: "./assets/music/my-destiny-2026-edit-delinquent.jpg",
+  },
+  {
+    title: "U wld never do it",
+    artist: "kuru",
+    src: "./assets/music/u-wld-never-do-it-kuru.mp3",
+    cover: "./assets/music/u-wld-never-do-it-kuru.jpg",
+  },
+];
+
+let activeMusicTrack = 0;
 
 function showPanel(panelName) {
   buttons.forEach((button) => {
@@ -127,6 +169,119 @@ function updateCurrentTime() {
 
 updateCurrentTime();
 setInterval(updateCurrentTime, 1000);
+
+function formatMusicTime(secondsValue) {
+  const safeSeconds = Number.isFinite(secondsValue) ? Math.max(0, Math.floor(secondsValue)) : 0;
+  const minutes = Math.floor(safeSeconds / 60);
+  const seconds = safeSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+if (
+  backgroundMusic &&
+  musicToggle &&
+  musicStatus &&
+  musicProgress &&
+  musicCurrent &&
+  musicDuration &&
+  musicVolume &&
+  musicCover &&
+  musicTitle &&
+  musicArtist &&
+  musicPrev &&
+  musicNext
+) {
+  backgroundMusic.volume = 0.18;
+  let userPausedMusic = false;
+
+  const updateMusicProgress = () => {
+    const duration = backgroundMusic.duration || 0;
+    const current = backgroundMusic.currentTime || 0;
+    const percent = duration ? Math.min(100, Math.max(0, (current / duration) * 100)) : 0;
+
+    musicProgress.style.width = `${percent}%`;
+    musicCurrent.textContent = formatMusicTime(current);
+    musicDuration.textContent = formatMusicTime(duration);
+  };
+
+  const renderMusicTrack = () => {
+    const track = musicTracks[activeMusicTrack];
+
+    backgroundMusic.src = track.src;
+    backgroundMusic.load();
+    musicCover.src = track.cover;
+    musicCover.alt = `${track.title} cover`;
+    musicTitle.textContent = track.title;
+    musicArtist.textContent = track.artist;
+    updateMusicProgress();
+  };
+
+  const updateMusicState = () => {
+    const playing = !backgroundMusic.paused;
+
+    musicPlayer?.classList.toggle("is-playing", playing);
+    musicToggle.setAttribute("aria-pressed", playing ? "true" : "false");
+    musicStatus.textContent = playing ? "pause" : "play";
+  };
+
+  musicVolume.addEventListener("input", () => {
+    backgroundMusic.volume = Number(musicVolume.value);
+  });
+
+  const playActiveTrack = () => {
+    backgroundMusic.play().catch(() => {
+      musicToggle.setAttribute("aria-pressed", "false");
+      musicStatus.textContent = "blocked";
+    });
+  };
+
+  const startMusicAfterInteraction = () => {
+    if (userPausedMusic || !backgroundMusic.paused) {
+      return;
+    }
+
+    playActiveTrack();
+  };
+
+  const changeMusicTrack = (direction) => {
+    const wasPlaying = !backgroundMusic.paused;
+    activeMusicTrack = (activeMusicTrack + direction + musicTracks.length) % musicTracks.length;
+    renderMusicTrack();
+
+    if (wasPlaying) {
+      playActiveTrack();
+    } else {
+      updateMusicState();
+    }
+  };
+
+  backgroundMusic.addEventListener("loadedmetadata", updateMusicProgress);
+  backgroundMusic.addEventListener("timeupdate", updateMusicProgress);
+  backgroundMusic.addEventListener("play", updateMusicState);
+  backgroundMusic.addEventListener("pause", updateMusicState);
+  backgroundMusic.addEventListener("ended", () => changeMusicTrack(1));
+
+  musicPrev.addEventListener("click", () => changeMusicTrack(-1));
+  musicNext.addEventListener("click", () => changeMusicTrack(1));
+
+  musicToggle.addEventListener("click", () => {
+    if (!backgroundMusic.paused) {
+      userPausedMusic = true;
+      backgroundMusic.pause();
+      return;
+    }
+
+    userPausedMusic = false;
+    playActiveTrack();
+  });
+
+  window.addEventListener("pointerdown", startMusicAfterInteraction, { once: true });
+  window.addEventListener("keydown", startMusicAfterInteraction, { once: true });
+
+  renderMusicTrack();
+  updateMusicProgress();
+  updateMusicState();
+}
 
 function getBirthdayWindow(now) {
   const year = now.getFullYear();

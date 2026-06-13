@@ -1,4 +1,6 @@
 server.log
 server.err.log
+server-*.log
+server-*.err.log
 .vercel
 .env*.local

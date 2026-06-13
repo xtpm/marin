@@ -430,6 +430,59 @@
         <span class="dot" aria-hidden="true"></span>
         <time data-current-time datetime="">loading time...</time>
       </footer>
+
+      <div class="music-player" data-music-player>
+        <audio data-background-music loop preload="none">
+          <source src="./assets/music/last-train-at-25-oclock-lamp.mp3" type="audio/mpeg" />
+        </audio>
+        <div class="music-player-top">
+          <img src="./assets/music/last-train-at-25-oclock-lamp.jpg" alt="" data-music-cover />
+          <div>
+            <p data-music-title>Last Train At 25 O'clock</p>
+            <span data-music-artist>Lamp</span>
+          </div>
+        </div>
+        <div class="music-visualizer" aria-hidden="true" data-music-visualizer>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="music-progress" aria-hidden="true">
+          <span data-music-progress></span>
+        </div>
+        <div class="music-time">
+          <span data-music-current>0:00</span>
+          <span data-music-duration>0:00</span>
+        </div>
+        <div class="music-controls">
+          <button type="button" data-music-prev aria-label="previous track">prev</button>
+          <button type="button" data-music-toggle aria-pressed="false">
+            <span data-music-status>play</span>
+          </button>
+          <button type="button" data-music-next aria-label="next track">next</button>
+          <label>
+            <span class="sr-only">music volume</span>
+            <input
+              class="music-volume-slider"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.18"
+              data-music-volume
+            />
+          </label>
+        </div>
+      </div>
     </div>
 
     <script src="./script.js"></script>
