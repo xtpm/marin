@@ -593,6 +593,26 @@ function getAvatarUrl(user) {
   return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=128`;
 }
 
+function formatDiscordCreationDate(id) {
+  try {
+    const snowflake = BigInt(id);
+    const timestamp = Number((snowflake >> 22n) + 1420070400000n);
+    const date = new Date(timestamp);
+
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    }
+
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }).toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
 function getActivityText(activities = []) {
   const customStatus = activities.find((activity) => activity.type === 4 && activity.state);
   if (customStatus) {
@@ -730,6 +750,7 @@ async function loadDiscordProfile() {
   const status = card.querySelector("[data-discord-status]");
   const handle = card.querySelector("[data-discord-handle]");
   const activity = card.querySelector("[data-discord-activity]");
+  const created = card.querySelector("[data-discord-created]");
 
   try {
     const response = await fetch(`https://api.lanyard.rest/v1/users/${discordId}`);
@@ -749,6 +770,9 @@ async function loadDiscordProfile() {
     status.textContent = discordStatus;
     handle.textContent = `@${user.username}`;
     activity.textContent = getActivityText(data.activities);
+    if (created) {
+      created.textContent = `since ${formatDiscordCreationDate(user.id) || "unknown"}`;
+    }
     updateNowPlaying(data);
     updateSpotify(data);
 
@@ -764,6 +788,9 @@ async function loadDiscordProfile() {
     status.textContent = "offline";
     handle.textContent = "@retriai";
     activity.textContent = "lanyard did not respond.";
+    if (created) {
+      created.textContent = `since ${formatDiscordCreationDate(discordId) || "unknown"}`;
+    }
     updateNowPlaying({ activities: [] });
     updateSpotify({ listening_to_spotify: false });
   }

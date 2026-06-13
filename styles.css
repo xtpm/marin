@@ -607,6 +607,26 @@ body.dark .discord-status {
   white-space: nowrap;
 }
 
+.discord-created {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  align-items: center;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.discord-created::before {
+  width: 1px;
+  height: 11px;
+  background: var(--line);
+  content: "";
+}
+
 .discord-info p {
   overflow: hidden;
   text-overflow: ellipsis;
