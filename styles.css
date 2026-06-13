@@ -550,15 +550,15 @@ body.dark .discord-status {
 }
 
 .discord-card[data-status="online"] .discord-status {
-  background: #f2f2f2;
+  background: #3ba55d;
 }
 
 .discord-card[data-status="idle"] .discord-status {
-  background: #c8c8c8;
+  background: #faa61a;
 }
 
 .discord-card[data-status="dnd"] .discord-status {
-  background: #8a8a8a;
+  background: #ed4245;
 }
 
 .discord-card[data-status="offline"] .discord-status {
