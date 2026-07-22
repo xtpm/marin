@@ -5,500 +5,318 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="retrial is a self-taught developer / designer building small systems and sharp interfaces."
+      content="retrial is an independent developer and designer building small systems, sharp interfaces, and personal corners of the web."
     />
-    <title>retrial</title>
+    <title>retrial / developer + designer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="dark">
-    <div class="page-shell">
-      <main id="home" class="content">
-        <section class="hero" aria-labelledby="hero-title">
-          <h1 id="hero-title">retrial</h1>
-          <p class="intro">
-            self-taught developer / designer <span class="desktop-word">building</span><br /><span class="mobile-word">building </span>small systems and sharp interfaces.
-          </p>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="./index.html" aria-label="retrial home">retrial</a>
+        <nav class="nav" aria-label="Portfolio sections">
+          <button class="active" type="button" data-panel-button="home">Index</button>
+          <button type="button" data-panel-button="info">Profile</button>
+          <button type="button" data-panel-button="projects">Work</button>
+          <button type="button" data-panel-button="stack">Toolkit</button>
+          <button type="button" data-panel-button="guestbook">Guestbook</button>
+          <a class="cd-nav-link" href="./cd.html" data-cd-link>CD Archive</a>
+        </nav>
+        <div class="role role-with-counter" aria-label="Site views">
+          <span class="view-counter-label">
+            <span><i aria-hidden="true"></i>site views</span>
+            <small>all time</small>
+          </span>
+          <strong data-site-views aria-live="polite">------</strong>
+        </div>
+      </header>
 
-          <div class="button-links" aria-label="Page sections">
-            <button class="active" type="button" data-panel-button="home">home</button>
-            <button type="button" data-panel-button="info">info</button>
-            <button type="button" data-panel-button="projects">projects</button>
-            <button type="button" data-panel-button="stack">my stack</button>
-            <button class="guestbook-nav" type="button" data-panel-button="guestbook">
-              <span class="nav-particles" aria-hidden="true">
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </span>
-              guestbook
-            </button>
-            <a class="nav-link cd-nav-link" href="./cd.html" data-cd-link>cds</a>
+      <main class="panel-stage">
+        <section class="panel home-panel active" id="panel-home" data-panel="home" aria-labelledby="home-title">
+          <div class="desk">
+            <section class="intro">
+              <div class="eyebrow">retrial / index</div>
+              <div class="statement-switcher" data-social-switcher>
+                <h1 class="statement statement-nav statement-main" id="home-title" data-social-main>
+                  <button class="active" type="button" data-panel-button="home">
+                    <span>Index</span><small aria-hidden="true">home / 00</small>
+                  </button>
+                  <button type="button" data-panel-button="info">
+                    <span>Profile</span><small aria-hidden="true">about / 01</small>
+                  </button>
+                  <button type="button" data-panel-button="projects">
+                    <span>Work</span><small aria-hidden="true">projects / 02</small>
+                  </button>
+                  <button type="button" data-panel-button="stack">
+                    <span>Toolkit</span><small aria-hidden="true">stack / 03</small>
+                  </button>
+                  <button type="button" data-panel-button="guestbook">
+                    <span>Guestbook</span><small aria-hidden="true">messages / 04</small>
+                  </button>
+                  <a href="./cd.html">
+                    <span>CD Archive</span><small aria-hidden="true">collection / 05</small>
+                  </a>
+                  <button type="button" data-socials-open aria-expanded="false" aria-controls="home-socials">
+                    <span>Socials</span><small aria-hidden="true">links / 06</small>
+                  </button>
+                </h1>
+                <nav class="statement statement-nav statement-socials" id="home-socials" aria-label="Social profiles" aria-hidden="true" data-social-menu inert>
+                  <button class="socials-back" type="button" data-socials-close>
+                    <span>Back</span><small aria-hidden="true">menu / 00</small>
+                  </button>
+                  <a href="https://github.com/xtpm" target="_blank" rel="noreferrer"><span>GitHub</span><small aria-hidden="true">@xtpm / 01</small></a>
+                  <a href="https://www.discogs.com/user/bypassing" target="_blank" rel="noreferrer"><span>Discogs</span><small aria-hidden="true">@bypassing / 02</small></a>
+                  <a href="https://x.com/retrialed" target="_blank" rel="noreferrer"><span>X</span><small aria-hidden="true">@retrialed / 03</small></a>
+                  <a href="https://instagram.com/0mkx" target="_blank" rel="noreferrer"><span>Instagram</span><small aria-hidden="true">@0mkx / 04</small></a>
+                  <a href="https://tiktok.com/@zuxm" target="_blank" rel="noreferrer"><span>TikTok</span><small aria-hidden="true">@zuxm / 05</small></a>
+                  <a href="https://t.me/retria1" target="_blank" rel="noreferrer"><span>Telegram</span><small aria-hidden="true">@retria1 / 06</small></a>
+                </nav>
+              </div>
+              <div class="intro-lower">
+                <div class="intro-meta">
+                  <span>signal / portfolio</span>
+                  <span>PA / US</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="album spotify-showcase spotify-card" aria-label="Live Spotify activity" data-spotify-card>
+              <div class="album-top">
+                <div>
+                  <span class="module-label">live on spotify</span>
+                  <strong data-spotify-title>Not listening</strong>
+                </div>
+                <span class="recording"><i aria-hidden="true"></i><span data-spotify-artist>Nothing is playing</span></span>
+              </div>
+              <div class="cover spotify-cover-stage">
+                <img data-spotify-cover alt="" hidden />
+                <span class="spotify-idle">spotify<br />quiet</span>
+              </div>
+              <div class="album-bottom spotify-album-bottom">
+                <span>live feed</span>
+                <div class="player-timeline">
+                  <div class="spotify-progress" aria-hidden="true"><span data-spotify-progress></span></div>
+                </div>
+                <span>lanyard</span>
+              </div>
+            </section>
+
+            <section class="presence discord-card" aria-label="Live presence" data-discord-card>
+              <div class="presence-head">
+                <div class="section-label">live presence</div>
+                <div class="presence-index">03 / ACTIVE</div>
+              </div>
+              <div class="presence-row discord-row">
+                <div class="discord-row-head">
+                  <div class="presence-key">Discord</div>
+                  <div class="discord-state">
+                    <span class="discord-status" data-discord-status-dot aria-hidden="true"></span>
+                    <small data-discord-status>Checking...</small>
+                  </div>
+                </div>
+                <div class="discord-profile">
+                  <div class="discord-avatar-wrap">
+                    <img class="discord-avatar" data-discord-avatar alt="" width="76" height="76" hidden />
+                  </div>
+                  <div class="discord-profile-copy">
+                    <div class="discord-identity">
+                      <strong data-discord-name>Loading Discord</strong>
+                      <span data-discord-handle>@retriai</span>
+                    </div>
+                    <p data-discord-activity>Pulling profile from Lanyard.</p>
+                    <small data-discord-created>Since calculating...</small>
+                  </div>
+                </div>
+              </div>
+              <div class="presence-row" data-now-playing-card>
+                <div class="presence-key">Activity</div>
+                <div class="presence-value media-value">
+                  <img data-now-playing-image alt="" hidden />
+                  <span><strong data-now-playing-title>Checking...</strong><small data-now-playing-detail>Pulling live activity.</small></span>
+                </div>
+              </div>
+              <div class="presence-row birthday-row">
+                <div class="presence-key">Birthday</div>
+                <div class="birthday-block">
+                  <span>birthday / june 12</span>
+                  <strong data-birthday-countdown>Calculating...</strong>
+                  <time data-birthday-date>June 12</time>
+                  <div class="birthday-progress" aria-hidden="true"><span data-birthday-progress></span></div>
+                </div>
+              </div>
+              <div class="presence-visual site-player-visual music-player" data-music-player>
+                <audio data-background-music preload="none">
+                  <source src="./assets/music/last-train-at-25-oclock-lamp.mp3" type="audio/mpeg" />
+                </audio>
+                <div class="visual-player-label"><span>site player</span><small>rotating queue</small></div>
+                <div class="spectrum player-spectrum" aria-hidden="true" data-music-visualizer>
+                  <span style="--bar: 18%"></span><span style="--bar: 33%"></span><span style="--bar: 57%"></span>
+                  <span style="--bar: 41%"></span><span style="--bar: 72%"></span><span style="--bar: 29%"></span>
+                  <span style="--bar: 89%"></span><span style="--bar: 48%"></span><span style="--bar: 64%"></span>
+                  <span style="--bar: 36%"></span><span style="--bar: 81%"></span><span style="--bar: 52%"></span>
+                  <span style="--bar: 69%"></span><span style="--bar: 26%"></span><span style="--bar: 94%"></span>
+                  <span style="--bar: 43%"></span><span style="--bar: 61%"></span><span style="--bar: 34%"></span>
+                  <span style="--bar: 76%"></span><span style="--bar: 21%"></span>
+                </div>
+                <div class="compact-player">
+                  <div class="compact-track">
+                    <img src="./assets/music/last-train-at-25-oclock-lamp.jpg" alt="" data-music-cover />
+                    <span><strong data-music-title>Last Train At 25 O'clock</strong><small data-music-artist>Lamp</small></span>
+                  </div>
+                  <div class="compact-transport">
+                    <div class="transport-controls">
+                      <button type="button" data-music-prev aria-label="Previous track">←</button>
+                      <button type="button" data-music-toggle aria-pressed="false"><span data-music-status>Play</span></button>
+                      <button type="button" data-music-next aria-label="Next track">→</button>
+                    </div>
+                    <div class="player-timeline">
+                      <div class="music-progress" aria-hidden="true"><span data-music-progress></span></div>
+                      <div class="music-time"><span data-music-current>0:00</span><span data-music-duration>0:00</span></div>
+                    </div>
+                    <label class="compact-volume">
+                      <span class="sr-only">Music volume</span>
+                      <input type="range" min="0" max="1" step="0.01" value="0.18" data-music-volume />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+        </section>
+
+        <section class="panel workspace-panel" id="panel-info" data-panel="info" aria-labelledby="info-title" hidden>
+          <header class="workspace-heading profile-heading">
+            <div><span class="section-label">profile / 01</span><h2 id="info-title">Profile</h2></div>
+            <p>Cybersecurity student, independent developer, designer, and collector based in Pennsylvania.</p>
+          </header>
+          <div class="profile-layout">
+            <section class="profile-story" aria-labelledby="profile-thesis-title">
+              <span class="module-label">working thesis</span>
+              <h3 id="profile-thesis-title">Understand the system.<span>Shape the surface.</span></h3>
+              <p>I like understanding what happens behind the interface, then making the interface worth looking at.</p>
+            </section>
+            <section class="profile-background" aria-label="Background">
+              <span class="module-label">background</span>
+              <div class="profile-background-copy">
+                <p>I’m studying cybersecurity alongside business administration. I graduated high school in 2024 and spent time working part-time as a mechanic before shifting more seriously into tech.</p>
+                <p>My interest started around 14–16, close to the Counter Blox and CS:GO cheating scene. That world made me curious about security, systems, and how software behaves beneath the surface.</p>
+              </div>
+              <div class="profile-facts">
+                <span><small>studying</small>cybersecurity + business</span>
+                <span><small>building</small>web systems + interfaces</span>
+                <span><small>collecting</small>music + physical media</span>
+              </div>
+            </section>
+          </div>
+          <div class="video-block profile-video-block">
+            <div class="block-heading"><span>selected video</span><span>03 / pieces</span></div>
+            <div class="video-list profile-video-list">
+              <figure class="profile-video profile-video-featured">
+                <figcaption><span>01 / feature</span><b>visual reference</b></figcaption>
+                <iframe loading="lazy" src="https://www.youtube.com/embed/S7nGirUFxVI" title="Featured video one" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </figure>
+              <figure class="profile-video">
+                <figcaption><span>02 / archive</span><b>selected piece</b></figcaption>
+                <iframe loading="lazy" src="https://www.youtube.com/embed/JZDWQ2SpM90" title="Featured video two" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </figure>
+              <figure class="profile-video">
+                <figcaption><span>03 / archive</span><b>selected piece</b></figcaption>
+                <iframe loading="lazy" src="https://www.youtube.com/embed/TQRbqzHHzkg" title="Featured video three" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </figure>
+            </div>
           </div>
         </section>
 
-        <div class="panel-stage" aria-live="polite">
-          <section class="section panel active" id="panel-home" data-panel="home" aria-labelledby="home-panel-title">
-            <article class="discord-card" data-discord-card>
-              <div class="discord-body">
-                <div class="discord-avatar-wrap">
-                  <img
-                    class="discord-avatar"
-                    data-discord-avatar
-                    alt=""
-                    width="56"
-                    height="56"
-                    hidden
-                  />
-                  <span class="discord-avatar-fallback" data-discord-fallback>r_</span>
-                  <span class="discord-status" data-discord-status-dot aria-hidden="true"></span>
-                </div>
-                <div class="discord-info">
-                  <div class="discord-topline">
-                    <span data-discord-status>checking...</span>
-                  </div>
-                  <div class="discord-identity">
-                    <strong class="discord-name" data-discord-name>loading discord</strong>
-                    <span class="discord-handle" data-discord-handle>@retriai</span>
-                    <span class="discord-created" data-discord-created>since calculating...</span>
-                  </div>
-                  <p data-discord-activity>pulling profile from lanyard.</p>
-                </div>
-              </div>
-            </article>
-            <div class="presence-grid" aria-label="Live presence">
-              <article class="presence-card" data-now-playing-card>
-                <span class="presence-label">now playing</span>
-                <div class="presence-row">
-                  <img data-now-playing-image alt="" hidden />
-                  <div>
-                    <strong data-now-playing-title>checking...</strong>
-                    <p data-now-playing-detail>pulling activity from lanyard.</p>
-                  </div>
-                </div>
-              </article>
-              <article class="presence-card spotify-card" data-spotify-card>
-                <span class="presence-label">spotify</span>
-                <div class="spotify-row">
-                  <img data-spotify-cover alt="" hidden />
-                  <div>
-                    <strong data-spotify-title>not listening</strong>
-                    <p data-spotify-artist>spotify is quiet right now.</p>
-                  </div>
-                </div>
-                <div class="spotify-progress" aria-hidden="true">
-                  <span data-spotify-progress></span>
-                </div>
-              </article>
-            </div>
-            <article class="birthday-card" aria-label="Birthday countdown">
-              <span class="presence-label">birthday</span>
-              <div class="birthday-row">
-                <strong data-birthday-countdown>calculating...</strong>
-                <span data-birthday-date>june 12</span>
-              </div>
-              <div class="birthday-progress" aria-hidden="true">
-                <span data-birthday-progress></span>
-              </div>
-            </article>
-            <h2 id="home-panel-title">socials</h2>
-            <div class="home-panel">
-              <div class="social-list">
-                <a class="social-github" href="https://github.com/xtpm" target="_blank" rel="noreferrer">
-                  <span>
-                    <img src="https://cdn.simpleicons.org/github/181717" alt="" />
-                    github
-                  </span>
-                  <b aria-hidden="true">-></b>
-                </a>
-                <a class="social-discogs" href="https://www.discogs.com/user/bypassing" target="_blank" rel="noreferrer">
-                  <span>
-                    <img src="https://cdn.simpleicons.org/discogs/333333" alt="" />
-                    discogs
-                  </span>
-                  <b aria-hidden="true">-></b>
-                </a>
-                <a class="social-twitter" href="https://x.com/retrialed" target="_blank" rel="noreferrer">
-                  <span>
-                    <img src="https://cdn.simpleicons.org/x/181717" alt="" />
-                    twitter
-                  </span>
-                  <b aria-hidden="true">-></b>
-                </a>
-                <a class="social-instagram" href="https://instagram.com/0mkx" target="_blank" rel="noreferrer">
-                  <span>
-                    <img src="https://cdn.simpleicons.org/instagram/181717" alt="" />
-                    instagram
-                  </span>
-                  <b aria-hidden="true">-></b>
-                </a>
-                <a class="social-tiktok" href="https://tiktok.com/@zuxm" target="_blank" rel="noreferrer">
-                  <span>
-                    <img src="https://cdn.simpleicons.org/tiktok/181717" alt="" />
-                    tiktok
-                  </span>
-                  <b aria-hidden="true">-></b>
-                </a>
-                <a class="social-telegram" href="https://t.me/retria1" target="_blank" rel="noreferrer">
-                  <span>
-                    <img src="https://cdn.simpleicons.org/telegram/181717" alt="" />
-                    telegram
-                  </span>
-                  <b aria-hidden="true">-></b>
-                </a>
-              </div>
-            </div>
-          </section>
+        <section class="panel workspace-panel" id="panel-projects" data-panel="projects" aria-labelledby="projects-title" hidden>
+          <header class="workspace-heading">
+            <div><span class="section-label">work / 02</span><h2 id="projects-title">Projects + experiments</h2></div>
+            <p>Useful tools, shared digital spaces, and earlier experiments from the archive.</p>
+          </header>
+          <div class="tab-switch project-switch" aria-label="Project category">
+            <span class="tab-switch-indicator" aria-hidden="true"></span>
+            <button class="active" type="button" data-project-button="current">Current</button>
+            <button type="button" data-project-button="archive">Archive</button>
+          </div>
+          <div class="project-list active" data-project-list="current">
+            <a class="project" href="https://retrial.cc" target="_blank" rel="noreferrer"><span class="project-index">01</span><span><strong>retrial.cc</strong><em>Personal alias site and current home for my work.</em></span><span class="project-meta">2026 / PERSONAL</span><b>↗</b></a>
+            <a class="project" href="https://retrial.cc/keeb/" target="_blank" rel="noreferrer"><span class="project-index">02</span><span><strong>keebs</strong><em>Static WebHID lighting controller for the EPOMAKER G84.</em></span><span class="project-meta">2026 / ACTIVE</span><b>↗</b></a>
+            <a class="project" href="https://r.retrial.cc/" target="_blank" rel="noreferrer"><span class="project-index">03</span><span><strong>reminders</strong><em>Reminder tool with iPhone notifications and Discord webhooks.</em></span><span class="project-meta">2026 / ACTIVE</span><b>↗</b></a>
+            <a class="project" href="https://kuudere.cc" target="_blank" rel="noreferrer"><span class="project-index">04</span><span><strong>kuudere.cc</strong><em>A digital paradise for me and my friends, built beyond bio links.</em></span><span class="project-meta">2026 / ACTIVE</span><b>↗</b></a>
+            <a class="project" href="#"><span class="project-index">05</span><span><strong>kobeni.net</strong><em>Invite-only bio link service founded with friends.</em></span><span class="project-meta">2025 / HOLD</span><b>↗</b></a>
+          </div>
+          <div class="project-list" data-project-list="archive" hidden>
+            <a class="project" href="#"><span class="project-index">A1</span><span><strong>yotsuba.cc</strong><em>The first version of kuudere.cc and an early personal web experiment.</em></span><span class="project-meta">2024 / INACTIVE</span><b>↗</b></a>
+            <a class="project" href="#"><span class="project-index">A2</span><span><strong>Luck Software</strong><em>An early company where I handled sales, marketing, invoices, and client work.</em></span><span class="project-meta">2022 / INACTIVE</span><b>↗</b></a>
+          </div>
+        </section>
 
-          <section class="section panel" id="panel-info" data-panel="info" aria-labelledby="info-title" hidden>
-            <h2 id="info-title">info</h2>
-            <p class="info-copy">
-              i'm 20 from PA, currently studying cybersecurity and business administration. i graduated high school in 2024 and spent some time working part-time as a mechanic before shifting more seriously into tech. my interest started around 14-16, when i was around the Counter Blox / CS:GO cheating scene. being close to that world got me curious about security, systems, and how things work behind the scenes.
-            </p>
-            <div class="video-list" aria-label="Featured videos">
-              <iframe
-                src="https://www.youtube.com/embed/S7nGirUFxVI"
-                title="YouTube video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-              <iframe
-                src="https://www.youtube.com/embed/JZDWQ2SpM90"
-                title="YouTube video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-              <iframe
-                src="https://www.youtube.com/embed/TQRbqzHHzkg"
-                title="YouTube video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </section>
+        <section class="panel workspace-panel" id="panel-stack" data-panel="stack" aria-labelledby="stack-title" hidden>
+          <header class="workspace-heading">
+            <div><span class="section-label">toolkit / 03</span><h2 id="stack-title">Working set</h2></div>
+            <p>A changing kit of languages, frameworks, creative tools, and deployment platforms.</p>
+          </header>
+          <div class="tab-switch stack-switch" aria-label="Stack category">
+            <span class="tab-switch-indicator" aria-hidden="true"></span>
+            <button class="active" type="button" data-stack-button="langs">Languages + tech</button>
+            <button type="button" data-stack-button="programs">Programs</button>
+          </div>
+          <div class="stack-list active" data-stack-list="langs">
+            <article class="stack-item"><span>01</span><img src="https://cdn.simpleicons.org/astro/F7F7F2" alt="" /><div><strong>Astro</strong><p>Content-first framework for fast static sites.</p></div></article>
+            <article class="stack-item"><span>02</span><img src="https://cdn.simpleicons.org/typescript/F7F7F2" alt="" /><div><strong>TypeScript</strong><p>Typed JavaScript for larger projects.</p></div></article>
+            <article class="stack-item"><span>03</span><img src="https://cdn.simpleicons.org/react/F7F7F2" alt="" /><div><strong>React</strong><p>Component-driven interfaces and app views.</p></div></article>
+            <article class="stack-item"><span>04</span><img src="https://cdn.simpleicons.org/html5/F7F7F2" alt="" /><div><strong>HTML + CSS</strong><p>Structure, layout, systems, and polish.</p></div></article>
+            <article class="stack-item"><span>05</span><img src="https://cdn.simpleicons.org/javascript/F7F7F2" alt="" /><div><strong>JavaScript</strong><p>The language I keep coming back to.</p></div></article>
+            <article class="stack-item"><span>06</span><img src="https://cdn.simpleicons.org/vite/F7F7F2" alt="" /><div><strong>Vite</strong><p>Fast development and modern builds.</p></div></article>
+            <article class="stack-item"><span>07</span><img src="https://cdn.simpleicons.org/vercel/F7F7F2" alt="" /><div><strong>Vercel</strong><p>Deployments, previews, and functions.</p></div></article>
+            <article class="stack-item"><span>08</span><img src="https://cdn.simpleicons.org/cloudflare/F7F7F2" alt="" /><div><strong>Cloudflare</strong><p>DNS, domains, security, and edge services.</p></div></article>
+          </div>
+          <div class="stack-list" data-stack-list="programs" hidden>
+            <article class="stack-item"><span>01</span><img src="./assets/stack/visual-studio-code.png" alt="" /><div><strong>Visual Studio Code</strong><p>Writing, debugging, and daily project work.</p></div></article>
+            <article class="stack-item"><span>02</span><img src="./assets/stack/premiere-pro.png" alt="" /><div><strong>Premiere Pro</strong><p>Timeline editing, audio, color, and export.</p></div></article>
+            <article class="stack-item"><span>03</span><img src="./assets/stack/after-effects.png" alt="" /><div><strong>After Effects</strong><p>Motion graphics, compositing, and animation.</p></div></article>
+            <article class="stack-item"><span>04</span><img src="https://cdn.simpleicons.org/figma/F7F7F2" alt="" /><div><strong>Figma</strong><p>Interface layouts, prototypes, and systems.</p></div></article>
+            <article class="stack-item"><span>05</span><img src="https://cdn.simpleicons.org/github/F7F7F2" alt="" /><div><strong>GitHub</strong><p>Repositories, issues, and releases.</p></div></article>
+            <article class="stack-item"><span>06</span><span class="stack-logo-fallback">C_</span><div><strong>Codex</strong><p>Editing, testing, and iterating on projects.</p></div></article>
+          </div>
+        </section>
 
-          <section class="section panel" id="panel-projects" data-panel="projects" aria-labelledby="projects-title" hidden>
-            <h2 id="projects-title">projects</h2>
-            <div class="tab-switch project-switch" aria-label="Project category">
-              <span class="tab-switch-indicator" aria-hidden="true"></span>
-              <button class="active" type="button" data-project-button="current">current</button>
-              <button type="button" data-project-button="archive">archive</button>
-            </div>
-            <div class="project-list active" data-project-list="current">
-              <a class="project" href="https://retrial.cc" target="_blank" rel="noreferrer" aria-label="Open retrial.cc project">
-                <span>
-                  <strong>retrial.cc <small>2026</small> <small class="project-status other-status">other</small></strong>
-                  <em>personal alias site and current home for my work.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-              <a class="project" href="https://retrial.cc/keeb/" target="_blank" rel="noreferrer" aria-label="Open keebs project">
-                <span>
-                  <strong>keebs <small>2026</small> <small class="project-status active-status">active</small></strong>
-                  <em>Static WebHID lighting controller for the EPOMAKER G84.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-              <a class="project" href="https://r.retrial.cc/" target="_blank" rel="noreferrer" aria-label="Open r.retrial.cc project">
-                <span>
-                  <strong>reminders <small>2026</small> <small class="project-status active-status">active</small></strong>
-                  <em>simple reminder tool with iPhone notifications and Discord webhook integration.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-              <a class="project" href="https://kuudere.cc" target="_blank" rel="noreferrer" aria-label="Open kuudere.cc project">
-                <span>
-                  <strong>kuudere.cc <small>2026</small> <small class="project-status active-status">active</small></strong>
-                  <em>my digital paradise. a passion project for me and my friends, built as a home beyond bio links.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-              <a class="project" href="#" aria-label="View kobeni.net project">
-                <span>
-                  <strong>kobeni.net <small>2025</small> <small class="project-status hold-status">on hold</small></strong>
-                  <em>exclusive invite-only bio link service founded by retrial, mke, arturiafm, and lennie.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-            </div>
-            <div class="project-list" data-project-list="archive" hidden>
-              <a class="project" href="#" aria-label="View yotsuba.cc project">
-                <span>
-                  <strong>yotsuba.cc <small>2024</small> <small class="project-status inactive-status">inactive</small></strong>
-                  <em>first version of kuudere.cc, built around a minimal dark layout and personal web aesthetic.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-              <a class="project" href="#" aria-label="View Luck Software project">
-                <span>
-                  <strong>Luck Software <small>2022</small> <small class="project-status inactive-status">inactive</small></strong>
-                  <em>old cheat company i founded. i handled sales, marketing, invoices, and most of the client side.</em>
-                </span>
-                <b aria-hidden="true">-></b>
-              </a>
-            </div>
-          </section>
-
-          <section class="section panel" id="panel-stack" data-panel="stack" aria-labelledby="stack-title" hidden>
-            <h2 id="stack-title">my stack</h2>
-            <div class="tab-switch stack-switch" aria-label="Stack category">
-              <span class="tab-switch-indicator" aria-hidden="true"></span>
-              <button class="active" type="button" data-stack-button="langs">langs / tech</button>
-              <button type="button" data-stack-button="programs">programs</button>
-            </div>
-            <div class="stack-list active" data-stack-list="langs">
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/astro/BC52EE" alt="" />
-                <div>
-                  <strong>astro</strong>
-                  <p>content-first framework for fast static sites.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="" />
-                <div>
-                  <strong>typescript</strong>
-                  <p>javascript with types for cleaner larger projects.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/react/61DAFB" alt="" />
-                <div>
-                  <strong>react</strong>
-                  <p>component-driven interfaces and app views.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/html5/E34F26" alt="" />
-                <div>
-                  <strong>html</strong>
-                  <p>structure, documents, and the base of the web.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/npm/CB3837" alt="" />
-                <div>
-                  <strong>npm</strong>
-                  <p>packages, scripts, and project tooling.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <span class="stack-duo">
-                  <img src="https://cdn.simpleicons.org/css/663399" alt="" />
-                  <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="" />
-                </span>
-                <div>
-                  <strong>css / tailwindcss</strong>
-                  <p>styling systems, layout, and utility-first polish.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/vite/646CFF" alt="" />
-                <div>
-                  <strong>vite</strong>
-                  <p>fast dev server and modern frontend builds.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" />
-                <div>
-                  <strong>javascript</strong>
-                  <p>the language i keep coming back to.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/bun/000000" alt="" />
-                <div>
-                  <strong>bun</strong>
-                  <p>fast JavaScript runtime, bundler, test runner, and package manager.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/yarn/2C8EBB" alt="" />
-                <div>
-                  <strong>yarn</strong>
-                  <p>dependency manager for installing, locking, and running project packages.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/vercel/000000" alt="" />
-                <div>
-                  <strong>vercel</strong>
-                  <p>frontend cloud platform for deploying sites, apps, previews, and functions.</p>
-                </div>
-              </article>
-            </div>
-            <div class="stack-list" data-stack-list="programs" hidden>
-              <article class="stack-item">
-                <img src="./assets/stack/visual-studio-code.png" alt="" />
-                <div>
-                  <strong>visual studio code</strong>
-                  <p>code editor for writing, debugging, extensions, and daily project work.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="./assets/stack/premiere-pro.png" alt="" />
-                <div>
-                  <strong>premiere pro</strong>
-                  <p>professional video editor for timeline cuts, audio, color, and export.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="./assets/stack/after-effects.png" alt="" />
-                <div>
-                  <strong>after effects</strong>
-                  <p>motion graphics and compositing tool for effects, animation, and visuals.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="" />
-                <div>
-                  <strong>cloudflare</strong>
-                  <p>web infrastructure for DNS, domains, caching, security, and edge services.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <span class="stack-logo-fallback">c_</span>
-                <div>
-                  <strong>codex</strong>
-                  <p>AI coding agent for editing, testing, and iterating on local projects.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/figma/F24E1E" alt="" />
-                <div>
-                  <strong>figma</strong>
-                  <p>collaborative design tool for interface layouts, prototypes, and systems.</p>
-                </div>
-              </article>
-              <article class="stack-item">
-                <img src="https://cdn.simpleicons.org/github/181717" alt="" />
-                <div>
-                  <strong>github</strong>
-                  <p>Git hosting platform for repositories, issues, pull requests, and releases.</p>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <section class="section panel" id="panel-guestbook" data-panel="guestbook" aria-labelledby="guestbook-title" hidden>
-            <h2 id="guestbook-title">guestbook</h2>
-            <p class="guestbook-intro">
-              leave something public for the wall, or send a private note only i can see.
-            </p>
+        <section class="panel workspace-panel" id="panel-guestbook" data-panel="guestbook" aria-labelledby="guestbook-title" hidden>
+          <header class="workspace-heading">
+            <div><span class="section-label">guestbook / 04</span><h2 id="guestbook-title">Leave a signal</h2></div>
+            <p>Add something to the public wall or send a private note only I can see.</p>
+          </header>
+          <div class="guestbook-layout">
             <form class="guestbook-form" data-guestbook-form>
-              <label>
-                name
-                <input type="text" name="name" placeholder="anonymous" maxlength="32" />
-              </label>
-              <label>
-                discord username
-                <input type="text" name="discord" placeholder="@retriai" maxlength="32" />
-              </label>
-              <label>
-                message
-                <textarea name="message" placeholder="write something cool..." maxlength="240"></textarea>
-              </label>
+              <label><span>Name</span><input type="text" name="name" placeholder="Anonymous" maxlength="32" /></label>
+              <label><span>Discord username</span><input type="text" name="discord" placeholder="@retriai" maxlength="32" /></label>
+              <label class="message-field"><span>Message</span><textarea name="message" placeholder="Write something..." maxlength="240"></textarea></label>
               <div class="guestbook-mode" aria-label="Message visibility">
-                <span class="guestbook-mode-indicator" aria-hidden="true"></span>
-                <button class="active" type="button" data-guestbook-visibility="public">public</button>
-                <button type="button" data-guestbook-visibility="private">private</button>
+                <button class="active" type="button" data-guestbook-visibility="public">Public</button>
+                <button type="button" data-guestbook-visibility="private">Private</button>
               </div>
-              <button class="guestbook-submit" type="submit" data-guestbook-submit>send message -></button>
+              <button class="guestbook-submit" type="submit" data-guestbook-submit>Transmit message</button>
               <p class="guestbook-feedback" data-guestbook-feedback aria-live="polite"></p>
             </form>
             <div class="guestbook-list" aria-label="Public guestbook messages" data-guestbook-list>
-              <article class="guestbook-entry">
-                <div>
-                  <strong>mke</strong>
-                  <time datetime="2026-05-17">may 17, 2026</time>
-                </div>
-                <p>site feels clean. retrial era looking real.</p>
-              </article>
-              <article class="guestbook-entry">
-                <div>
-                  <strong>anonymous</strong>
-                  <time datetime="2026-05-17">may 17, 2026</time>
-                </div>
-                <p>leaving this here before the wall fills up.</p>
-              </article>
+              <article class="guestbook-entry"><div><span><strong>mke</strong></span><time datetime="2026-05-17">May 17, 2026</time></div><p>Site feels clean. retrial era looking real.</p></article>
+              <article class="guestbook-entry"><div><span><strong>anonymous</strong></span><time datetime="2026-05-17">May 17, 2026</time></div><p>Leaving this here before the wall fills up.</p></article>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
+
       </main>
 
-      <footer class="footer">
-        <span>retrial</span>
-        <span class="dot" aria-hidden="true"></span>
-        <time data-current-time datetime="">loading time...</time>
+      <footer class="footer home-footer">
+        <time data-current-time datetime="">Loading time...</time>
+        <span class="footer-brand">retrial<i>.</i></span>
       </footer>
-
-      <div class="music-player" data-music-player>
-        <audio data-background-music preload="none">
-          <source src="./assets/music/last-train-at-25-oclock-lamp.mp3" type="audio/mpeg" />
-        </audio>
-        <div class="music-player-top">
-          <img src="./assets/music/last-train-at-25-oclock-lamp.jpg" alt="" data-music-cover />
-          <div>
-            <p data-music-title>Last Train At 25 O'clock</p>
-            <span data-music-artist>Lamp</span>
-          </div>
-        </div>
-        <div class="music-visualizer" aria-hidden="true" data-music-visualizer>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="music-progress" aria-hidden="true">
-          <span data-music-progress></span>
-        </div>
-        <div class="music-time">
-          <span data-music-current>0:00</span>
-          <span data-music-duration>0:00</span>
-        </div>
-        <div class="music-controls">
-          <button type="button" data-music-prev aria-label="previous track">prev</button>
-          <button type="button" data-music-toggle aria-pressed="false">
-            <span data-music-status>play</span>
-          </button>
-          <button type="button" data-music-next aria-label="next track">next</button>
-          <label>
-            <span class="sr-only">music volume</span>
-            <input
-              class="music-volume-slider"
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.18"
-              data-music-volume
-            />
-          </label>
-        </div>
-      </div>
     </div>
 
     <script src="./script.js"></script>

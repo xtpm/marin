@@ -10,6 +10,8 @@ const nextUpCountTarget = document.querySelector("[data-next-up-count]");
 const countTarget = document.querySelector("[data-cd-count]");
 const formatCountTarget = document.querySelector("[data-cd-format-count]");
 const genreCountTarget = document.querySelector("[data-cd-genre-count]");
+const heroCountTarget = document.querySelector("[data-cd-hero-count]");
+const heroWantedTarget = document.querySelector("[data-cd-hero-wanted]");
 const cdPopout = document.querySelector("[data-cd-popout]");
 const cdPopoutCover = document.querySelector("[data-cd-popout-cover]");
 const cdPopoutTitle = document.querySelector("[data-cd-popout-title]");
@@ -130,6 +132,10 @@ function renderWishlist() {
   if (wishlistCountTarget) {
     wishlistCountTarget.textContent = `${wishlist.length} wanted`;
   }
+
+  if (heroWantedTarget) {
+    heroWantedTarget.textContent = wishlist.length.toString().padStart(2, "0");
+  }
 }
 
 function renderNextUp() {
@@ -161,6 +167,7 @@ function createCdCard(cd, index, shelf) {
   article.role = "button";
   article.dataset.cdIndex = index;
   article.dataset.cdShelf = shelf;
+  article.dataset.cdNumber = (index + 1).toString().padStart(2, "0");
   article.setAttribute("aria-label", `Open details for ${cd.title}`);
   article.style.setProperty("--cd-index", index);
   article.style.setProperty("--cd-card-delay", `${Math.min(index, 10) * 34}ms`);
@@ -330,6 +337,10 @@ async function loadCds() {
     cds = await response.json();
   } catch {
     cds = [];
+  }
+
+  if (heroCountTarget) {
+    heroCountTarget.textContent = cds.length.toString().padStart(2, "0");
   }
 
   renderCds();
