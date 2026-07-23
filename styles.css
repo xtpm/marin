@@ -1,13 +1,17 @@
 :root {
   color-scheme: dark;
-  --charcoal: #171918;
-  --ink: #090a0a;
-  --white: #f7f7f2;
-  --silver: #b9bec0;
-  --silver-dark: #858c8e;
-  --line: #3d4140;
-  --tomato: #f05239;
-  --cyan: #43d7e8;
+  --charcoal: #15221c;
+  --ink: #07120c;
+  --white: #f4f7f2;
+  --silver: #bcc8bf;
+  --silver-dark: #77877c;
+  --line: #3b5045;
+  --clover: #52c58e;
+  --clover-deep: #287a54;
+  --clover-bright: #8be5b8;
+  --pollen: #d8ad3c;
+  --tomato: var(--clover-deep);
+  --cyan: var(--pollen);
   --header: 108px;
   --footer: 68px;
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
@@ -127,12 +131,57 @@ textarea:focus-visible,
   text-transform: lowercase;
 }
 
-.brand::after {
+.brand-clover {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 19px 0 0 9px;
+  flex: 0 0 auto;
+  animation: clover-spin 7s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.brand-clover i {
+  position: absolute;
+  top: 1px;
+  left: 1px;
   width: 9px;
   height: 9px;
-  margin: 26px 0 0 7px;
-  background: var(--tomato);
+  border: 0;
+  border-radius: 78% 78% 18% 78%;
+  background: var(--clover);
+  transform-origin: 9px 9px;
+}
+
+.brand-clover i:nth-child(2) {
+  transform: rotate(90deg);
+}
+
+.brand-clover i:nth-child(3) {
+  transform: rotate(180deg);
+}
+
+.brand-clover i:nth-child(4) {
+  transform: rotate(270deg);
+}
+
+.brand-clover::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--pollen);
   content: "";
+  transform: translate(-50%, -50%);
+}
+
+@keyframes clover-spin {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .nav {
@@ -242,7 +291,7 @@ textarea:focus-visible,
 
 .role-with-counter > strong {
   align-self: end;
-  color: var(--tomato);
+  color: var(--clover-bright);
   font-size: 29px;
   font-variant-numeric: tabular-nums;
   font-weight: 500;
@@ -449,7 +498,7 @@ textarea:focus-visible,
 .statement-nav button:focus-visible,
 .statement-nav a:hover,
 .statement-nav a:focus-visible {
-  color: var(--tomato);
+  color: var(--clover);
   transform: translateX(12px);
 }
 
@@ -485,7 +534,7 @@ textarea:focus-visible,
 }
 
 .statement-nav .active {
-  color: var(--tomato);
+  color: var(--clover);
 }
 
 .statement-nav .active:hover,
@@ -519,7 +568,7 @@ textarea:focus-visible,
   align-items: center;
   margin-bottom: 0.24em;
   border-bottom: 2px solid var(--ink);
-  color: var(--tomato);
+  color: var(--clover);
   font-size: 0.72em;
 }
 
@@ -756,8 +805,8 @@ textarea:focus-visible,
 
 .transport-controls button:hover,
 .music-player.is-playing [data-music-toggle] {
-  border-color: var(--tomato);
-  background: var(--tomato);
+  border-color: var(--clover-bright);
+  background: var(--clover-bright);
 }
 
 .player-timeline {
@@ -923,7 +972,7 @@ textarea:focus-visible,
   width: 7px;
   height: 7px;
   border: 0;
-  border-radius: 0;
+  border-radius: 50%;
 }
 
 .discord-profile {
@@ -1097,7 +1146,7 @@ textarea:focus-visible,
   align-items: end;
   padding: 26px 30px;
   overflow: hidden;
-  background: var(--tomato);
+  background: var(--clover-bright);
   color: var(--ink);
 }
 
@@ -1234,6 +1283,69 @@ textarea:focus-visible,
   display: none;
 }
 
+.discord-avatar[hidden] + .discord-avatar-status {
+  display: none;
+}
+
+.discord-avatar-status {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 19px;
+  height: 19px;
+  border: 4px solid var(--charcoal);
+  border-radius: 50%;
+  background: #80848e;
+  transition:
+    background-color var(--motion-fast) var(--ease-smooth),
+    transform var(--motion-fast) var(--ease-smooth);
+}
+
+.discord-avatar-status::after {
+  position: absolute;
+  content: "";
+}
+
+.discord-card[data-status="online"] .discord-avatar-status {
+  background: #23a55a;
+}
+
+.discord-card[data-status="idle"] .discord-avatar-status {
+  background: #f0b232;
+}
+
+.discord-card[data-status="idle"] .discord-avatar-status::after {
+  top: -3px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--charcoal);
+}
+
+.discord-card[data-status="dnd"] .discord-avatar-status {
+  background: #f23f43;
+}
+
+.discord-card[data-status="dnd"] .discord-avatar-status::after {
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 3px;
+  background: var(--charcoal);
+  transform: translate(-50%, -50%);
+}
+
+.discord-card[data-status="offline"] .discord-avatar-status::after {
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--charcoal);
+  transform: translate(-50%, -50%);
+}
+
 .discord-status {
   position: absolute;
   right: -4px;
@@ -1246,15 +1358,15 @@ textarea:focus-visible,
 }
 
 .discord-card[data-status="online"] .discord-status {
-  background: var(--cyan);
+  background: #23a55a;
 }
 
 .discord-card[data-status="idle"] .discord-status {
-  background: #f1c348;
+  background: #f0b232;
 }
 
 .discord-card[data-status="dnd"] .discord-status {
-  background: var(--ink);
+  background: #f23f43;
 }
 
 .birthday-block {
@@ -1372,7 +1484,7 @@ textarea:focus-visible,
 
 .profile-story h3 span {
   display: block;
-  color: var(--tomato);
+  color: var(--clover);
 }
 
 .profile-story > p {
@@ -1388,7 +1500,7 @@ textarea:focus-visible,
 .profile-background {
   display: flex;
   flex-direction: column;
-  background: #eceeeb;
+  background: #e7ece4;
 }
 
 .profile-background-copy {
@@ -1754,14 +1866,14 @@ textarea:focus-visible,
 }
 
 .guestbook-mode button.active {
-  background: var(--tomato);
+  background: var(--clover-bright);
   color: var(--ink);
 }
 
 .guestbook-submit {
   padding: 8px 16px;
-  border: 1px solid var(--tomato);
-  background: var(--tomato);
+  border: 1px solid var(--clover-bright);
+  background: var(--clover-bright);
   color: var(--ink);
   font-family: var(--mono);
   font-size: 9px;
@@ -1885,7 +1997,7 @@ textarea:focus-visible,
 }
 
 .footer-brand i {
-  color: var(--cyan);
+  color: var(--clover);
   font-style: normal;
 }
 
@@ -1924,7 +2036,7 @@ textarea:focus-visible,
 }
 
 .cd-hero-copy h1 em {
-  color: var(--tomato);
+  color: var(--clover);
   font-style: normal;
 }
 
@@ -2541,10 +2653,8 @@ textarea:focus-visible,
     font-size: 39px;
   }
 
-  .brand::after {
-    width: 7px;
-    height: 7px;
-    margin-top: 18px;
+  .brand-clover {
+    margin: 12px 0 0 7px;
   }
 
   .role {
@@ -2871,7 +2981,7 @@ textarea:focus-visible,
 }
 
 .cd-page .cd-hero-copy h1 em {
-  color: var(--tomato);
+  color: var(--clover);
 }
 
 .cd-page .cd-hero-copy p {
@@ -2904,7 +3014,7 @@ textarea:focus-visible,
 
 .cd-page .cd-hero-art {
   border-color: var(--ink);
-  background: #c8ccca;
+  background: #c3cbc0;
 }
 
 .cd-page .hero-cover-main,
@@ -2958,7 +3068,7 @@ textarea:focus-visible,
 
 .cd-page .cd-live-index {
   padding: 40px 30px 30px;
-  background: var(--tomato);
+  background: var(--clover-bright);
   color: var(--ink);
 }
 
@@ -3168,14 +3278,14 @@ textarea:focus-visible,
 
 .cd-page .wishlist-section {
   border-color: var(--ink);
-  background: #e3e5e2;
+  background: #e4e9e1;
 }
 
 .cd-page .next-up {
   margin-bottom: 76px;
   padding: 30px;
   border: 0;
-  background: var(--tomato);
+  background: var(--clover-bright);
 }
 
 .cd-page .next-up .wishlist-genre-heading {
