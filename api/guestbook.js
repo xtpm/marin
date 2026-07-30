@@ -78,6 +78,23 @@ function getDeleteUrl(entry) {
   return `${siteUrl}/api/delete?${params.toString()}`;
 }
 
+function getReplyUrl(entry) {
+  const token =
+    process.env.GUESTBOOK_REPLY_TOKEN || process.env.GUESTBOOK_DELETE_TOKEN || process.env.GUESTBOOK_LOVE_TOKEN;
+  const siteUrl = getSiteUrl();
+
+  if (!token || !siteUrl || entry.visibility !== "public") {
+    return "";
+  }
+
+  const params = new URLSearchParams({
+    id: entry.id,
+    token,
+  });
+
+  return `${siteUrl}/api/reply?${params.toString()}`;
+}
+
 function getRedisConfig() {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
@@ -114,14 +131,14 @@ async function getPublicEntries() {
   const raw = await redisCommand(["GET", PUBLIC_KEY]);
 
   if (!raw) {
-    return seedEntries;
+    return seedEntries.map((entry) => ({ ...entry, comments: [] }));
   }
 
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : seedEntries;
+    return Array.isArray(parsed) ? parsed : seedEntries.map((entry) => ({ ...entry, comments: [] }));
   } catch {
-    return seedEntries;
+    return seedEntries.map((entry) => ({ ...entry, comments: [] }));
   }
 }
 
@@ -139,6 +156,7 @@ async function sendDiscord(entry) {
   const visibility = entry.visibility === "private" ? "private note" : "public guestbook";
   const loveUrl = getLoveUrl(entry);
   const deleteUrl = getDeleteUrl(entry);
+  const replyUrl = getReplyUrl(entry);
   const fields = [
     { name: "name", value: entry.name, inline: true },
     { name: "discord", value: entry.discord || "not provided", inline: true },
@@ -158,7 +176,7 @@ async function sendDiscord(entry) {
     ],
   };
 
-  if (loveUrl || deleteUrl) {
+  if (loveUrl || deleteUrl || replyUrl) {
     const components = [];
 
     if (loveUrl) {
@@ -176,6 +194,15 @@ async function sendDiscord(entry) {
         style: 5,
         label: "delete",
         url: deleteUrl,
+      });
+    }
+
+    if (replyUrl) {
+      components.push({
+        type: 2,
+        style: 5,
+        label: "reply",
+        url: replyUrl,
       });
     }
 
@@ -228,6 +255,7 @@ module.exports = async function handler(req, res) {
     }
 
     const body = await readBody(req);
+
     const message = cleanText(body.message, "", 240);
     const visibility = body.visibility === "private" ? "private" : "public";
 
