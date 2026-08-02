@@ -1,4 +1,8 @@
 const VIEWS_KEY = "retrial:site:views";
+const VIEW_SEEN_TTL_SECONDS = 2 * 24 * 60 * 60;
+const VIEW_BURST_WINDOW_SECONDS = 60;
+const VIEW_BURST_LIMIT = 60;
+const { getRequestFingerprint, getWindow, incrementWindowCounter } = require("../lib/abuse-protection");
 
 let localViews = 0;
 
@@ -41,6 +45,44 @@ async function redisCommand(command) {
   return data.result;
 }
 
+async function getStoredViews() {
+  return Number(await redisCommand(["GET", VIEWS_KEY])) || 0;
+}
+
+async function countUniqueView(req) {
+  const fingerprint = getRequestFingerprint(req);
+  const day = new Date().toISOString().slice(0, 10);
+  const firstVisit = await redisCommand([
+    "SET",
+    `retrial:site:viewed:${day}:${fingerprint}`,
+    "1",
+    "NX",
+    "EX",
+    String(VIEW_SEEN_TTL_SECONDS),
+  ]);
+
+  if (firstVisit !== "OK") {
+    return getStoredViews();
+  }
+
+  const { bucket } = getWindow(VIEW_BURST_WINDOW_SECONDS);
+  const burstCount = await incrementWindowCounter(
+    redisCommand,
+    `retrial:rate-limit:views:${bucket}`,
+    VIEW_BURST_WINDOW_SECONDS,
+  );
+
+  if (burstCount > VIEW_BURST_LIMIT) {
+    if (burstCount === VIEW_BURST_LIMIT + 1) {
+      console.warn("[views] global view burst limit reached");
+    }
+
+    return getStoredViews();
+  }
+
+  return Number(await redisCommand(["INCR", VIEWS_KEY])) || 0;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "GET" && req.method !== "POST") {
     sendJson(res, 405, { error: "method not allowed" });
@@ -52,7 +94,7 @@ module.exports = async function handler(req, res) {
     let views;
 
     if (redisConfigured) {
-      views = await redisCommand([req.method === "POST" ? "INCR" : "GET", VIEWS_KEY]);
+      views = req.method === "POST" ? await countUniqueView(req) : await getStoredViews();
     } else {
       if (req.method === "POST") {
         localViews += 1;
