@@ -79,6 +79,11 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (url.pathname === "/api/views") {
+    require("./api/views")(req, res);
+    return;
+  }
+
   const requested = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
   const filePath = path.resolve(root, `.${requested}`);
 

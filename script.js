@@ -9,8 +9,14 @@ const guestbookForm = document.querySelector("[data-guestbook-form]");
 const guestbookList = document.querySelector("[data-guestbook-list]");
 const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
+const siteViews = document.querySelector("[data-site-views]");
 const currentTime = document.querySelector("[data-current-time]");
 const cdLink = document.querySelector("[data-cd-link]");
+const socialSwitcher = document.querySelector("[data-social-switcher]");
+const socialMain = document.querySelector("[data-social-main]");
+const socialMenu = document.querySelector("[data-social-menu]");
+const socialsOpen = document.querySelector("[data-socials-open]");
+const socialsClose = document.querySelector("[data-socials-close]");
 const birthdayCountdown = document.querySelector("[data-birthday-countdown]");
 const birthdayDate = document.querySelector("[data-birthday-date]");
 const birthdayProgress = document.querySelector("[data-birthday-progress]");
@@ -29,6 +35,7 @@ const musicPrev = document.querySelector("[data-music-prev]");
 const musicNext = document.querySelector("[data-music-next]");
 const musicBars = [...document.querySelectorAll("[data-music-visualizer] span")];
 const discordId = "262467539685212160";
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const musicTracks = [
   {
@@ -58,8 +65,60 @@ const musicTracks = [
 ];
 
 let activeMusicTrack = Math.floor(Math.random() * musicTracks.length);
+let activePanelTransition;
+let socialFocusTimer;
 
-function showPanel(panelName) {
+function formatSiteViews(value) {
+  return String(Math.max(0, Math.floor(Number(value) || 0))).padStart(6, "0");
+}
+
+async function loadSiteViews() {
+  if (!siteViews) {
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/views", {
+      method: "POST",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("view count request failed");
+    }
+
+    const data = await response.json();
+    siteViews.textContent = formatSiteViews(data.views);
+  } catch {
+    siteViews.textContent = "------";
+  }
+}
+
+function setSocialMenu(open, moveFocus = true) {
+  if (!socialSwitcher || !socialMain || !socialMenu || !socialsOpen || !socialsClose) {
+    return;
+  }
+
+  window.clearTimeout(socialFocusTimer);
+  socialSwitcher.classList.toggle("is-socials-open", open);
+  socialsOpen.setAttribute("aria-expanded", String(open));
+  socialMain.setAttribute("aria-hidden", String(open));
+  socialMenu.setAttribute("aria-hidden", String(!open));
+  socialMain.inert = open;
+  socialMenu.inert = !open;
+
+  if (moveFocus) {
+    const focusTarget = open ? socialsClose : socialsOpen;
+    const focusDelay = prefersReducedMotion.matches ? 0 : 420;
+    socialFocusTimer = window.setTimeout(() => focusTarget.focus({ preventScroll: true }), focusDelay);
+  }
+}
+
+function applyPanel(panelName) {
+  if (panelName !== "home") {
+    setSocialMenu(false, false);
+  }
+
   buttons.forEach((button) => {
     button.classList.toggle("active", button.dataset.panelButton === panelName);
   });
@@ -71,10 +130,49 @@ function showPanel(panelName) {
   });
 }
 
+function showPanel(panelName) {
+  const currentPanel = panels.find((panel) => !panel.hidden)?.dataset.panel;
+
+  if (currentPanel === panelName) {
+    if (panelName === "home" && socialSwitcher?.classList.contains("is-socials-open")) {
+      setSocialMenu(false);
+    }
+    return;
+  }
+
+  if (document.startViewTransition && !prefersReducedMotion.matches) {
+    activePanelTransition?.skipTransition?.();
+    document.documentElement.classList.add("is-transitioning");
+    const transition = document.startViewTransition(() => applyPanel(panelName));
+    activePanelTransition = transition;
+
+    const finishTransition = () => {
+      if (activePanelTransition === transition) {
+        activePanelTransition = undefined;
+        document.documentElement.classList.remove("is-transitioning");
+      }
+    };
+
+    transition.finished.then(finishTransition, finishTransition);
+    return;
+  }
+
+  applyPanel(panelName);
+}
+
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     showPanel(button.dataset.panelButton);
   });
+});
+
+socialsOpen?.addEventListener("click", () => setSocialMenu(true));
+socialsClose?.addEventListener("click", () => setSocialMenu(false));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && socialSwitcher?.classList.contains("is-socials-open")) {
+    setSocialMenu(false);
+  }
 });
 
 cdLink?.addEventListener("click", (event) => {
@@ -202,8 +300,8 @@ if (
 
   const resetVisualizerBars = () => {
     musicBars.forEach((bar) => {
-      bar.style.height = "10%";
-      bar.style.opacity = "0.38";
+      bar.style.height = bar.style.getPropertyValue("--bar") || "10%";
+      bar.style.opacity = "0.28";
     });
   };
 
@@ -715,7 +813,7 @@ function updateSpotify(data) {
     cover.hidden = true;
     cover.removeAttribute("src");
     title.textContent = "not listening";
-    artist.textContent = "spotify is quiet right now.";
+    artist.textContent = "nothing is playing";
     progress.style.width = "0%";
     return;
   }
@@ -799,3 +897,4 @@ async function loadDiscordProfile() {
 loadDiscordProfile();
 setInterval(loadDiscordProfile, 30000);
 loadGuestbook();
+loadSiteViews();
