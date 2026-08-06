@@ -1909,7 +1909,7 @@ textarea:focus-visible,
   border-bottom: 1px solid var(--line);
 }
 
-.guestbook-entry > div {
+.guestbook-entry-header {
   display: flex;
   justify-content: space-between;
   color: var(--silver-dark);
@@ -1918,7 +1918,7 @@ textarea:focus-visible,
   text-transform: uppercase;
 }
 
-.guestbook-entry > div span {
+.guestbook-entry-header span {
   display: inline-flex;
   gap: 8px;
 }
@@ -1934,7 +1934,7 @@ textarea:focus-visible,
   color: var(--silver);
 }
 
-.guestbook-entry p {
+.guestbook-entry > p {
   margin: 18px 0 0;
   font-size: 25px;
   line-height: 1.05;
@@ -1948,6 +1948,96 @@ textarea:focus-visible,
   font-size: 8px;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+.guestbook-thread {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.guestbook-comment-toggle,
+.guestbook-comment-empty {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 13px 24px 11px 0;
+  border: 0;
+  background: transparent;
+  color: var(--clover);
+  font-family: var(--mono);
+  font-size: 8px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.guestbook-comment-empty {
+  color: var(--silver-dark);
+}
+
+.guestbook-comment-toggle::after {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  color: var(--silver);
+  content: "+";
+  font-size: 14px;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform var(--motion-medium) var(--ease-smooth);
+}
+
+.guestbook-comment-toggle[aria-expanded="true"]::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.guestbook-comment-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--motion-medium) var(--ease-smooth),
+    opacity var(--motion-fast) var(--ease-soft);
+}
+
+.guestbook-comment-panel.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.guestbook-comment-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.guestbook-comments {
+  display: grid;
+}
+
+.guestbook-comment {
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+}
+
+.guestbook-comment > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--silver-dark);
+  font-family: var(--mono);
+  font-size: 7px;
+  text-transform: uppercase;
+}
+
+.guestbook-comment strong {
+  color: var(--clover);
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.guestbook-comment p {
+  margin: 7px 0 0;
+  color: var(--white);
+  font-size: 14px;
+  line-height: 1.35;
 }
 
 .guestbook-empty {

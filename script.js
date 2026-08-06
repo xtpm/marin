@@ -67,6 +67,7 @@ const musicTracks = [
 let activeMusicTrack = Math.floor(Math.random() * musicTracks.length);
 let activePanelTransition;
 let socialFocusTimer;
+let openGuestbookThread = "";
 
 function formatSiteViews(value) {
   return String(Math.max(0, Math.floor(Number(value) || 0))).padStart(6, "0");
@@ -575,8 +576,10 @@ function renderGuestbook(entries = []) {
   entries.forEach((entry) => {
     const article = document.createElement("article");
     article.className = "guestbook-entry";
+    article.dataset.guestbookEntry = entry.id || "";
 
     const header = document.createElement("div");
+    header.className = "guestbook-entry-header";
     const identity = document.createElement("span");
     const name = document.createElement("strong");
     const time = document.createElement("time");
@@ -605,9 +608,96 @@ function renderGuestbook(entries = []) {
       article.append(loved);
     }
 
+    const comments = Array.isArray(entry.comments) ? entry.comments : [];
+    const thread = document.createElement("div");
+    thread.className = "guestbook-thread";
+
+    if (!comments.length) {
+      const emptyThread = document.createElement("span");
+      emptyThread.className = "guestbook-comment-empty";
+      emptyThread.textContent = "comments / 00";
+      thread.append(emptyThread);
+    } else {
+      const toggle = document.createElement("button");
+      const panel = document.createElement("div");
+      const panelInner = document.createElement("div");
+      const commentList = document.createElement("div");
+      const isOpen = openGuestbookThread === entry.id;
+
+      toggle.className = "guestbook-comment-toggle";
+      toggle.type = "button";
+      toggle.dataset.commentToggle = "";
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-controls", `guestbook-thread-${entry.id}`);
+      toggle.textContent = `comments / ${String(comments.length).padStart(2, "0")}`;
+      panel.className = `guestbook-comment-panel${isOpen ? " is-open" : ""}`;
+      panel.id = `guestbook-thread-${entry.id}`;
+      panel.inert = !isOpen;
+      panel.setAttribute("aria-hidden", String(!isOpen));
+
+      if (!isOpen) {
+        panel.setAttribute("inert", "");
+      }
+
+      panelInner.className = "guestbook-comment-panel-inner";
+      commentList.className = "guestbook-comments";
+
+      comments.forEach((comment) => {
+        const item = document.createElement("article");
+        const itemHeader = document.createElement("div");
+        const commentName = document.createElement("strong");
+        const commentTime = document.createElement("time");
+        const commentMessage = document.createElement("p");
+
+        item.className = "guestbook-comment";
+        commentName.textContent = comment.name || "retrial";
+        commentTime.dateTime = comment.createdAt || "";
+        commentTime.textContent = formatGuestbookDate(comment.createdAt);
+        commentMessage.textContent = comment.message || "";
+        itemHeader.append(commentName, commentTime);
+        item.append(itemHeader, commentMessage);
+        commentList.append(item);
+      });
+
+      panelInner.append(commentList);
+      panel.append(panelInner);
+      thread.append(toggle, panel);
+    }
+
+    article.append(thread);
+
     guestbookList.append(article);
   });
 }
+
+guestbookList?.addEventListener("click", (event) => {
+  const toggle = event.target.closest?.("[data-comment-toggle]");
+
+  if (!toggle) {
+    return;
+  }
+
+  const article = toggle.closest(".guestbook-entry");
+  const panel = article?.querySelector(".guestbook-comment-panel");
+  const entryId = article?.dataset.guestbookEntry || "";
+  const willOpen = !panel?.classList.contains("is-open");
+
+  openGuestbookThread = willOpen ? entryId : "";
+  panel?.classList.toggle("is-open", willOpen);
+  panel?.setAttribute("aria-hidden", String(!willOpen));
+
+  if (panel) {
+    panel.inert = !willOpen;
+
+    if (willOpen) {
+      panel.removeAttribute("inert");
+    } else {
+      panel.setAttribute("inert", "");
+    }
+  }
+
+  toggle.setAttribute("aria-expanded", String(willOpen));
+});
 
 async function loadGuestbook() {
   if (!guestbookList) {

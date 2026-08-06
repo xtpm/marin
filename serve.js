@@ -79,6 +79,11 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (url.pathname === "/api/reply") {
+    require("./api/reply")(req, res);
+    return;
+  }
+
   if (url.pathname === "/api/views") {
     require("./api/views")(req, res);
     return;
