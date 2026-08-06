@@ -34,6 +34,7 @@ const musicArtist = document.querySelector("[data-music-artist]");
 const musicPrev = document.querySelector("[data-music-prev]");
 const musicNext = document.querySelector("[data-music-next]");
 const musicBars = [...document.querySelectorAll("[data-music-visualizer] span")];
+const siteIntro = document.querySelector("[data-site-intro]");
 const discordId = "262467539685212160";
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -68,6 +69,32 @@ let activeMusicTrack = Math.floor(Math.random() * musicTracks.length);
 let activePanelTransition;
 let socialFocusTimer;
 let openGuestbookThread = "";
+
+function revealSite() {
+  if (!document.body.classList.contains("is-intro-running")) {
+    return;
+  }
+
+  document.body.classList.remove("is-intro-running");
+  document.body.classList.add("site-revealed");
+
+  if (!siteIntro) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    siteIntro.remove();
+  }, prefersReducedMotion.matches ? 0 : 1960);
+}
+
+if (prefersReducedMotion.matches) {
+  revealSite();
+} else if (document.readyState === "complete") {
+  window.setTimeout(revealSite, 1900);
+} else {
+  window.addEventListener("load", () => window.setTimeout(revealSite, 1900), { once: true });
+  window.setTimeout(revealSite, 3900);
+}
 
 function formatSiteViews(value) {
   return String(Math.max(0, Math.floor(Number(value) || 0))).padStart(6, "0");
