@@ -67,5 +67,70 @@
     "rating": 4,
     "love": "super charming and cozy, the kind of CD that feels nice to own physically. i love Yotsuba!",
     "notes": "Image album for Kiyohiko Azuma's Yotsuba&!, released April 2, 2005 by Geneon and Rondo Robe."
+  },
+  {
+    "title": "I Felt Like A Sketch",
+    "artist": "key vs locket",
+    "year": "2024",
+    "format": "CD",
+    "genre": "indie rock",
+    "price": "$$",
+    "cover": "./assets/cds/i-felt-like-a-sketch.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "A 2024 CD from key vs locket, moved from the wishlist into the physical archive."
+  },
+  {
+    "title": "For The Rest Of Your Life",
+    "artist": "Twikipedia",
+    "year": "2024",
+    "format": "CD",
+    "genre": "digicore",
+    "price": "$$",
+    "cover": "./assets/cds/for-the-rest-of-your-life.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "Twikipedia's 2024 album, moved from the wishlist into the physical archive."
+  },
+  {
+    "title": "Backstage Hologram",
+    "artist": "Kuru",
+    "year": "2026",
+    "format": "CD",
+    "genre": "hyperpop",
+    "price": "$$",
+    "cover": "./assets/cds/backstage-hologram.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "Kuru's 2026 album, released on CD."
+  },
+  {
+    "title": "Do That Again",
+    "artist": "Malcolm Todd",
+    "year": "2026",
+    "format": "CD",
+    "genre": "indie pop",
+    "price": "$$",
+    "cover": "./assets/cds/do-that-again.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "Malcolm Todd's 2026 album, released on CD through Columbia Records."
+  },
+  {
+    "title": "Fancy That",
+    "artist": "PinkPantheress",
+    "year": "2025",
+    "format": "CD",
+    "genre": "pop",
+    "price": "$$",
+    "cover": "./assets/cds/fancy-that.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "PinkPantheress's 2025 mixtape, released on CD."
   }
 ]
