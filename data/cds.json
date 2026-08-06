@@ -132,5 +132,57 @@
     "rating": 0,
     "love": "new to the archive. i am still spending time with this one.",
     "notes": "PinkPantheress's 2025 mixtape, released on CD."
+  },
+  {
+    "title": "April",
+    "artist": "ROUND TABLE featuring Nino",
+    "year": "2003",
+    "format": "CD",
+    "genre": "J-pop",
+    "price": "$$",
+    "cover": "./assets/cds/round-table-featuring-nino-april.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "ROUND TABLE featuring Nino's 2003 debut album, released on CD through Victor."
+  },
+  {
+    "title": "Nino",
+    "artist": "ROUND TABLE featuring Nino",
+    "year": "2006",
+    "format": "CD",
+    "genre": "J-pop",
+    "price": "$$",
+    "cover": "./assets/cds/round-table-featuring-nino-nino.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "ROUND TABLE featuring Nino's 2006 album, released on CD through Victor."
+  },
+  {
+    "title": "Distance",
+    "artist": "ROUND TABLE featuring Nino",
+    "year": "2008",
+    "format": "CD",
+    "genre": "J-pop",
+    "price": "$$",
+    "cover": "./assets/cds/round-table-featuring-nino-distance.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "ROUND TABLE featuring Nino's 2008 album, released on CD through Victor."
+  },
+  {
+    "title": "Water Plant",
+    "artist": "susquatch",
+    "year": "2007",
+    "format": "CD",
+    "genre": "math rock",
+    "price": "$$$",
+    "cover": "./assets/cds/susquatch-water-plant.jpg",
+    "condition": "",
+    "rating": 0,
+    "love": "new to the archive. i am still spending time with this one.",
+    "notes": "susquatch's 2007 mini album, released on CD through K-PLAN."
   }
 ]

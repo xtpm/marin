@@ -59,16 +59,16 @@ function renderCds() {
   }
 
   const query = normalize(cdSearch?.value);
-  const filtered = cds.filter((cd) => {
+  const filtered = cds.map((cd, index) => ({ cd, index })).filter(({ cd }) => {
     const haystack = normalize(`${cd.title} ${cd.artist} ${cd.year} ${cd.genre} ${cd.price}`);
     const matchesQuery = !query || haystack.includes(query);
     return matchesQuery;
   });
 
-  updateSummary(filtered);
+  updateSummary(filtered.map(({ cd }) => cd));
   cdList.innerHTML = "";
 
-  filtered.forEach((cd, index) => {
+  filtered.forEach(({ cd, index }) => {
     cdList.append(createCdCard(cd, index, "collection"));
   });
 
