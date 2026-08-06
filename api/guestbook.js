@@ -1,5 +1,10 @@
 const PUBLIC_KEY = "retrial:guestbook:public";
 const MAX_PUBLIC_MESSAGES = 60;
+const GUESTBOOK_RATE_LIMIT_SECONDS = 15 * 60;
+const GUESTBOOK_CLIENT_LIMIT = 3;
+const GUESTBOOK_GLOBAL_LIMIT = 30;
+const MAX_REQUEST_BYTES = 8 * 1024;
+const { checkRequestLimit, getRequestFingerprint } = require("../lib/abuse-protection");
 
 const seedEntries = [
   {
@@ -232,13 +237,29 @@ async function sendDiscord(entry) {
 
 async function readBody(req) {
   const chunks = [];
+  let size = 0;
 
   for await (const chunk of req) {
-    chunks.push(chunk);
+    size += chunk.length;
+
+    if (size > MAX_REQUEST_BYTES) {
+      const error = new Error("request is too large");
+      error.statusCode = 413;
+      throw error;
+    }
+
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
   }
 
   const raw = Buffer.concat(chunks).toString("utf8");
-  return raw ? JSON.parse(raw) : {};
+
+  try {
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    const error = new Error("invalid JSON");
+    error.statusCode = 400;
+    throw error;
+  }
 }
 
 module.exports = async function handler(req, res) {
@@ -252,6 +273,33 @@ module.exports = async function handler(req, res) {
     if (req.method !== "POST") {
       sendJson(res, 405, { error: "method not allowed" });
       return;
+    }
+
+    if (!String(req.headers?.["content-type"] || "").toLowerCase().startsWith("application/json")) {
+      sendJson(res, 415, { error: "JSON is required" });
+      return;
+    }
+
+    if (getRedisConfig()) {
+      const fingerprint = getRequestFingerprint(req);
+      const limit = await checkRequestLimit({
+        redisCommand,
+        prefix: "retrial:rate-limit:guestbook",
+        fingerprint,
+        perClientLimit: GUESTBOOK_CLIENT_LIMIT,
+        globalLimit: GUESTBOOK_GLOBAL_LIMIT,
+        windowSeconds: GUESTBOOK_RATE_LIMIT_SECONDS,
+      });
+
+      if (!limit.allowed) {
+        if (limit.count === (limit.reason === "client" ? GUESTBOOK_CLIENT_LIMIT : GUESTBOOK_GLOBAL_LIMIT) + 1) {
+          console.warn(`[guestbook] ${limit.reason} submission limit reached`);
+        }
+
+        res.setHeader("Retry-After", String(limit.retryAfter));
+        sendJson(res, 429, { error: "too many messages; please try again later" });
+        return;
+      }
     }
 
     const body = await readBody(req);
@@ -303,6 +351,12 @@ module.exports = async function handler(req, res) {
 
     sendJson(res, 200, { ok: true, entry, entries });
   } catch (error) {
-    sendJson(res, 500, { error: "guestbook unavailable" });
+    const status = Number(error?.statusCode) || 500;
+
+    if (status === 500) {
+      console.error("[guestbook] request failed", error instanceof Error ? error.message : String(error));
+    }
+
+    sendJson(res, status, { error: status === 500 ? "guestbook unavailable" : error.message });
   }
 };
