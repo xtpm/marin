@@ -84,16 +84,16 @@ function revealSite() {
 
   window.setTimeout(() => {
     siteIntro.remove();
-  }, prefersReducedMotion.matches ? 0 : 1960);
+  }, prefersReducedMotion.matches ? 0 : 2780);
 }
 
 if (prefersReducedMotion.matches) {
   revealSite();
 } else if (document.readyState === "complete") {
-  window.setTimeout(revealSite, 1900);
+  window.setTimeout(revealSite, 1250);
 } else {
-  window.addEventListener("load", () => window.setTimeout(revealSite, 1900), { once: true });
-  window.setTimeout(revealSite, 3900);
+  window.addEventListener("load", () => window.setTimeout(revealSite, 1250), { once: true });
+  window.setTimeout(revealSite, 3000);
 }
 
 function formatSiteViews(value) {
