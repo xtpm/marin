@@ -9,6 +9,14 @@ const guestbookForm = document.querySelector("[data-guestbook-form]");
 const guestbookList = document.querySelector("[data-guestbook-list]");
 const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
+const privateForm = document.querySelector("[data-private-form]");
+const privateLock = document.querySelector("[data-private-lock]");
+const privateGallery = document.querySelector("[data-private-gallery]");
+const privateMedia = [...document.querySelectorAll("[data-private-image], [data-private-video]")];
+const privateQuestion = document.querySelector("[data-private-question]");
+const privateFeedback = document.querySelector("[data-private-feedback]");
+const privateSubmit = document.querySelector("[data-private-submit]");
+const privateLogout = document.querySelector("[data-private-logout]");
 const siteViews = document.querySelector("[data-site-views]");
 const currentTime = document.querySelector("[data-current-time]");
 const cdLink = document.querySelector("[data-cd-link]");
@@ -21,6 +29,8 @@ const birthdayCountdown = document.querySelector("[data-birthday-countdown]");
 const birthdayDate = document.querySelector("[data-birthday-date]");
 const birthdayProgress = document.querySelector("[data-birthday-progress]");
 const backgroundMusic = document.querySelector("[data-background-music]");
+const githubContributions = document.querySelector(".github-contributions");
+const githubContributionsImage = githubContributions?.querySelector("img");
 const musicToggle = document.querySelector("[data-music-toggle]");
 const musicStatus = document.querySelector("[data-music-status]");
 const musicProgress = document.querySelector("[data-music-progress]");
@@ -40,35 +50,30 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 const musicTracks = [
   {
-    title: "Last Train At 25 O'clock",
-    artist: "Lamp",
-    src: "./assets/music/last-train-at-25-oclock-lamp.mp3",
+    title: "Voice of no Return - Guitar",
+    artist: "NieR:Automata Original Soundtrack",
+    src: "./assets/music/voice-of-no-return-guitar.mp3",
     cover: "./assets/music/last-train-at-25-oclock-lamp.jpg",
-  },
-  {
-    title: "Spin The Words",
-    artist: "susquatch",
-    src: "./assets/music/spin-the-words-susquatch.mp3",
-    cover: "./assets/music/spin-the-words-susquatch.jpg",
-  },
-  {
-    title: "My Destiny (2026 Edit)",
-    artist: "Delinquent, KCAT, Mike Delinquent Project",
-    src: "./assets/music/my-destiny-2026-edit-delinquent.mp3",
-    cover: "./assets/music/my-destiny-2026-edit-delinquent.jpg",
-  },
-  {
-    title: "U wld never do it",
-    artist: "kuru",
-    src: "./assets/music/u-wld-never-do-it-kuru.mp3",
-    cover: "./assets/music/u-wld-never-do-it-kuru.jpg",
   },
 ];
 
-let activeMusicTrack = Math.floor(Math.random() * musicTracks.length);
+let activeMusicTrack = 0;
 let activePanelTransition;
 let socialFocusTimer;
 let openGuestbookThread = "";
+let privateAuthRevision = 0;
+
+function showLatestGithubContributions() {
+  if (githubContributions) {
+    githubContributions.scrollLeft = githubContributions.scrollWidth;
+  }
+}
+
+if (githubContributionsImage?.complete) {
+  window.requestAnimationFrame(showLatestGithubContributions);
+} else {
+  githubContributionsImage?.addEventListener("load", showLatestGithubContributions, { once: true });
+}
 
 function revealSite() {
   if (!document.body.classList.contains("is-intro-running")) {
@@ -193,6 +198,86 @@ buttons.forEach((button) => {
     showPanel(button.dataset.panelButton);
   });
 });
+
+function setPrivateAccess(authenticated) {
+  if (!privateLock || !privateGallery) return;
+  privateLock.hidden = authenticated;
+  privateGallery.hidden = !authenticated;
+
+  privateMedia.forEach((media) => {
+    if (authenticated && !media.getAttribute("src")) {
+      media.setAttribute("src", media.dataset.src);
+      if (media instanceof HTMLMediaElement) media.load();
+    } else if (!authenticated) {
+      if (media instanceof HTMLMediaElement) media.pause();
+      media.removeAttribute("src");
+      if (media instanceof HTMLMediaElement) media.load();
+    }
+  });
+}
+
+async function checkPrivateAccess() {
+  if (!privateForm) return;
+  const revision = ++privateAuthRevision;
+
+  try {
+    const response = await fetch("/api/private-auth", { headers: { Accept: "application/json" } });
+    const payload = await response.json();
+    if (revision === privateAuthRevision) {
+      if (privateQuestion && payload.question) privateQuestion.textContent = payload.question;
+      if (!response.ok && privateFeedback) {
+        privateFeedback.textContent = payload.error || "question unavailable";
+      }
+      setPrivateAccess(Boolean(response.ok && payload.authenticated));
+    }
+  } catch {
+    if (revision === privateAuthRevision) {
+      if (privateFeedback) privateFeedback.textContent = "question unavailable";
+      setPrivateAccess(false);
+    }
+  }
+}
+
+privateForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const revision = ++privateAuthRevision;
+  const answer = new FormData(privateForm).get("answer");
+
+  if (privateFeedback) privateFeedback.textContent = "checking answer...";
+  if (privateSubmit) privateSubmit.disabled = true;
+
+  try {
+    const response = await fetch("/api/private-auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answer }),
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.authenticated) {
+      throw new Error(payload.error || "unable to unlock archive");
+    }
+
+    if (revision !== privateAuthRevision) return;
+
+    privateForm.reset();
+    if (privateFeedback) privateFeedback.textContent = "";
+    setPrivateAccess(true);
+    privateLogout?.focus({ preventScroll: true });
+  } catch (error) {
+    if (privateFeedback) privateFeedback.textContent = error.message || "unable to unlock archive";
+  } finally {
+    if (privateSubmit) privateSubmit.disabled = false;
+  }
+});
+
+privateLogout?.addEventListener("click", async () => {
+  privateAuthRevision += 1;
+  await fetch("/api/private-auth", { method: "DELETE" }).catch(() => undefined);
+  setPrivateAccess(false);
+  privateForm?.querySelector("input")?.focus();
+});
+
+checkPrivateAccess();
 
 socialsOpen?.addEventListener("click", () => setSocialMenu(true));
 socialsClose?.addEventListener("click", () => setSocialMenu(false));
@@ -319,7 +404,7 @@ if (
   musicNext &&
   musicBars.length
 ) {
-  backgroundMusic.volume = 0.18;
+  backgroundMusic.volume = 0.06;
   let userPausedMusic = false;
   let audioContext;
   let analyser;
@@ -884,7 +969,6 @@ function updateNowPlaying(data) {
   }
 
   const activity = getRichActivity(data.activities);
-  const customStatus = data.activities?.find((item) => item.type === 4 && item.state);
 
   if (activity) {
     const imageUrl = getActivityAssetUrl(activity);
@@ -903,15 +987,8 @@ function updateNowPlaying(data) {
 
   image.hidden = true;
   image.removeAttribute("src");
-
-  if (customStatus) {
-    title.textContent = "custom status";
-    detail.textContent = customStatus.state;
-    return;
-  }
-
-  title.textContent = "nothing active";
-  detail.textContent = "no public activity right now.";
+  title.textContent = "not doing anything right now";
+  detail.textContent = "discord is quiet.";
 }
 
 function updateSpotify(data) {

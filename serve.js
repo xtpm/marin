@@ -3,6 +3,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = __dirname;
+for (const envFile of [".env.local", ".env.private.local"]) {
+  try {
+    process.loadEnvFile(path.join(root, envFile));
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+}
+
 const port = Number(process.env.PORT || 5173);
 const liveReloadClients = new Set();
 
@@ -33,7 +41,18 @@ function sendLiveReload() {
 }
 
 function watchForChanges() {
-  const watched = ["index.html", "cd.html", "styles.css", "script.js", "cd.js", "data", "api"];
+  const watched = [
+    "index.html",
+    "cd.html",
+    "styles.css",
+    "editorial.css",
+    "minimal.css",
+    "script.js",
+    "cd.js",
+    "data",
+    "api",
+    "private-content",
+  ];
   let timer;
 
   watched.forEach((item) => {
@@ -86,6 +105,16 @@ const server = http.createServer((req, res) => {
 
   if (url.pathname === "/api/views") {
     require("./api/views")(req, res);
+    return;
+  }
+
+  if (url.pathname === "/api/private-auth") {
+    require("./api/private-auth")(req, res);
+    return;
+  }
+
+  if (url.pathname === "/api/private-media") {
+    require("./api/private-media")(req, res);
     return;
   }
 

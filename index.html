@@ -11,10 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=Newsreader:opsz,wght@6..72,300..700&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./editorial.css" />
+    <link rel="stylesheet" href="./minimal.css" />
   </head>
   <body class="is-intro-running">
     <div class="site-intro" data-site-intro aria-hidden="true">
@@ -60,6 +62,7 @@
           <button type="button" data-panel-button="projects">Work</button>
           <button type="button" data-panel-button="stack">Toolkit</button>
           <button type="button" data-panel-button="guestbook">Guestbook</button>
+          <button type="button" data-panel-button="private">Private</button>
           <a class="cd-nav-link" href="./cd.html" data-cd-link>CD Archive</a>
         </nav>
         <div class="role role-with-counter" aria-label="Site views">
@@ -75,8 +78,13 @@
         <section class="panel home-panel active" id="panel-home" data-panel="home" aria-labelledby="home-title">
           <div class="desk">
             <section class="intro">
-              <div class="eyebrow">retrial / index</div>
+              <div class="eyebrow">home</div>
+              <div class="editorial-hero">
+                <h1 id="home-title">retrial</h1>
+                <p>20-year-old cybersecurity student and independent developer based in Pennsylvania. I make web tools, interfaces, and small corners of the internet.</p>
+              </div>
               <div class="statement-switcher" data-social-switcher>
+                <div class="contents-label"><span>sections</span><small>explore retrial.cc</small></div>
                 <div class="menu-clovers" aria-hidden="true">
                   <span class="menu-clover menu-clover-a"></span>
                   <span class="menu-clover menu-clover-b"></span>
@@ -85,7 +93,7 @@
                   <span class="menu-clover menu-clover-e"></span>
                   <span class="menu-clover menu-clover-f"></span>
                 </div>
-                <h1 class="statement statement-nav statement-main" id="home-title" data-social-main>
+                <nav class="statement statement-nav statement-main" aria-label="Portfolio index" data-social-main>
                   <button class="active" type="button" data-panel-button="home">
                     <span>Index</span><small aria-hidden="true">home / 00</small>
                   </button>
@@ -101,13 +109,16 @@
                   <button type="button" data-panel-button="guestbook">
                     <span>Guestbook</span><small aria-hidden="true">messages / 04</small>
                   </button>
+                  <button type="button" data-panel-button="private">
+                    <span>Private</span><small aria-hidden="true">locked / 05</small>
+                  </button>
                   <a href="./cd.html">
-                    <span>CD Archive</span><small aria-hidden="true">collection / 05</small>
+                    <span>CD Archive</span><small aria-hidden="true">collection / 06</small>
                   </a>
                   <button type="button" data-socials-open aria-expanded="false" aria-controls="home-socials">
-                    <span>Socials</span><small aria-hidden="true">links / 06</small>
+                    <span>Socials</span><small aria-hidden="true">links / 07</small>
                   </button>
-                </h1>
+                </nav>
                 <nav class="statement statement-nav statement-socials" id="home-socials" aria-label="Social profiles" aria-hidden="true" data-social-menu inert>
                   <button class="socials-back" type="button" data-socials-close>
                     <span>Back</span><small aria-hidden="true">menu / 00</small>
@@ -119,12 +130,6 @@
                   <a href="https://tiktok.com/@zuxm" target="_blank" rel="noreferrer"><span>TikTok</span><small aria-hidden="true">@zuxm / 05</small></a>
                   <a href="https://t.me/retria1" target="_blank" rel="noreferrer"><span>Telegram</span><small aria-hidden="true">@retria1 / 06</small></a>
                 </nav>
-              </div>
-              <div class="intro-lower">
-                <div class="intro-meta">
-                  <span>signal / portfolio</span>
-                  <span>PA / US</span>
-                </div>
               </div>
             </section>
 
@@ -150,10 +155,6 @@
             </section>
 
             <section class="presence discord-card" aria-label="Live presence" data-discord-card>
-              <div class="presence-head">
-                <div class="section-label">live presence</div>
-                <div class="presence-index">03 / ACTIVE</div>
-              </div>
               <div class="presence-row discord-row">
                 <div class="discord-row-head">
                   <div class="presence-key">Discord</div>
@@ -193,9 +194,20 @@
                   <div class="birthday-progress" aria-hidden="true"><span data-birthday-progress></span></div>
                 </div>
               </div>
+              <section class="github-activity" aria-labelledby="github-activity-title" data-github-activity>
+                <header class="github-activity-head">
+                  <div><span class="module-label">public development log</span><h2 id="github-activity-title">github contributions</h2></div>
+                  <a href="https://github.com/xtpm" target="_blank" rel="noreferrer">@xtpm ↗</a>
+                </header>
+                <div class="github-contributions">
+                  <a href="https://github.com/xtpm" target="_blank" rel="noreferrer" aria-label="View xtpm's GitHub contribution history">
+                    <img src="https://ghchart.rshah.org/187a52/xtpm" alt="GitHub contribution calendar for xtpm" loading="lazy" />
+                  </a>
+                </div>
+              </section>
               <div class="presence-visual site-player-visual music-player" data-music-player>
-                <audio data-background-music preload="none">
-                  <source src="./assets/music/last-train-at-25-oclock-lamp.mp3" type="audio/mpeg" />
+                <audio data-background-music preload="auto" loop>
+                  <source src="./assets/music/voice-of-no-return-guitar.mp3" type="audio/mpeg" />
                 </audio>
                 <div class="visual-player-label"><span>site player</span><small>rotating queue</small></div>
                 <div class="spectrum player-spectrum" aria-hidden="true" data-music-visualizer>
@@ -210,7 +222,7 @@
                 <div class="compact-player">
                   <div class="compact-track">
                     <img src="./assets/music/last-train-at-25-oclock-lamp.jpg" alt="" data-music-cover />
-                    <span><strong data-music-title>Last Train At 25 O'clock</strong><small data-music-artist>Lamp</small></span>
+                    <span><strong data-music-title>Voice of no Return - Guitar</strong><small data-music-artist>NieR:Automata Original Soundtrack</small></span>
                   </div>
                   <div class="compact-transport">
                     <div class="transport-controls">
@@ -224,7 +236,7 @@
                     </div>
                     <label class="compact-volume">
                       <span class="sr-only">Music volume</span>
-                      <input type="range" min="0" max="1" step="0.01" value="0.18" data-music-volume />
+                      <input type="range" min="0" max="1" step="0.01" value="0.06" data-music-volume />
                     </label>
                   </div>
                 </div>
@@ -351,6 +363,585 @@
               <article class="guestbook-entry"><div class="guestbook-entry-header"><span><strong>mke</strong></span><time datetime="2026-05-17">May 17, 2026</time></div><p>Site feels clean. retrial era looking real.</p></article>
               <article class="guestbook-entry"><div class="guestbook-entry-header"><span><strong>anonymous</strong></span><time datetime="2026-05-17">May 17, 2026</time></div><p>Leaving this here before the wall fills up.</p></article>
             </div>
+          </div>
+        </section>
+
+        <section class="panel workspace-panel private-panel" id="panel-private" data-panel="private" aria-labelledby="private-title" hidden>
+          <header class="workspace-heading">
+            <div><span class="section-label">private / 05</span><h2 id="private-title">Private archive</h2></div>
+            <p>A protected place for personal photographs, videos, and memories.</p>
+          </header>
+          <div class="private-access" data-private-access>
+            <section class="private-lock" data-private-lock aria-labelledby="private-lock-title">
+              <div class="private-lock-copy">
+                <span class="module-label">restricted access</span>
+                <h3 id="private-lock-title">Answer the question</h3>
+                <p data-private-question>if you're my spade. what am i to you?</p>
+              </div>
+              <form class="private-form" data-private-form>
+                <label><span>Your answer</span><input type="text" name="answer" autocomplete="off" required /></label>
+                <button type="submit" data-private-submit>Submit answer</button>
+                <p class="private-feedback" data-private-feedback aria-live="polite"></p>
+              </form>
+            </section>
+            <section class="private-gallery" data-private-gallery hidden aria-label="Private gallery">
+              <div class="private-gallery-head">
+                <div><span class="module-label">access granted</span><h3>Private gallery</h3></div>
+                <button type="button" data-private-logout>Lock</button>
+              </div>
+              <div class="private-memories">
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-interaction"
+                      width="614"
+                      height="843"
+                      alt="Discord messages from our first interaction on July 23, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 01</span>
+                    <strong>our first interaction.</strong>
+                    <time datetime="2024-07-23T16:41:00">july 23, 2024 · 4:41 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-tease"
+                      width="476"
+                      height="695"
+                      alt="Discord messages from the first time you made fun of me on August 21, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 02</span>
+                    <strong>the first time you made fun of me.</strong>
+                    <time datetime="2024-08-21T00:47:00">august 21, 2024 · 12:47 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=one-call"
+                      width="517"
+                      height="221"
+                      alt="Discord messages leading into the call that set everything on August 21, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 03</span>
+                    <strong>the "one" call that set everything.</strong>
+                    <time datetime="2024-08-21T01:40:00">august 21, 2024 · 1:40 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=ez-bio-invite"
+                      width="435"
+                      height="590"
+                      alt="Discord messages from when you bought an e-z.bio invite on September 22, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 04</span>
+                    <strong>when you bought an e-z.bio invite.</strong>
+                    <time datetime="2024-09-22T23:04:00">september 22, 2024 · 11:04 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=being-silly"
+                      width="344"
+                      height="355"
+                      alt="Discord messages from you being silly on September 22, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 05</span>
+                    <strong>you being silly.</strong>
+                    <time datetime="2024-09-22T23:51:00">september 22, 2024 · 11:51 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=probo"
+                      width="418"
+                      height="690"
+                      alt="Discord messages from when I got put on probation on September 22, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 06</span>
+                    <strong>when i got put on probo...</strong>
+                    <time datetime="2024-09-22T23:55:00">september 22, 2024 · 11:55 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-flirting"
+                      width="529"
+                      height="662"
+                      alt="Discord messages from my first attempt at flirting on September 23, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 07</span>
+                    <strong>my first attempt at flirting.</strong>
+                    <time datetime="2024-09-23T21:58:00">september 23, 2024 · 9:58 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=exchanged-numbers"
+                      width="581"
+                      height="389"
+                      alt="Discord messages from when we first exchanged phone numbers on September 26, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 08</span>
+                    <strong>when we first exchanged numbers!</strong>
+                    <time datetime="2024-09-26T22:41:00">september 26, 2024 · 10:41 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-missed-you"
+                      width="320"
+                      height="176"
+                      alt="Discord messages from the first time I admitted I missed you on September 27, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 09</span>
+                    <strong>my first time admitting i missed you.</strong>
+                    <time datetime="2024-09-27T13:29:00">september 27, 2024 · 1:29 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-pictures"
+                      width="935"
+                      height="581"
+                      alt="Discord messages from the first time you sent me pictures of yourself on September 28, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 10</span>
+                    <strong>the first time you sent me pictures of yourself.</strong>
+                    <p class="private-memory-note">god, you are such a pretty girl.</p>
+                    <time datetime="2024-09-28T12:04:00">september 28, 2024 · 12:04 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-sleep-call"
+                      width="505"
+                      height="176"
+                      alt="Discord messages from maybe the first time we fell asleep on the phone together on September 28, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 11</span>
+                    <strong>maybe the first time we fell asleep on the phone together.</strong>
+                    <time datetime="2024-09-28T23:38:00">september 28, 2024 · 11:38 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=constant-messages"
+                      width="293"
+                      height="677"
+                      alt="A stream of Discord messages from you on September 29, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 12</span>
+                    <strong>god, how i miss your constant messages.</strong>
+                    <time datetime="2024-09-29T13:25:00">september 29, 2024 · 1:25 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=miss-us"
+                      width="293"
+                      height="525"
+                      alt="Discord messages about missing each other on October 3, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 13</span>
+                    <strong>i miss us so much.</strong>
+                    <time datetime="2024-10-03T19:16:00">october 3, 2024 · 7:16 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-media">
+                    <div class="private-memory-image">
+                      <img
+                        data-private-image
+                        data-src="/api/private-media?asset=official-01"
+                        width="718"
+                        height="317"
+                        alt="The first part of our Discord conversation when we made everything official on November 7, 2024."
+                        decoding="async"
+                      />
+                    </div>
+                    <div class="private-memory-image">
+                      <img
+                        data-private-image
+                        data-src="/api/private-media?asset=official-02"
+                        width="655"
+                        height="425"
+                        alt="The second part of our Discord conversation when we made everything official on November 7, 2024."
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 14</span>
+                    <strong>when we made everything official.</strong>
+                    <time datetime="2024-11-07T06:40:00">november 7, 2024 · 6:40 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=so-happy"
+                      width="435"
+                      height="292"
+                      alt="Discord messages showing how happy you were after we made everything official on November 7, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 15</span>
+                    <strong>you were so happy.</strong>
+                    <time datetime="2024-11-07T07:04:00">november 7, 2024 · 7:04 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=family-visit"
+                      width="440"
+                      height="396"
+                      alt="Discord messages from when you went to visit your family on November 7, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 16</span>
+                    <strong>when you went to visit your family.</strong>
+                    <time datetime="2024-11-07T09:22:00">november 7, 2024 · 9:22 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=cringy-people"
+                      width="455"
+                      height="769"
+                      alt="Discord messages from us being stupid cringy people on November 7, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 17</span>
+                    <strong>us being stupid cringy ppl.</strong>
+                    <time datetime="2024-11-07T17:03:00">november 7, 2024 · 5:03 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-iphone"
+                      width="545"
+                      height="616"
+                      alt="Discord messages and a photo from when I got my iPhone on November 8, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 18</span>
+                    <strong>when i got my iphone :sob:</strong>
+                    <time datetime="2024-11-08T15:30:00">november 8, 2024 · 3:30 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-media">
+                    <div class="private-memory-image">
+                      <img
+                        data-private-image
+                        data-src="/api/private-media?asset=so-cute-01"
+                        width="400"
+                        height="825"
+                        alt="The first part of our cute Discord conversation on November 8, 2024."
+                        decoding="async"
+                      />
+                    </div>
+                    <div class="private-memory-image">
+                      <img
+                        data-private-image
+                        data-src="/api/private-media?asset=so-cute-02"
+                        width="302"
+                        height="603"
+                        alt="The second part of our cute Discord conversation on November 8, 2024."
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 19</span>
+                    <strong>gosh you are so cute.</strong>
+                    <time datetime="2024-11-08T21:15:00">november 8, 2024 · 9:15 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=cherry-oem"
+                      width="677"
+                      height="199"
+                      alt="Discord message comparing Cherry, SA, and OEM keyboard keycap profiles on November 9, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 20</span>
+                    <strong>cherry and oem ARE THE SAME.</strong>
+                    <time datetime="2024-11-09T21:35:00">november 9, 2024 · 9:35 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=phone-nap"
+                      width="351"
+                      height="440"
+                      alt="Discord messages about napping together on the phone on November 11, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 21</span>
+                    <strong>i miss napping on the phone with you.</strong>
+                    <time datetime="2024-11-11T15:30:00">november 11, 2024 · 3:30 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=first-i-love-you"
+                      width="388"
+                      height="590"
+                      alt="Discord messages from when you first said I love you on November 12, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 22</span>
+                    <strong>you were the first one to say i love you.</strong>
+                    <time datetime="2024-11-12T11:35:00">november 12, 2024 · 11:35 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-media">
+                    <div class="private-memory-image">
+                      <img
+                        data-private-image
+                        data-src="/api/private-media?asset=cringy-again-01"
+                        width="307"
+                        height="389"
+                        alt="The first part of us being cringy again on Discord on November 12, 2024."
+                        decoding="async"
+                      />
+                    </div>
+                    <div class="private-memory-image">
+                      <img
+                        data-private-image
+                        data-src="/api/private-media?asset=cringy-again-02"
+                        width="343"
+                        height="650"
+                        alt="The second part of us being cringy again on Discord on November 12, 2024."
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 23</span>
+                    <strong>us being cringy once again.</strong>
+                    <time datetime="2024-11-12T15:18:00">november 12, 2024 · 3:18 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=matching-ez-bios"
+                      width="3840"
+                      height="1080"
+                      alt="Our matching e-z.bio pages displayed side by side."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 24</span>
+                    <strong>matching e-z.bios!</strong>
+                    <time datetime="2024-11-12T20:31:00">november 12, 2024 · 8:31 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=yeah-bro"
+                      width="396"
+                      height="133"
+                      alt="A Discord notification from mako."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 25</span>
+                    <strong>yea bro?</strong>
+                    <time datetime="2024-11-12">november 12, 2024</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=card-info"
+                      width="419"
+                      height="235"
+                      alt="Discord messages about spending eight cents on our card on November 19, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 26</span>
+                    <strong>i gave you my card info so soon :sob:</strong>
+                    <time datetime="2024-11-19T10:05:00">november 19, 2024 · 10:05 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=garlic-onion-pasta"
+                      width="343"
+                      height="408"
+                      alt="Discord messages about using garlic and onion powder in pasta on November 28, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 27</span>
+                    <strong>i still remember when u tricked me by putting garlic and onion powder in the pasta you cooked for us.</strong>
+                    <time datetime="2024-11-28T11:57:00">november 28, 2024 · 11:57 am</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=cute-about-me"
+                      width="338"
+                      height="347"
+                      alt="Discord messages about the small About Me card on December 10, 2024."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 28</span>
+                    <strong>this was so cute.</strong>
+                    <time datetime="2024-12-10T15:59:00">december 10, 2024 · 3:59 pm</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <video
+                      data-private-video
+                      data-src="/api/private-media?asset=random-clip"
+                      width="1280"
+                      height="720"
+                      controls
+                      playsinline
+                      preload="metadata"
+                      aria-label="A random two-second clip you saved."
+                    ></video>
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 29</span>
+                    <strong>this random thing you clipped :sob:</strong>
+                    <time>date unknown</time>
+                  </figcaption>
+                </figure>
+                <figure class="private-memory">
+                  <div class="private-memory-image">
+                    <img
+                      data-private-image
+                      data-src="/api/private-media?asset=miss-you-so-much"
+                      width="568"
+                      height="234"
+                      alt="Discord messages about missing each other on January 23, 2025."
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <span class="module-label">memory / 30</span>
+                    <strong>i miss you so muchh.</strong>
+                    <time datetime="2025-01-23T14:43:00">january 23, 2025 · 2:43 pm</time>
+                  </figcaption>
+                </figure>
+                <p class="private-memories-end">more will be added soon.</p>
+              </div>
+            </section>
           </div>
         </section>
 
