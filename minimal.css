@@ -86,6 +86,7 @@ body::after {
   padding: 0;
   border: 0;
   background: transparent;
+  text-align: center;
   animation: minimal-intro-in 420ms 80ms var(--ease-smooth) both;
 }
 
