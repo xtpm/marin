@@ -209,6 +209,29 @@ body.site-revealed .site-intro {
   color: var(--ink);
 }
 
+.rgb-index,
+.statement-nav .rgb-index {
+  display: inline-block;
+  letter-spacing: 0;
+}
+
+.rgb-index > span,
+.statement-nav .rgb-index > span {
+  display: inline;
+}
+
+.rgb-index > span:nth-child(3n + 1) {
+  color: #ed3348;
+}
+
+.rgb-index > span:nth-child(3n + 2) {
+  color: #18a95e;
+}
+
+.rgb-index > span:nth-child(3n) {
+  color: #286bea;
+}
+
 .role,
 .role-with-counter {
   order: 2;
