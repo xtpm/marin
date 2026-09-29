@@ -62,6 +62,7 @@ let activePanelTransition;
 let socialFocusTimer;
 let openGuestbookThread = "";
 let privateAuthRevision = 0;
+let spotifyPlayback = null;
 
 function showLatestGithubContributions() {
   if (githubContributions) {
@@ -996,30 +997,50 @@ function updateSpotify(data) {
   const cover = document.querySelector("[data-spotify-cover]");
   const title = document.querySelector("[data-spotify-title]");
   const artist = document.querySelector("[data-spotify-artist]");
+  const album = document.querySelector("[data-spotify-album]");
+  const elapsed = document.querySelector("[data-spotify-elapsed]");
+  const duration = document.querySelector("[data-spotify-duration]");
+  const link = document.querySelector("[data-spotify-link]");
   const progress = document.querySelector("[data-spotify-progress]");
-  if (!card || !cover || !title || !artist || !progress) {
+  if (!card || !cover || !title || !artist || !album || !elapsed || !duration || !link || !progress) {
     return;
   }
 
   const spotify = data.spotify;
   if (!data.listening_to_spotify || !spotify) {
+    spotifyPlayback = null;
     card.dataset.listening = "false";
     cover.hidden = true;
     cover.removeAttribute("src");
     title.textContent = "not listening";
     artist.textContent = "nothing is playing";
+    album.textContent = "spotify activity will appear here";
+    elapsed.textContent = "--:--";
+    duration.textContent = "--:--";
+    link.hidden = true;
+    link.removeAttribute("href");
     progress.style.width = "0%";
     return;
   }
 
   const started = spotify.timestamps?.start || 0;
   const ended = spotify.timestamps?.end || 0;
-  const percent = started && ended ? Math.min(100, Math.max(0, ((Date.now() - started) / (ended - started)) * 100)) : 0;
+  spotifyPlayback = { started, ended };
 
   card.dataset.listening = "true";
   title.textContent = spotify.song || "unknown song";
   artist.textContent = spotify.artist || "unknown artist";
-  progress.style.width = `${percent}%`;
+  album.textContent = spotify.album || "album unavailable";
+
+  if (spotify.track_id) {
+    link.href = `https://open.spotify.com/track/${encodeURIComponent(spotify.track_id)}`;
+    link.hidden = false;
+  } else {
+    link.hidden = true;
+    link.removeAttribute("href");
+  }
+
+  updateSpotifyTimeline();
 
   if (spotify.album_art_url) {
     cover.src = spotify.album_art_url;
@@ -1029,6 +1050,23 @@ function updateSpotify(data) {
     cover.hidden = true;
     cover.removeAttribute("src");
   }
+}
+
+function updateSpotifyTimeline() {
+  const progress = document.querySelector("[data-spotify-progress]");
+  const elapsed = document.querySelector("[data-spotify-elapsed]");
+  const duration = document.querySelector("[data-spotify-duration]");
+  if (!progress || !elapsed || !duration || !spotifyPlayback?.started || !spotifyPlayback?.ended) {
+    return;
+  }
+
+  const totalMs = Math.max(0, spotifyPlayback.ended - spotifyPlayback.started);
+  const elapsedMs = Math.min(totalMs, Math.max(0, Date.now() - spotifyPlayback.started));
+  const percent = totalMs ? (elapsedMs / totalMs) * 100 : 0;
+
+  progress.style.width = `${percent}%`;
+  elapsed.textContent = formatMusicTime(elapsedMs / 1000);
+  duration.textContent = formatMusicTime(totalMs / 1000);
 }
 
 async function loadDiscordProfile() {
@@ -1090,5 +1128,6 @@ async function loadDiscordProfile() {
 
 loadDiscordProfile();
 setInterval(loadDiscordProfile, 30000);
+setInterval(updateSpotifyTimeline, 1000);
 loadGuestbook();
 loadSiteViews();

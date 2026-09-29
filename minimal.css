@@ -545,30 +545,31 @@ body.site-revealed .site-intro {
 .spotify-showcase {
   display: grid;
   width: 100%;
-  height: 132px;
-  min-height: 132px;
+  height: 176px;
+  min-height: 176px;
   grid-column: 2;
   grid-row: 2;
   order: 2;
   align-self: start;
   justify-self: start;
-  grid-template-columns: 132px minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) 34px;
+  grid-template-columns: 176px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 46px;
   padding: 0;
   overflow: hidden;
-  border: 1px solid #202320;
+  border: 1px solid var(--rule);
   border-radius: 6px;
-  background: #111411;
-  color: #f7f8f4;
+  background: #f7f8f6;
+  color: var(--ink);
 }
 
 .cover.spotify-cover-stage {
   position: relative;
-  width: 132px;
-  height: 132px;
+  width: 176px;
+  height: 176px;
   grid-column: 1;
   grid-row: 1 / 3;
   border: 0;
+  border-right: 1px solid var(--rule);
   background: #edf0ed;
 }
 
@@ -583,7 +584,7 @@ body.site-revealed .site-intro {
 }
 
 .spotify-idle {
-  color: #8f9590;
+  color: var(--ink-soft);
   font-family: var(--sans);
   font-size: 14px;
   font-style: normal;
@@ -591,81 +592,151 @@ body.site-revealed .site-intro {
   line-height: 1.02;
 }
 
-.album-top {
+.album-top.spotify-details {
   display: grid;
   min-width: 0;
   grid-column: 2;
   grid-row: 1;
-  align-content: center;
-  gap: 10px;
-  padding: 18px 22px 8px;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: stretch;
+  gap: 8px;
+  padding: 16px 22px 4px;
   border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-transform: none;
 }
 
-.album-top > div {
-  display: grid;
+.spotify-details .spotify-meta-row {
+  display: flex;
+  width: 100%;
   min-width: 0;
-  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.album-top .module-label {
-  color: #8f9a91;
+.spotify-live-label {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-soft);
+  font-family: var(--sans);
   font-size: 11px;
+  line-height: 1;
+  text-transform: lowercase;
 }
 
-.album-top strong {
+.spotify-live-label i {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #1db954;
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.12);
+}
+
+.spotify-track-link {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--rule-dark);
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    border-color 160ms var(--ease-soft),
+    background 160ms var(--ease-soft),
+    color 160ms var(--ease-soft);
+}
+
+.spotify-track-link:hover,
+.spotify-track-link:focus-visible {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.spotify-details .spotify-track-copy {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  align-content: center;
+  gap: 4px;
+}
+
+.spotify-details strong {
   display: block;
   min-width: 0;
   max-width: none;
   overflow: hidden;
-  color: #f7f8f4;
+  color: var(--ink);
   font-family: var(--sans);
-  font-size: 22px;
-  font-weight: 650;
+  font-size: 24px;
+  font-weight: 680;
   line-height: 1.08;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.recording {
-  min-width: 0;
-  gap: 7px;
-  margin-top: 0;
-  color: #a9b0aa;
-  font-family: var(--sans);
-  font-size: 13px;
-  text-transform: none;
-}
-
-.recording span {
+.spotify-artist,
+.spotify-album {
+  display: block;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.recording i {
-  width: 6px;
-  height: 6px;
+.spotify-artist {
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.spotify-album {
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 11px;
 }
 
 .spotify-album-bottom {
   display: grid;
   grid-column: 2;
   grid-row: 2;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  padding: 0 22px 14px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 2px auto;
+  align-items: stretch;
+  align-content: start;
+  justify-content: stretch;
+  gap: 7px;
+  padding: 5px 22px 14px;
   border: 0;
-  color: #7f8881;
+  color: var(--ink-soft);
   font-family: var(--sans);
   font-size: 9px;
-  text-transform: lowercase;
+  text-transform: none;
 }
 
 .spotify-showcase .spotify-progress {
-  background: #303630;
+  width: 100%;
+  background: #d9ded9;
+}
+
+.spotify-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
 }
 
 .presence {
@@ -2368,29 +2439,38 @@ body.site-revealed .site-intro {
   }
 
   .spotify-showcase {
-    height: 116px;
-    min-height: 116px;
-    grid-template-columns: 116px minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) 30px;
+    height: 132px;
+    min-height: 132px;
+    grid-template-columns: 132px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) 36px;
   }
 
   .cover.spotify-cover-stage {
-    width: 116px;
-    height: 116px;
+    width: 132px;
+    height: 132px;
   }
 
-  .album-top {
-    gap: 7px;
-    padding: 13px 16px 5px;
+  .album-top.spotify-details {
+    gap: 5px;
+    padding: 11px 14px 2px;
   }
 
-  .album-top strong {
-    font-size: 19px;
+  .spotify-track-link {
+    width: 26px;
+    height: 26px;
+  }
+
+  .spotify-details strong {
+    font-size: 20px;
+  }
+
+  .spotify-album {
+    display: none;
   }
 
   .spotify-album-bottom {
-    gap: 8px;
-    padding: 0 16px 11px;
+    gap: 6px;
+    padding: 4px 14px 10px;
   }
 
   .github-contributions {
@@ -2453,29 +2533,44 @@ body.site-revealed .site-intro {
   }
 
   .spotify-showcase {
-    height: 104px;
-    min-height: 104px;
-    grid-template-columns: 104px minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) 28px;
+    height: 112px;
+    min-height: 112px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) 32px;
   }
 
   .cover.spotify-cover-stage {
-    width: 104px;
-    height: 104px;
+    width: 112px;
+    height: 112px;
   }
 
-  .album-top {
+  .album-top.spotify-details {
+    gap: 4px;
+    padding: 8px 11px 0;
+  }
+
+  .spotify-live-label {
     gap: 5px;
-    padding: 10px 13px 4px;
+    font-size: 9px;
   }
 
-  .album-top strong {
-    font-size: 18px;
+  .spotify-track-link {
+    width: 22px;
+    height: 22px;
+    font-size: 13px;
+  }
+
+  .spotify-details strong {
+    font-size: 17px;
+  }
+
+  .spotify-artist {
+    font-size: 11px;
   }
 
   .spotify-album-bottom {
-    gap: 7px;
-    padding: 0 13px 9px;
+    gap: 5px;
+    padding: 4px 11px 8px;
   }
 
   .cd-page .cd-list {

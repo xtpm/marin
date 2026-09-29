@@ -132,23 +132,27 @@
             </section>
 
             <section class="album spotify-showcase spotify-card" aria-label="Live Spotify activity" data-spotify-card>
-              <div class="album-top">
-                <div>
-                  <span class="module-label">live on spotify</span>
-                  <strong data-spotify-title>Not listening</strong>
-                </div>
-                <span class="recording"><i aria-hidden="true"></i><span data-spotify-artist>Nothing is playing</span></span>
-              </div>
               <div class="cover spotify-cover-stage">
                 <img data-spotify-cover alt="" hidden />
                 <span class="spotify-idle">spotify<br />quiet</span>
               </div>
-              <div class="album-bottom spotify-album-bottom">
-                <span>live feed</span>
-                <div class="player-timeline">
-                  <div class="spotify-progress" aria-hidden="true"><span data-spotify-progress></span></div>
+              <div class="album-top spotify-details">
+                <div class="spotify-meta-row">
+                  <span class="spotify-live-label"><i aria-hidden="true"></i>live on spotify</span>
+                  <a class="spotify-track-link" data-spotify-link href="#" target="_blank" rel="noreferrer" title="Open current track on Spotify" aria-label="Open current track on Spotify" hidden>↗</a>
                 </div>
-                <span>lanyard</span>
+                <div class="spotify-track-copy">
+                  <strong data-spotify-title>Not listening</strong>
+                  <span class="spotify-artist" data-spotify-artist>Nothing is playing</span>
+                  <span class="spotify-album" data-spotify-album>Spotify activity will appear here</span>
+                </div>
+              </div>
+              <div class="album-bottom spotify-album-bottom">
+                <div class="spotify-progress" aria-hidden="true"><span data-spotify-progress></span></div>
+                <div class="spotify-time-row">
+                  <span data-spotify-elapsed>--:--</span>
+                  <span data-spotify-duration>--:--</span>
+                </div>
               </div>
             </section>
 
