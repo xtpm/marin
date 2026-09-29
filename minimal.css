@@ -212,24 +212,36 @@ body.site-revealed .site-intro {
 .rgb-index,
 .statement-nav .rgb-index {
   display: inline-block;
+  color: #ff2d2d;
   letter-spacing: 0;
+  animation: rgb-index-cycle 3.6s linear infinite;
 }
 
-.rgb-index > span,
-.statement-nav .rgb-index > span {
-  display: inline;
-}
+@keyframes rgb-index-cycle {
+  0%,
+  100% {
+    color: #ff2d2d;
+  }
 
-.rgb-index > span:nth-child(3n + 1) {
-  color: #ed3348;
-}
+  16.67% {
+    color: #ffd400;
+  }
 
-.rgb-index > span:nth-child(3n + 2) {
-  color: #18a95e;
-}
+  33.33% {
+    color: #00c853;
+  }
 
-.rgb-index > span:nth-child(3n) {
-  color: #286bea;
+  50% {
+    color: #00b8d4;
+  }
+
+  66.67% {
+    color: #2962ff;
+  }
+
+  83.33% {
+    color: #d500f9;
+  }
 }
 
 .role,
@@ -2472,6 +2484,12 @@ body.site-revealed .site-intro {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .rgb-index,
+  .statement-nav .rgb-index {
+    color: #2962ff;
+    animation: none;
+  }
+
   *,
   *::before,
   *::after {
