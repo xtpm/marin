@@ -9,14 +9,6 @@ const guestbookForm = document.querySelector("[data-guestbook-form]");
 const guestbookList = document.querySelector("[data-guestbook-list]");
 const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
-const privateForm = document.querySelector("[data-private-form]");
-const privateLock = document.querySelector("[data-private-lock]");
-const privateGallery = document.querySelector("[data-private-gallery]");
-const privateMedia = [...document.querySelectorAll("[data-private-image], [data-private-video]")];
-const privateQuestion = document.querySelector("[data-private-question]");
-const privateFeedback = document.querySelector("[data-private-feedback]");
-const privateSubmit = document.querySelector("[data-private-submit]");
-const privateLogout = document.querySelector("[data-private-logout]");
 const siteViews = document.querySelector("[data-site-views]");
 const currentTime = document.querySelector("[data-current-time]");
 const cdLink = document.querySelector("[data-cd-link]");
@@ -61,7 +53,6 @@ let activeMusicTrack = 0;
 let activePanelTransition;
 let socialFocusTimer;
 let openGuestbookThread = "";
-let privateAuthRevision = 0;
 let spotifyPlayback = null;
 
 function showLatestGithubContributions() {
@@ -199,86 +190,6 @@ buttons.forEach((button) => {
     showPanel(button.dataset.panelButton);
   });
 });
-
-function setPrivateAccess(authenticated) {
-  if (!privateLock || !privateGallery) return;
-  privateLock.hidden = authenticated;
-  privateGallery.hidden = !authenticated;
-
-  privateMedia.forEach((media) => {
-    if (authenticated && !media.getAttribute("src")) {
-      media.setAttribute("src", media.dataset.src);
-      if (media instanceof HTMLMediaElement) media.load();
-    } else if (!authenticated) {
-      if (media instanceof HTMLMediaElement) media.pause();
-      media.removeAttribute("src");
-      if (media instanceof HTMLMediaElement) media.load();
-    }
-  });
-}
-
-async function checkPrivateAccess() {
-  if (!privateForm) return;
-  const revision = ++privateAuthRevision;
-
-  try {
-    const response = await fetch("/api/private-auth", { headers: { Accept: "application/json" } });
-    const payload = await response.json();
-    if (revision === privateAuthRevision) {
-      if (privateQuestion && payload.question) privateQuestion.textContent = payload.question;
-      if (!response.ok && privateFeedback) {
-        privateFeedback.textContent = payload.error || "question unavailable";
-      }
-      setPrivateAccess(Boolean(response.ok && payload.authenticated));
-    }
-  } catch {
-    if (revision === privateAuthRevision) {
-      if (privateFeedback) privateFeedback.textContent = "question unavailable";
-      setPrivateAccess(false);
-    }
-  }
-}
-
-privateForm?.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const revision = ++privateAuthRevision;
-  const answer = new FormData(privateForm).get("answer");
-
-  if (privateFeedback) privateFeedback.textContent = "checking answer...";
-  if (privateSubmit) privateSubmit.disabled = true;
-
-  try {
-    const response = await fetch("/api/private-auth", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ answer }),
-    });
-    const payload = await response.json();
-    if (!response.ok || !payload.authenticated) {
-      throw new Error(payload.error || "unable to unlock archive");
-    }
-
-    if (revision !== privateAuthRevision) return;
-
-    privateForm.reset();
-    if (privateFeedback) privateFeedback.textContent = "";
-    setPrivateAccess(true);
-    privateLogout?.focus({ preventScroll: true });
-  } catch (error) {
-    if (privateFeedback) privateFeedback.textContent = error.message || "unable to unlock archive";
-  } finally {
-    if (privateSubmit) privateSubmit.disabled = false;
-  }
-});
-
-privateLogout?.addEventListener("click", async () => {
-  privateAuthRevision += 1;
-  await fetch("/api/private-auth", { method: "DELETE" }).catch(() => undefined);
-  setPrivateAccess(false);
-  privateForm?.querySelector("input")?.focus();
-});
-
-checkPrivateAccess();
 
 socialsOpen?.addEventListener("click", () => setSocialMenu(true));
 socialsClose?.addEventListener("click", () => setSocialMenu(false));

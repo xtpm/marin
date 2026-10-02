@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/private-media.js": {
-      "includeFiles": "private-content/**"
-    }
-  },
   "redirects": [
     {
       "source": "/",

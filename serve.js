@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = __dirname;
-for (const envFile of [".env.local", ".env.private.local"]) {
+for (const envFile of [".env.local"]) {
   try {
     process.loadEnvFile(path.join(root, envFile));
   } catch (error) {
@@ -51,7 +51,6 @@ function watchForChanges() {
     "cd.js",
     "data",
     "api",
-    "private-content",
   ];
   let timer;
 
@@ -105,16 +104,6 @@ const server = http.createServer((req, res) => {
 
   if (url.pathname === "/api/views") {
     require("./api/views")(req, res);
-    return;
-  }
-
-  if (url.pathname === "/api/private-auth") {
-    require("./api/private-auth")(req, res);
-    return;
-  }
-
-  if (url.pathname === "/api/private-media") {
-    require("./api/private-media")(req, res);
     return;
   }
 
