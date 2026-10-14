@@ -11,7 +11,6 @@ const guestbookFeedback = document.querySelector("[data-guestbook-feedback]");
 const guestbookSubmit = document.querySelector("[data-guestbook-submit]");
 const siteViews = document.querySelector("[data-site-views]");
 const currentTime = document.querySelector("[data-current-time]");
-const cdLink = document.querySelector("[data-cd-link]");
 const socialSwitcher = document.querySelector("[data-social-switcher]");
 const socialMain = document.querySelector("[data-social-main]");
 const socialMenu = document.querySelector("[data-social-menu]");
@@ -50,7 +49,7 @@ const musicTracks = [
 ];
 
 let activeMusicTrack = 0;
-let activePanelTransition;
+let activeSwitchAnimation;
 let socialFocusTimer;
 let openGuestbookThread = "";
 let spotifyPlayback = null;
@@ -155,7 +154,30 @@ function applyPanel(panelName) {
   });
 }
 
+function animateSwitch(element) {
+  activeSwitchAnimation?.cancel();
+  activeSwitchAnimation = undefined;
+
+  if (!element?.animate || prefersReducedMotion.matches) {
+    return;
+  }
+
+  // Animate the live content once, without a snapshot or persistent styles.
+  activeSwitchAnimation = element.animate(
+    [
+      { opacity: 0, transform: "translateY(5px)" },
+      { opacity: 1, transform: "translateY(0)" },
+    ],
+    { duration: 200, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+  );
+}
+
 function showPanel(panelName) {
+  const nextPanel = panels.find((panel) => panel.dataset.panel === panelName);
+  if (!nextPanel) {
+    return;
+  }
+
   const currentPanel = panels.find((panel) => !panel.hidden)?.dataset.panel;
 
   if (currentPanel === panelName) {
@@ -165,24 +187,8 @@ function showPanel(panelName) {
     return;
   }
 
-  if (document.startViewTransition && !prefersReducedMotion.matches) {
-    activePanelTransition?.skipTransition?.();
-    document.documentElement.classList.add("is-transitioning");
-    const transition = document.startViewTransition(() => applyPanel(panelName));
-    activePanelTransition = transition;
-
-    const finishTransition = () => {
-      if (activePanelTransition === transition) {
-        activePanelTransition = undefined;
-        document.documentElement.classList.remove("is-transitioning");
-      }
-    };
-
-    transition.finished.then(finishTransition, finishTransition);
-    return;
-  }
-
   applyPanel(panelName);
+  animateSwitch(nextPanel);
 }
 
 buttons.forEach((button) => {
@@ -200,22 +206,12 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-cdLink?.addEventListener("click", (event) => {
-  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || cdLink.target) {
-    return;
-  }
-
-  event.preventDefault();
-  cdLink.classList.add("is-loading");
-  cdLink.setAttribute("aria-busy", "true");
-
-  window.setTimeout(() => {
-    window.location.href = cdLink.href;
-  }, 340);
-});
-
 projectButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.classList.contains("active")) {
+      return;
+    }
+
     const projectName = button.dataset.projectButton;
     button.closest(".tab-switch")?.setAttribute("data-active", projectName);
 
@@ -228,11 +224,16 @@ projectButtons.forEach((button) => {
       list.hidden = !active;
       list.classList.toggle("active", active);
     });
+    animateSwitch(projectLists.find((list) => !list.hidden));
   });
 });
 
 stackButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.classList.contains("active")) {
+      return;
+    }
+
     const stackName = button.dataset.stackButton;
     button.closest(".tab-switch")?.setAttribute("data-active", stackName);
 
@@ -245,6 +246,7 @@ stackButtons.forEach((button) => {
       list.hidden = !active;
       list.classList.toggle("active", active);
     });
+    animateSwitch(stackLists.find((list) => !list.hidden));
   });
 });
 

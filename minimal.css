@@ -315,8 +315,10 @@ body.site-revealed .site-intro {
 .panel.active,
 .home-panel.active .intro,
 .home-panel.active .album,
-.home-panel.active .presence {
-  animation: minimal-fade 360ms var(--ease-soft) both;
+.home-panel.active .presence,
+.project-list.active,
+.stack-list.active {
+  animation: none;
 }
 
 @keyframes minimal-fade {

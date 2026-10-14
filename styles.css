@@ -661,19 +661,8 @@ body.site-revealed .site-intro-card {
   display: none;
 }
 
-.panel:not([hidden]) {
-  view-transition-name: active-panel;
-}
-
 .panel.active {
   animation: panel-in 560ms var(--ease-smooth) both;
-}
-
-.is-transitioning .panel.active,
-.is-transitioning .home-panel.active .intro,
-.is-transitioning .home-panel.active .album,
-.is-transitioning .home-panel.active .presence {
-  animation: none;
 }
 
 @keyframes panel-in {
@@ -684,13 +673,6 @@ body.site-revealed .site-intro-card {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes panel-out {
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
   }
 }
 
@@ -838,18 +820,6 @@ body.site-revealed .site-intro-card {
     opacity: 0;
     transform: translateY(12px);
   }
-}
-
-::view-transition-old(active-panel) {
-  animation: panel-out 260ms var(--ease-soft) both;
-}
-
-::view-transition-new(active-panel) {
-  animation: panel-in 580ms 50ms var(--ease-smooth) both;
-}
-
-::view-transition-group(active-panel) {
-  animation-duration: 640ms;
 }
 
 @keyframes signal-blink {
