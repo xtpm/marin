@@ -168,7 +168,7 @@ function animateSwitch(element) {
       { opacity: 0, transform: "translateY(5px)" },
       { opacity: 1, transform: "translateY(0)" },
     ],
-    { duration: 200, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+    { duration: 360, easing: "cubic-bezier(0.25, 0.1, 0.25, 1)" },
   );
 }
 
